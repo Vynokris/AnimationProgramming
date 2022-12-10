@@ -19,12 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="Includes\Engine.h" />
     <ClInclude Include="Includes\Includer.h" />
     <ClInclude Include="Includes\Simulation.h" />
+    <ClInclude Include="Includes\Skeleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Animation.cpp" />
+    <ClCompile Include="Sources\Skeleton.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{551567FE-4862-404E-8E15-7C2E35823078}</ProjectGuid>

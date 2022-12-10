@@ -9,20 +9,35 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Includes\Utils">
+      <UniqueIdentifier>{34087df5-8f11-45d5-bd4c-3fa4913d71ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\System">
+      <UniqueIdentifier>{3dab6ea1-d58d-408f-9132-e7a40944f939}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Includes\Engine.h">
+    <ClInclude Include="Bone.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Skeleton.h">
       <Filter>Includes</Filter>
     </ClInclude>
     <ClInclude Include="Includes\Includer.h">
-      <Filter>Includes</Filter>
+      <Filter>Includes\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Engine.h">
+      <Filter>Includes\System</Filter>
     </ClInclude>
     <ClInclude Include="Includes\Simulation.h">
-      <Filter>Includes</Filter>
+      <Filter>Includes\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Animation.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Skeleton.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

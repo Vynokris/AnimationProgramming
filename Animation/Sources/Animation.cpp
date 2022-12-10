@@ -2,6 +2,9 @@
 
 #include "Engine.h"
 #include "Simulation.h"
+#include <Skeleton.h>
+
+#include <iostream>
 
 class CSimulation : public ISimulation
 {
@@ -18,6 +21,31 @@ class CSimulation : public ISimulation
 		printf("Spine parent bone : %s\n", spineParentName);
 		printf("Anim key count : %ld\n", keyCount);
 		printf("Anim key : pos(%.2f,%.2f,%.2f) rotation quat(%.10f,%.10f,%.10f,%.10f)\n", posX, posY, posZ, quatW, quatX, quatY, quatZ);
+
+		{
+			std::cout << std::endl;
+
+			Skeleton skeleton;
+
+			std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;
+
+			Bone* clavicle = new Bone(0, "Clavicle", 0.25f, 11.f, nullptr, {});
+			skeleton.AddBone(clavicle);
+
+			Bone* skull = new Bone(1, "Skull", 0.25f, 11.f, nullptr, {});
+			skeleton.AddBone(skull);
+
+			Bone* tmpBone = skeleton.GetBone(1);
+			if(skeleton.BoneExist(tmpBone))
+				std::cout << "GetBone: " << tmpBone->boneName << std::endl;
+
+			const bool clavicleExist = skeleton.BoneExist(clavicle);
+			std::cout << "BoneExist: " << (clavicleExist ? "true" : "false") << std::endl;
+
+			skeleton.RemoveBone(clavicle->boneId);
+
+			std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;
+		}
 	}
 
 	void Update(const float& DeltaSeconds) override
