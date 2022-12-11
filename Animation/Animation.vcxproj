@@ -19,19 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Includes\Arithmetic.h" />
     <ClInclude Include="Includes\Bone.h" />
+    <ClInclude Include="Includes\Color.h" />
     <ClInclude Include="Includes\Engine.h" />
     <ClInclude Include="Includes\Includer.h" />
+    <ClInclude Include="Includes\Maths.h" />
+    <ClInclude Include="Includes\Matrix.h" />
     <ClInclude Include="Includes\Quaternion.h" />
     <ClInclude Include="Includes\Simulation.h" />
     <ClInclude Include="Includes\Skeleton.h" />
-    <ClInclude Include="Includes\Vector3D.h" />
+    <ClInclude Include="Includes\Transform.h" />
+    <ClInclude Include="Includes\Vector2.h" />
+    <ClInclude Include="Includes\Vector3.h" />
+    <ClInclude Include="Includes\Vector4.h" />
+    <ClInclude Include="Includes\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Animation.cpp" />
+    <ClCompile Include="Sources\Arithmetic.cpp" />
+    <ClCompile Include="Sources\Color.cpp" />
+    <ClCompile Include="Sources\Matrix.cpp" />
     <ClCompile Include="Sources\Quaternion.cpp" />
     <ClCompile Include="Sources\Skeleton.cpp" />
-    <ClCompile Include="Sources\Vector3D.cpp" />
+    <ClCompile Include="Sources\Transform.cpp" />
+    <ClCompile Include="Sources\Vector2.cpp" />
+    <ClCompile Include="Sources\Vector3.cpp" />
+    <ClCompile Include="Sources\Vector4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Includes\Quaternion.inl" />
+    <None Include="Includes\Vector2.inl" />
+    <None Include="Includes\Vector3.inl" />
+    <None Include="Includes\Vector4.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{551567FE-4862-404E-8E15-7C2E35823078}</ProjectGuid>
@@ -92,6 +112,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
+    <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <ExcludePath>$(CommonExcludePath);$(VC_ExecutablePath_x86);$(VC_LibraryPath_x86)</ExcludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -109,6 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Includer.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,10 +153,16 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OmitFramePointers>false</OmitFramePointers>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Includer.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Externals;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

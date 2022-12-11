@@ -9,7 +9,7 @@ public:
 	virtual ~ISimulation() {}
 
 	virtual void Initialize() {}
-	virtual void Update(const float& DeltaSeconds){}
+	virtual void Update(const float& deltaTime){}
 };
 
 #endif

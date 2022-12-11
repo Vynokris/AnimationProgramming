@@ -1,12 +1,13 @@
 #include "Includer.h"
+#include <iostream>
 
 #include "Engine.h"
 #include "Simulation.h"
-#include <Skeleton.h>
+#include "Skeleton.h"
+#include "Maths.h"
 
-#include <iostream>
-#include <Vector3D.h>
-#include <Quaternion.h>
+using namespace Maths;
+
 
 class CSimulation : public ISimulation
 {
@@ -62,8 +63,8 @@ class CSimulation : public ISimulation
 
 				skeleton.AddBone(bone);
 
-				M_VECTOR3D   location = { 2 };
-				M_QUATERNION rotation = { 1, 3, 5, 6 };
+				Vector3    location = { 2 };
+				Quaternion rotation = { 1, 3, 5, 6 };
 
 				GetSkeletonBoneLocalBindTransform(boneIndex, location.x, location.y, location.z, rotation.w, rotation.x, rotation.y, rotation.z);
 			}
@@ -74,7 +75,7 @@ class CSimulation : public ISimulation
 
 	}
 
-	void Update(const float& DeltaSeconds) override
+	void Update(const float& deltaTime) override
 	{
 		DrawGizmo(100, 100, 100);
 	}

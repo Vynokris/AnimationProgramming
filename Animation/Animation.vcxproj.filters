@@ -41,7 +41,31 @@
     <ClInclude Include="Includes\Quaternion.h">
       <Filter>Includes\Maths</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\Vector3D.h">
+    <ClInclude Include="Includes\Vector3.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Maths.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Vector2.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Vector4.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Arithmetic.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Color.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Matrix.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Transform.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Vertex.h">
       <Filter>Includes\Maths</Filter>
     </ClInclude>
   </ItemGroup>
@@ -52,11 +76,43 @@
     <ClCompile Include="Sources\Skeleton.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Vector3D.cpp">
+    <ClCompile Include="Sources\Vector3.cpp">
       <Filter>Sources\Maths</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Quaternion.cpp">
       <Filter>Sources\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Arithmetic.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Color.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Matrix.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Transform.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Vector2.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Vector4.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Includes\Vector2.inl">
+      <Filter>Includes\Maths</Filter>
+    </None>
+    <None Include="Includes\Vector3.inl">
+      <Filter>Includes\Maths</Filter>
+    </None>
+    <None Include="Includes\Vector4.inl">
+      <Filter>Includes\Maths</Filter>
+    </None>
+    <None Include="Includes\Quaternion.inl">
+      <Filter>Includes\Maths</Filter>
+    </None>
   </ItemGroup>
 </Project>
