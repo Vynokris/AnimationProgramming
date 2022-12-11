@@ -5,6 +5,8 @@
 #include <Skeleton.h>
 
 #include <iostream>
+#include <Vector3D.h>
+#include <Quaternion.h>
 
 class CSimulation : public ISimulation
 {
@@ -27,7 +29,7 @@ class CSimulation : public ISimulation
 
 			Skeleton skeleton;
 
-			std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;
+			/*std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;
 
 			Bone* clavicle = new Bone(0, "Clavicle", 0.25f, 11.f, nullptr, {});
 			skeleton.AddBone(clavicle);
@@ -44,8 +46,32 @@ class CSimulation : public ISimulation
 
 			skeleton.RemoveBone(clavicle->boneId);
 
-			std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;
+			std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;*/
+
+			for (int i = 0; i < GetSkeletonBoneCount(); i++) {
+				const char* boneName  = GetSkeletonBoneName(i);
+				const int   boneIndex = GetSkeletonBoneIndex(boneName);
+
+				Bone* bone = new Bone(boneIndex, boneName, GetSkeletonBoneParentIndex(boneIndex));
+
+				if (std::strcmp(boneName, "root") == 0)
+				{
+					skeleton.SetRootBone(bone);
+					continue;
+				}
+
+				skeleton.AddBone(bone);
+
+				M_VECTOR3D   location = { 2 };
+				M_QUATERNION rotation = { 1, 3, 5, 6 };
+
+				GetSkeletonBoneLocalBindTransform(boneIndex, location.x, location.y, location.z, rotation.w, rotation.x, rotation.y, rotation.z);
+			}
+
+			for (Bone* bone : skeleton.GetSkeleton())
+				std::cout << "Bone Index: " << bone->boneIndex << " | Name: " << bone->boneName << " | Parent: " << bone->parentBoneIndex << std::endl;
 		}
+
 	}
 
 	void Update(const float& DeltaSeconds) override

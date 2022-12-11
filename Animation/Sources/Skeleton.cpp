@@ -13,12 +13,17 @@ Skeleton::~Skeleton()
 	skeleton.clear();
 }
 
+void Skeleton::SetRootBone(Bone* bone)
+{
+	rootBone = bone;
+}
+
 void Skeleton::AddBone(Bone* bone)
 {
 	if (!BoneExist(bone))
 	{
 		skeleton.push_back(bone);
-		std::cout << "AddBone: " << bone->boneName << " with id: " << bone->boneId << std::endl;
+		std::cout << "AddBone: " << bone->boneName << " with id: " << bone->boneIndex << std::endl;
 		std::cout << "Skeleton size: " << skeleton.size() << std::endl;
 	}
 }
@@ -38,7 +43,7 @@ void Skeleton::RemoveBone(const int& id)
 Bone* Skeleton::GetBone(const int& id)
 {
 	for (Bone* bone : skeleton)
-		if (bone->boneId == id) return bone;
+		if (bone->boneIndex == id) return bone;
 
 	return nullptr;
 }
