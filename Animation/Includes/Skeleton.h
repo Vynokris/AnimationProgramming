@@ -6,10 +6,13 @@ class Skeleton
 {
 private:
 	std::vector<Bone*> skeleton;
+	Bone* rootBone;
 
 public:
 	Skeleton();
 	~Skeleton();
+
+	void SetRootBone(Bone* bone);
 	
 	void AddBone   (Bone* bone);
 	void RemoveBone(const int& id);

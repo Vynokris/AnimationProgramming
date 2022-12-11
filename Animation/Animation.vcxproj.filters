@@ -15,11 +15,14 @@
     <Filter Include="Includes\System">
       <UniqueIdentifier>{3dab6ea1-d58d-408f-9132-e7a40944f939}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Includes\Maths">
+      <UniqueIdentifier>{5f4350c9-9662-4c00-8175-5787689f8e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Maths">
+      <UniqueIdentifier>{e6caa467-65f7-412c-8980-189e42564d41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bone.h">
-      <Filter>Includes</Filter>
-    </ClInclude>
     <ClInclude Include="Includes\Skeleton.h">
       <Filter>Includes</Filter>
     </ClInclude>
@@ -32,6 +35,15 @@
     <ClInclude Include="Includes\Simulation.h">
       <Filter>Includes\System</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\Bone.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Quaternion.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Vector3D.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Animation.cpp">
@@ -39,6 +51,12 @@
     </ClCompile>
     <ClCompile Include="Sources\Skeleton.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Vector3D.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Quaternion.cpp">
+      <Filter>Sources\Maths</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

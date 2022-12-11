@@ -5,32 +5,18 @@
 
 struct Bone
 {
-	int boneId;
+	int boneIndex;
 	std::string boneName;
 
-	float boneMass;
-	float boneLength;
+	int parentBoneIndex;
 
-	Bone* parentBone;
-	std::vector<Bone*> childBones;
-
-	Bone(const int& id, const std::string& name, const float& mass, const float& length, Bone* parent, std::vector<Bone*> childs) 
+	Bone(const int& index, const std::string& name, int parentIndex) 
 	{
-		boneId = id;
+		boneIndex = index;
 		boneName = name;
 
-		boneMass = mass;
-		boneLength = length;
-
-		parentBone = parent;
-		childBones = childs;
+		parentBoneIndex = parentIndex;
 	}
 
-	~Bone() 
-	{
-		delete parentBone;
-
-		for (Bone* child : childBones)
-			delete child;
-	}
+	~Bone() {}
 };
