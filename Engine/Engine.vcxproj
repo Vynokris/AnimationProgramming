@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Includes\Animation\Animation.h" />
+    <ClInclude Include="Core\Includes\Animation\AnimationSerializer.h" />
+    <ClInclude Include="Core\Includes\Animation\AnimationTrack.h" />
+    <ClInclude Include="Core\Includes\Animation\Skeleton.h" />
+    <ClInclude Include="Core\Includes\Animation\SkeletonSerializer.h" />
+    <ClInclude Include="Core\Includes\Application.h" />
+    <ClInclude Include="Core\Includes\BaseTypes.h" />
+    <ClInclude Include="Core\Includes\Behavior.h" />
+    <ClInclude Include="Core\Includes\BehaviorComponent.h" />
+    <ClInclude Include="Core\Includes\BehaviorManager.h" />
+    <ClInclude Include="Core\Includes\Command.h" />
+    <ClInclude Include="Core\Includes\CommandBuffer.h" />
+    <ClInclude Include="Core\Includes\DataStream.h" />
+    <ClInclude Include="Core\Includes\Engine.h" />
+    <ClInclude Include="Core\Includes\Event.h" />
+    <ClInclude Include="Core\Includes\FileSystem.h" />
+    <ClInclude Include="Core\Includes\FontSystem.h" />
+    <ClInclude Include="Core\Includes\GlobalVariables.h" />
+    <ClInclude Include="Core\Includes\Handle.h" />
+    <ClInclude Include="Core\Includes\InputManager.h" />
+    <ClInclude Include="Core\Includes\LogSystem\LogSystem.h" />
+    <ClInclude Include="Core\Includes\maths.h" />
+    <ClInclude Include="Core\Includes\MeshRenderComponent.h" />
+    <ClInclude Include="Core\Includes\Object.h" />
+    <ClInclude Include="Core\Includes\ObjectManager.h" />
+    <ClInclude Include="Core\Includes\PhysicsAPI.h" />
+    <ClInclude Include="Core\Includes\Physics\BulletPhysicsSystem.h" />
+    <ClInclude Include="Core\Includes\Physics\ColliderNode.h" />
+    <ClInclude Include="Core\Includes\Physics\PhysicsSystem.h" />
+    <ClInclude Include="Core\Includes\Png\lodepng.h" />
+    <ClInclude Include="Core\Includes\RenderAPI.h" />
+    <ClInclude Include="Core\Includes\RenderTypes.h" />
+    <ClInclude Include="Core\Includes\Render\Camera.h" />
+    <ClInclude Include="Core\Includes\Render\Font.h" />
+    <ClInclude Include="Core\Includes\Render\FontSerializer.h" />
+    <ClInclude Include="Core\Includes\Render\IndexBuffer.h" />
+    <ClInclude Include="Core\Includes\Render\Material.h" />
+    <ClInclude Include="Core\Includes\Render\MaterialHelper.h" />
+    <ClInclude Include="Core\Includes\Render\MaterialSerializer.h" />
+    <ClInclude Include="Core\Includes\Render\Mesh.h" />
+    <ClInclude Include="Core\Includes\Render\MeshHelper.h" />
+    <ClInclude Include="Core\Includes\Render\MeshRenderNode.h" />
+    <ClInclude Include="Core\Includes\Render\MeshSerializer.h" />
+    <ClInclude Include="Core\Includes\Render\Picture.h" />
+    <ClInclude Include="Core\Includes\Render\Renderer.h" />
+    <ClInclude Include="Core\Includes\Render\RenderPipeline.h" />
+    <ClInclude Include="Core\Includes\Render\RenderTarget.h" />
+    <ClInclude Include="Core\Includes\Render\RenderWindow.h" />
+    <ClInclude Include="Core\Includes\Render\Shader.h" />
+    <ClInclude Include="Core\Includes\Render\ShaderProgram.h" />
+    <ClInclude Include="Core\Includes\Render\ShaderProgramSerializer.h" />
+    <ClInclude Include="Core\Includes\Render\ShaderSerializer.h" />
+    <ClInclude Include="Core\Includes\Render\SkinnedMeshRenderNode.h" />
+    <ClInclude Include="Core\Includes\Render\TextMesh.h" />
+    <ClInclude Include="Core\Includes\Render\Texture.h" />
+    <ClInclude Include="Core\Includes\Render\TextureSerializer.h" />
+    <ClInclude Include="Core\Includes\Render\VertexBuffer.h" />
+    <ClInclude Include="Core\Includes\Resource.h" />
+    <ClInclude Include="Core\Includes\ResourceDescriptor.h" />
+    <ClInclude Include="Core\Includes\ResourceManager.h" />
+    <ClInclude Include="Core\Includes\resourcepointer.h" />
+    <ClInclude Include="Core\Includes\ResourceSerializer.h" />
+    <ClInclude Include="Core\Includes\ResourceSpecificManager.h" />
+    <ClInclude Include="Core\Includes\ResourceType.h" />
+    <ClInclude Include="Core\Includes\RigidBodyComponent.h" />
+    <ClInclude Include="Core\Includes\SceneNode.h" />
+    <ClInclude Include="Core\Includes\Script.h" />
+    <ClInclude Include="Core\Includes\ScriptResourceSerializer.h" />
+    <ClInclude Include="Core\Includes\ScriptSerializer.h" />
+    <ClInclude Include="Core\Includes\SerializableFactory.h" />
+    <ClInclude Include="Core\Includes\Serializer.h" />
+    <ClInclude Include="Core\Includes\Simulation.h" />
+    <ClInclude Include="Core\Includes\SmartPointer.h" />
+    <ClInclude Include="Core\Includes\System\GearVR\WhiteBoxGearLibrary.h" />
+    <ClInclude Include="Core\Includes\System\OperatingSystem.h" />
+    <ClInclude Include="Core\Includes\System\Thread.h" />
+    <ClInclude Include="Core\Includes\Temp.h" />
+    <ClInclude Include="Core\Includes\Text.h" />
+    <ClInclude Include="Core\Includes\ThreadDoubleBuffer.h" />
+    <ClInclude Include="Core\Includes\Tokenizer.h" />
+    <ClInclude Include="Core\Includes\TriMesh.h" />
+    <ClInclude Include="Core\Includes\Types\Array.h" />
+    <ClInclude Include="Core\Includes\Types\BitArray.h" />
+    <ClInclude Include="Core\Includes\Types\HashMap.h" />
+    <ClInclude Include="Core\Includes\Types\SparseArray.h" />
+    <ClInclude Include="Core\Includes\WhiteBoxNameSpace.h" />
+    <ClInclude Include="Core\Includes\whiteboxstring.h" />
+    <ClInclude Include="Editor\Includes\AssetExporter.h" />
+    <ClInclude Include="Editor\Includes\AssetManager.h" />
+    <ClInclude Include="Editor\Includes\CopyExporter.h" />
+    <ClInclude Include="Editor\Includes\FbxExporter.h" />
+    <ClInclude Include="Editor\Includes\MtlExporter.h" />
+    <ClInclude Include="Editor\Includes\ObjExporter.h" />
+    <ClInclude Include="Editor\Includes\TextureExporter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\Sources\Animation\Animation.cpp" />
+    <ClCompile Include="Core\Sources\Animation\AnimationSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Animation\AnimationTrack.cpp" />
+    <ClCompile Include="Core\Sources\Animation\Skeleton.cpp" />
+    <ClCompile Include="Core\Sources\Animation\SkeletonSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Application.cpp" />
+    <ClCompile Include="Core\Sources\Behavior.cpp" />
+    <ClCompile Include="Core\Sources\Camera.cpp" />
+    <ClCompile Include="Core\Sources\DataStream.cpp" />
+    <ClCompile Include="Core\Sources\Engine.cpp" />
+    <ClCompile Include="Core\Sources\FontSystem.cpp" />
+    <ClCompile Include="Core\Sources\GlobalVariables.cpp" />
+    <ClCompile Include="Core\Sources\LogSystem\LogSystem.cpp" />
+    <ClCompile Include="Core\Sources\Maths.cpp" />
+    <ClCompile Include="Core\Sources\Physics\BulletPhysicsSystem.cpp" />
+    <ClCompile Include="Core\Sources\Physics\ColliderNode.cpp" />
+    <ClCompile Include="Core\Sources\Png\lodepng.cpp" />
+    <ClCompile Include="Core\Sources\Render\Font.cpp" />
+    <ClCompile Include="Core\Sources\Render\FontSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Render\IndexBuffer.cpp" />
+    <ClCompile Include="Core\Sources\Render\Material.cpp" />
+    <ClCompile Include="Core\Sources\Render\MaterialHelper.cpp" />
+    <ClCompile Include="Core\Sources\Render\MaterialSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Render\Mesh.cpp" />
+    <ClCompile Include="Core\Sources\Render\MeshHelper.cpp" />
+    <ClCompile Include="Core\Sources\Render\MeshRenderNode.cpp" />
+    <ClCompile Include="Core\Sources\Render\MeshSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Render\Picture.cpp" />
+    <ClCompile Include="Core\Sources\Render\Renderer.cpp" />
+    <ClCompile Include="Core\Sources\Render\RenderPipeline.cpp" />
+    <ClCompile Include="Core\Sources\Render\RenderWindow.cpp" />
+    <ClCompile Include="Core\Sources\Render\Shader.cpp" />
+    <ClCompile Include="Core\Sources\Render\ShaderProgram.cpp" />
+    <ClCompile Include="Core\Sources\Render\ShaderProgramSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Render\ShaderSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Render\SkinnedMeshRenderNode.cpp" />
+    <ClCompile Include="Core\Sources\Render\TextMesh.cpp" />
+    <ClCompile Include="Core\Sources\Render\Texture.cpp" />
+    <ClCompile Include="Core\Sources\Render\TextureSerializer.cpp" />
+    <ClCompile Include="Core\Sources\Render\VertexBuffer.cpp" />
+    <ClCompile Include="Core\Sources\ResourceDescriptor.cpp" />
+    <ClCompile Include="Core\Sources\ResourceManager.cpp" />
+    <ClCompile Include="Core\Sources\ResourcePointer.cpp" />
+    <ClCompile Include="Core\Sources\ResourceSpecificManager.cpp" />
+    <ClCompile Include="Core\Sources\SceneNode.cpp" />
+    <ClCompile Include="Core\Sources\Script.cpp" />
+    <ClCompile Include="Core\Sources\ScriptResourceSerializer.cpp" />
+    <ClCompile Include="Core\Sources\ScriptSerializer.cpp" />
+    <ClCompile Include="Core\Sources\System\FileSystem.cpp" />
+    <ClCompile Include="Core\Sources\System\GearVR\GearVR_AndroidApp.cpp" />
+    <ClCompile Include="Core\Sources\System\GearVR\GearVR_OperatingSystem.cpp" />
+    <ClCompile Include="Core\Sources\System\GearVR\GearVR_ReadFromAPK.cpp" />
+    <ClCompile Include="Core\Sources\System\GearVR\WhiteBoxGearLibrary.cpp" />
+    <ClCompile Include="Core\Sources\System\OperatingSystem.cpp" />
+    <ClCompile Include="Core\Sources\System\Thread.cpp" />
+    <ClCompile Include="Core\Sources\Tokenizer.cpp" />
+    <ClCompile Include="Core\Sources\Types\WhiteBoxString.cpp" />
+    <ClCompile Include="Editor\Sources\AssetExporter.cpp" />
+    <ClCompile Include="Editor\Sources\AssetManager.cpp" />
+    <ClCompile Include="Editor\Sources\CopyExporter.cpp" />
+    <ClCompile Include="Editor\Sources\FbxExporter.cpp" />
+    <ClCompile Include="Editor\Sources\main.cpp" />
+    <ClCompile Include="Editor\Sources\MtlExporter.cpp" />
+    <ClCompile Include="Editor\Sources\ObjExporter.cpp" />
+    <ClCompile Include="Editor\Sources\TextureExporter.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{90E93B2B-74B6-403C-A890-1411A55AD55A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Engine</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\GitHub\WhiteBoxEngine - Copie\Core\Inc;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\SDL\include;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\Glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\Glew\lib\Release\Win32;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\SDL\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core\Includes;$(ProjectDir)Editor\Includes;$(ProjectDir)Core\Externals\SDL;$(ProjectDir)Core\Externals\Glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\GitHub\WhiteBoxEngine - Copie\Core\Inc;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\SDL\include;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\Glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\Glew\lib\Release\Win32;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\SDL\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
