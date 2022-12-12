@@ -1,4 +1,4 @@
-#include "Maths.h"
+#include "Maths/Maths.h"
 #include <algorithm>
 using namespace std;
 using namespace Maths;
