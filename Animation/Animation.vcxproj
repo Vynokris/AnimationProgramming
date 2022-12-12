@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Includes\AngleAxis.h" />
     <ClInclude Include="Includes\Arithmetic.h" />
     <ClInclude Include="Includes\Bone.h" />
     <ClInclude Include="Includes\Color.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Includes\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\AngleAxis.cpp" />
     <ClCompile Include="Sources\Animation.cpp" />
     <ClCompile Include="Sources\Arithmetic.cpp" />
     <ClCompile Include="Sources\Color.cpp" />

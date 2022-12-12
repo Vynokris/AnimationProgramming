@@ -2,6 +2,10 @@
 
 namespace Maths
 {
+    class Vector3;
+    class AngleAxis;
+    typedef Matrix<4, 4> Mat4;
+
     // Quaternion class that holds values for w, x, y and z (4 dimensions of rotation).
 	class Quaternion
 	{
@@ -35,18 +39,32 @@ namespace Maths
         // -- Methods -- //
         
         // Returns the absolute value of the quaternion.
-        float getAbs();
+        float getModulus() const;
 
         // Returns the argument of the quaternion.
-        float getArg();
+        float getArgument() const;
+
+        // Normalizes this quaternion so that its modulus is 1.
+        void normalize();
+        Quaternion getNormalized() const;
 
         // Conjugates the quaternion by inverting the sign of its x, y and z values.
         void conjugate();
-        Quaternion getConjugate();
+        Quaternion getConjugate() const;
 
         // Inverses the quaternion.
         void inverse();
-        Quaternion getInverse();
+        Quaternion getInverse() const;
+
+        // Applies this quaternion's rotation to the given object.
+        Quaternion rotateQuat(const Quaternion& q) const;
+        Vector3    rotateVec (const Vector3&    v) const;
+
+        // Returns the angle-axis rotation that corresponds to this quaternion.
+        AngleAxis toAngleAxis() const;
+        
+        // Returns the rotation matrix that corresponds to this quaternion.
+        Mat4 toMatrix() const;
 	};
 }
 

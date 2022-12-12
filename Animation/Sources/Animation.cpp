@@ -49,7 +49,7 @@ class CSimulation : public ISimulation
 
 			std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;*/
 
-			for (int i = 0; i < GetSkeletonBoneCount(); i++) {
+			for (int i = 0; i < (int)GetSkeletonBoneCount(); i++) {
 				const char* boneName  = GetSkeletonBoneName(i);
 				const int   boneIndex = GetSkeletonBoneIndex(boneName);
 
@@ -82,9 +82,9 @@ class CSimulation : public ISimulation
 
 	static void DrawGizmo(const int& x, const int& y, const int& z)
 	{
-		DrawLine(0, 0, 0, x, 0, 0, 1, 0, 0);
-		DrawLine(0, 0, 0, 0, y, 0, 0, 1, 0);
-		DrawLine(0, 0, 0, 0, 0, z, 0, 0, 1);
+		DrawLine(0, 0, 0, (float)x, 0, 0, 1, 0, 0);
+		DrawLine(0, 0, 0, 0, (float)y, 0, 0, 1, 0);
+		DrawLine(0, 0, 0, 0, 0, (float)z, 0, 0, 1);
 	}
 };
 
