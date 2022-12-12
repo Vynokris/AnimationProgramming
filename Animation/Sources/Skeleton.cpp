@@ -20,22 +20,21 @@ void Skeleton::SetRootBone(Bone* bone)
 
 void Skeleton::AddBone(Bone* bone)
 {
-	if (!BoneExist(bone))
+	if (!DoesBoneExist(bone))
 	{
 		skeleton.push_back(bone);
-		std::cout << "AddBone: " << bone->boneName << " with id: " << bone->boneIndex << std::endl;
-		std::cout << "Skeleton size: " << skeleton.size() << std::endl;
+		std::cout << "AddBone: " << bone->name << " with id: " << bone->index << std::endl;
 	}
 }
 
 void Skeleton::RemoveBone(const int& id)
 {
 	Bone* bone = GetBone(id);
-	if (!BoneExist(bone)) return;
+	if (!DoesBoneExist(bone)) return;
 
 	skeleton.erase(std::remove(skeleton.begin(), skeleton.end(), bone), skeleton.end());
 
-	std::cout << "RemoveBone: " << bone->boneName << std::endl;
+	std::cout << "RemoveBone: " << bone->name << std::endl;
 
 	if(bone != nullptr) delete bone;
 }
@@ -43,17 +42,22 @@ void Skeleton::RemoveBone(const int& id)
 Bone* Skeleton::GetBone(const int& id)
 {
 	for (Bone* bone : skeleton)
-		if (bone->boneIndex == id) return bone;
+		if (bone->index == id) return bone;
 
 	return nullptr;
 }
 
-std::vector<Bone*> Skeleton::GetSkeleton()
+std::vector<Bone*> Skeleton::GetBones()
 {
 	return skeleton;
 }
 
-bool Skeleton::BoneExist(const Bone* bone)
+void Skeleton::UpdateBoneTransforms()
+{
+	rootBone->UpdateChildrenTransform(Mat4(true));
+}
+
+bool Skeleton::DoesBoneExist(const Bone* bone)
 {
 	if (std::find(skeleton.begin(), skeleton.end(), bone) != skeleton.end())
 		return true;

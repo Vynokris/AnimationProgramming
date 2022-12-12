@@ -37,6 +37,7 @@
     <ClInclude Include="Includes\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Includes\Bone.cpp" />
     <ClCompile Include="Sources\AngleAxis.cpp" />
     <ClCompile Include="Sources\Animation.cpp" />
     <ClCompile Include="Sources\Arithmetic.cpp" />
@@ -50,6 +51,7 @@
     <ClCompile Include="Sources\Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Includes\Matrix.inl" />
     <None Include="Includes\Quaternion.inl" />
     <None Include="Includes\Vector2.inl" />
     <None Include="Includes\Vector3.inl" />

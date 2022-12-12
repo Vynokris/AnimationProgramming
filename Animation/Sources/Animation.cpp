@@ -11,8 +11,12 @@ using namespace Maths;
 
 class CSimulation : public ISimulation
 {
+public:
+	Skeleton skeleton;
+
 	void Initialize() override
 	{
+		/*
 		int spine01 = GetSkeletonBoneIndex("spine_01");
 		int spineParent = GetSkeletonBoneParentIndex(spine01);
 		const char* spineParentName = GetSkeletonBoneName(spineParent);
@@ -24,60 +28,49 @@ class CSimulation : public ISimulation
 		printf("Spine parent bone : %s\n", spineParentName);
 		printf("Anim key count : %ld\n", keyCount);
 		printf("Anim key : pos(%.2f,%.2f,%.2f) rotation quat(%.10f,%.10f,%.10f,%.10f)\n", posX, posY, posZ, quatW, quatX, quatY, quatZ);
+		*/
 
-		{
-			std::cout << std::endl;
+		for (size_t i = 0; i < GetSkeletonBoneCount(); i++) {
+			const char* boneName  = GetSkeletonBoneName((int)i);
+			const int   boneIndex = GetSkeletonBoneIndex(boneName);
 
-			Skeleton skeleton;
+			Vector3    bonePosition;
+			Quaternion boneRotation;
+			GetSkeletonBoneLocalBindTransform(boneIndex, bonePosition.x, bonePosition.y, bonePosition.z, boneRotation.w, boneRotation.x, boneRotation.y, boneRotation.z);
 
-			/*std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;
+			Bone* bone = new Bone(boneIndex, boneName, Transform(bonePosition, boneRotation, {1}));
 
-			Bone* clavicle = new Bone(0, "Clavicle", 0.25f, 11.f, nullptr, {});
-			skeleton.AddBone(clavicle);
+			if (std::strcmp(boneName, "root") == 0)
+				skeleton.SetRootBone(bone);
 
-			Bone* skull = new Bone(1, "Skull", 0.25f, 11.f, nullptr, {});
-			skeleton.AddBone(skull);
-
-			Bone* tmpBone = skeleton.GetBone(1);
-			if(skeleton.BoneExist(tmpBone))
-				std::cout << "GetBone: " << tmpBone->boneName << std::endl;
-
-			const bool clavicleExist = skeleton.BoneExist(clavicle);
-			std::cout << "BoneExist: " << (clavicleExist ? "true" : "false") << std::endl;
-
-			skeleton.RemoveBone(clavicle->boneId);
-
-			std::cout << "Skeleton size: " << skeleton.GetSkeleton().size() << std::endl;*/
-
-			for (int i = 0; i < (int)GetSkeletonBoneCount(); i++) {
-				const char* boneName  = GetSkeletonBoneName(i);
-				const int   boneIndex = GetSkeletonBoneIndex(boneName);
-
-				Bone* bone = new Bone(boneIndex, boneName, GetSkeletonBoneParentIndex(boneIndex));
-
-				if (std::strcmp(boneName, "root") == 0)
-				{
-					skeleton.SetRootBone(bone);
-					continue;
-				}
-
-				skeleton.AddBone(bone);
-
-				Vector3    location = { 2 };
-				Quaternion rotation = { 1, 3, 5, 6 };
-
-				GetSkeletonBoneLocalBindTransform(boneIndex, location.x, location.y, location.z, rotation.w, rotation.x, rotation.y, rotation.z);
-			}
-
-			for (Bone* bone : skeleton.GetSkeleton())
-				std::cout << "Bone Index: " << bone->boneIndex << " | Name: " << bone->boneName << " | Parent: " << bone->parentBoneIndex << std::endl;
+			skeleton.AddBone(bone);
 		}
 
+		for (Bone* bone : skeleton.GetBones()) 
+		{
+			bone->parent = skeleton.GetBone(GetSkeletonBoneParentIndex(bone->index));
+
+			// O(n^2)... didn't find better solution.
+			for (Bone* child : skeleton.GetBones()) {
+				if (GetSkeletonBoneParentIndex(child->index) == bone->index) {
+					bone->children.push_back(child);
+				}
+			}
+		}
+
+		skeleton.UpdateBoneTransforms();
+
+		for (Bone* bone : skeleton.GetBones()) {
+			const Vector3 worldPos = bone->transform.GetPosition() * bone->transform.worldMat;
+			const Vector3 rotEuler = bone->transform.GetRotation().toEuler();
+			std::cout << "Bone Index: " << bone->index << " | Name: " << bone->name << " | Parent: " << (bone->parent ? bone->parent->name : "none") << " | World pos: " << roundInt(worldPos.x) << ", " << roundInt(worldPos.y) << ", " << roundInt(worldPos.z) << " " << " | Rotation: " << roundInt(radToDeg(rotEuler.x)) << ", " << roundInt(radToDeg(rotEuler.y)) << ", " << roundInt(radToDeg(rotEuler.z)) << " " << std::endl;
+		}
 	}
 
 	void Update(const float& deltaTime) override
 	{
 		DrawGizmo(100, 100, 100);
+		DrawSkeleton();
 	}
 
 	static void DrawGizmo(const int& x, const int& y, const int& z)
@@ -85,6 +78,16 @@ class CSimulation : public ISimulation
 		DrawLine(0, 0, 0, (float)x, 0, 0, 1, 0, 0);
 		DrawLine(0, 0, 0, 0, (float)y, 0, 0, 1, 0);
 		DrawLine(0, 0, 0, 0, 0, (float)z, 0, 0, 1);
+	}
+
+	void DrawSkeleton()
+	{
+		for (Bone* bone : skeleton.GetBones())
+		{
+			const Vector3 pos  = bone->transform.GetPosition() * bone->transform.worldMat;
+			const Vector3 pos2 = (bone->parent ? bone->parent->transform.GetPosition() * bone->parent->transform.worldMat : pos);
+			DrawLine(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z, 1, 0, 1);
+		}
 	}
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Bone.h"
+#include <vector>
 
 class Skeleton
 {
@@ -17,11 +18,10 @@ public:
 	void AddBone   (Bone* bone);
 	void RemoveBone(const int& id);
 
-	bool BoneExist(const Bone* bone);
+	bool DoesBoneExist(const Bone* bone);
 
-	Bone* GetBone                 (const int& id);
-	std::vector<Bone*> GetSkeleton();
+	Bone* GetBone(const int& id);
+	std::vector<Bone*> GetBones();
 
-private:
-
+	void UpdateBoneTransforms();
 };
