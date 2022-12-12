@@ -1,4 +1,4 @@
-#include "Bone.h"
+#include "Animation/Bone.h"
 
 void Bone::UpdateChildrenTransform(const Mat4 & parentMat)
 {
