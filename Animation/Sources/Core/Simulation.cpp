@@ -54,8 +54,8 @@ void CSimulation::Initialize()
 	skeleton.UpdateBoneTransforms();
 
 	for (Bone* bone : skeleton.GetBones()) {
-		const Vector3 worldPos = bone->transform.GetPosition() * bone->transform.worldMat;
-		const Vector3 rotEuler = bone->transform.GetRotation().toEuler();
+		const Vector3 worldPos = bone->transform.GetPosition() * bone->transform.GetWorldMat();
+		const Vector3 rotEuler = bone->transform.GetRotation().ToEuler();
 		std::cout << "Bone Index: " << bone->index << " | Name: " << bone->name << " | Parent: " << (bone->parent ? bone->parent->name : "none") << " | World pos: " << roundInt(worldPos.x) << ", " << roundInt(worldPos.y) << ", " << roundInt(worldPos.z) << " " << " | Rotation: " << roundInt(radToDeg(rotEuler.x)) << ", " << roundInt(radToDeg(rotEuler.y)) << ", " << roundInt(radToDeg(rotEuler.z)) << " " << std::endl;
 	}
 }
@@ -77,8 +77,8 @@ void CSimulation::DrawSkeleton()
 {
 	for (Bone* bone : skeleton.GetBones())
 	{
-		const Vector3 pos  = bone->transform.GetPosition() * bone->transform.worldMat;
-		const Vector3 pos2 = (bone->parent ? bone->parent->transform.GetPosition() * bone->parent->transform.worldMat : pos);
+		const Vector3 pos  = bone->transform.GetPosition() * bone->transform.GetWorldMat();
+		const Vector3 pos2 = (bone->parent ? bone->parent->transform.GetPosition() * bone->parent->transform.GetWorldMat() : pos);
 		DrawLine(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z, 1, 0, 1);
 	}
 }

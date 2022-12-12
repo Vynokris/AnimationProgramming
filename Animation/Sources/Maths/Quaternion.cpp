@@ -8,10 +8,6 @@ using namespace Maths;
 Quaternion::Quaternion()                                                               : w(0),   x(0),   y(0),   z(0)   {}
 Quaternion::Quaternion(const float& all)                                               : w(all), x(all), y(all), z(all) {}
 Quaternion::Quaternion(const float& w, const float& x, const float& y, const float& z) : w(w),   x(x),   y(y),   z(z)   {}
-Quaternion::Quaternion(const Quaternion& q)                                            : w(q.w), x(q.x), y(q.y), z(q.z) {}
-
-// Copy constructor.
-void Quaternion::operator=(const Quaternion& q) { w = q.w; x = q.x; y = q.y; z = q.z; }
 
 // Quaternion negation.
 Quaternion Quaternion::operator-() const { return { -w, -x, -y, -z }; }
@@ -19,63 +15,57 @@ Quaternion Quaternion::operator-() const { return { -w, -x, -y, -z }; }
 
 // ---------- QUATERNION METHODS ---------- //
 
-float Quaternion::getModulus() const
+// Returns the absolute value of the quaternion.
+float Quaternion::GetModulus() const
 {
     return sqrt(sqpow(w) + sqpow(x) + sqpow(y) + sqpow(z));
 }
 
-float Quaternion::getArgument() const
+// Returns the argument of the quaternion.
+float Quaternion::GetArgument() const // TODO: Test this.
 {
-    return acos(w / getModulus());
+    return acos(w / GetModulus());
 }
 
-void Quaternion::normalize()
+// Normalization.
+void Quaternion::Normalize()
 {
-    *this = getNormalized();
+    *this = GetNormalized();
 }
-
-Quaternion Quaternion::getNormalized() const
+Quaternion Quaternion::GetNormalized() const
 {
-    const float modulus = getModulus();
+    const float modulus = GetModulus();
     return Quaternion(w/modulus, x/modulus, y/modulus, z/modulus);
 }
 
-void Quaternion::conjugate()
-{
-    x = -x;
-    y = -y;
-    z = -z;
-}
+// Conjugation.
+void       Quaternion::Conjugate   ()       { x *= -1; y *= -1; z *= -1; }
+Quaternion Quaternion::GetConjugate() const { return { w, -x, -y, -z }; }
 
-Quaternion Quaternion::getConjugate() const
+// Inversion.
+void Quaternion::Inverse()
 {
-    return Quaternion(w, -x, -y, -z);
+    *this = GetInverse();
 }
-
-void Quaternion::inverse()
-{
-    *this = getInverse();
-}
-
-Quaternion Quaternion::getInverse() const
+Quaternion Quaternion::GetInverse() const // TODO: Test this.
 {
     const float sqAbs = sqpow(w) + sqpow(x) + sqpow(y) + sqpow(z);
     return Quaternion(w / sqAbs, -x / sqAbs, -y / sqAbs, -z / sqAbs);
 }
 
-
-Quaternion Quaternion::rotateQuat(const Quaternion& q) const
+// Rotation.
+Quaternion Quaternion::RotateQuat(const Quaternion& q) const // TODO: Test this.
 {
-    return q * *this; // TODO: Idk if this works.
+    return q * *this;
+}
+Vector3 Quaternion::RotateVec(const Vector3& v) const // TODO: Test this.
+{
+    const Quaternion rotatedVec = RotateQuat({ 0, v.x, v.y, v.z });
+    return Vector3(rotatedVec.x, rotatedVec.y, rotatedVec.z);
 }
 
-Vector3 Quaternion::rotateVec(const Vector3& v) const
-{
-    const Quaternion rotatedVec = rotateQuat({ 0, v.x, v.y, v.z });
-    return { rotatedVec.x, rotatedVec.y, rotatedVec.z };
-}
-
-AngleAxis Quaternion::toAngleAxis() const
+// Returns the angle-axis rotation that corresponds to this quaternion.
+AngleAxis Quaternion::ToAngleAxis() const // TODO: Test this.
 {
     const float angle = 2 * acos(w);
     return AngleAxis(
@@ -88,7 +78,8 @@ AngleAxis Quaternion::toAngleAxis() const
     );
 }
 
-Mat4 Quaternion::toMatrix() const
+// Returns the rotation matrix that corresponds to this quaternion.
+Mat4 Quaternion::ToMatrix() const // TODO: Test this.
 {
     const float w2 = sqpow(w);
     const float x2 = sqpow(x);
@@ -102,11 +93,21 @@ Mat4 Quaternion::toMatrix() const
     );
 }
 
-Vector3 Maths::Quaternion::toEuler() const
+// Returns the euler angles that correspond to this quaternion.
+Vector3 Quaternion::ToEuler() const // TODO: Test this.
 {
     return Vector3(
         atan2(2*(w*x+y*z), 1-2*(sqpow(w)+sqpow(x))),
         asin(2*(w*y-z*x)),
         atan2(2*(w*z+x*y), 1-2*(sqpow(y)+sqpow(z)))
     );
+}
+
+// Returns the quaternion's contents as a string.
+std::string Quaternion::ToString(const int& precision) const
+{
+    std::ostringstream string;
+    string.precision(precision);
+    string << std::fixed << w << ", " << std::fixed << x << ", " << std::fixed << y << ", " << std::fixed << z;
+    return string.str();
 }

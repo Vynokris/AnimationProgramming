@@ -9,8 +9,8 @@ using namespace Maths;
 RGBA::RGBA()                                                                   { r = 0;     g = 0;     b = 0;     a = 1;  }
 RGBA::RGBA(const float& _r, const float& _g, const float& _b, const float& _a) { r = _r;    g = _g;    b = _b;    a = _a; }
 RGBA::RGBA(const RGB& rgb)                                                     { r = rgb.r; g = rgb.g; b = rgb.b; a = 1;  }
-RGB RGBA::rgb() { return RGB(*this); }
-float* RGBA::ptr() { return &r; }
+RGB    RGBA::rgb() const { return RGB(*this); }
+float* RGBA::ptr()       { return &r; }
 
 
 // ----- RGB methods ----- //
@@ -18,20 +18,20 @@ float* RGBA::ptr() { return &r; }
 RGB::RGB()                                                  { r = 0;      g = 0;      b = 0;      }
 RGB::RGB(const float& _r, const float& _g, const float& _b) { r = _r;     g = _g;     b = _b;     }
 RGB::RGB(const RGBA& rgba)                                  { r = rgba.r; g = rgba.g; b = rgba.b; }
-RGBA RGB::rgba() { return RGBA(*this); }
-float* RGB::ptr() { return &r; }
+RGBA   RGB::rgba() const { return RGBA(*this); }
+float* RGB::ptr ()       { return &r; }
 
 
 // ----- Color arithmetics ----- //
 
 // Returns the hue of an RGB color (0 <= rgba <= 1) (output in radians).
-float Maths::colorGetHue(const RGB& rgb)
+float Maths::ColorGetHue(const RGBA& rgb)
 {
-    float r = rgb.r, g = rgb.g, b = rgb.b;
+    const float r = rgb.r, g = rgb.g, b = rgb.b;
 
-    float minV = min(min(r, g), b);
-    float maxV = max(max(r, g), b);
-    float diff = maxV - minV;
+    const float minV = min(min(r, g), b);
+    const float maxV = max(max(r, g), b);
+    const float diff = maxV - minV;
     float hue;
 
     // If red is the maximum value.
@@ -56,38 +56,36 @@ float Maths::colorGetHue(const RGB& rgb)
 }
 
 // Linear interpolation between two given colors.
-RGBA Maths::colorLerp(const float& val, const RGBA& start, const RGBA& end)
+RGBA Maths::ColorLerp(const float& val, const RGBA& start, const RGBA& end)
 {
-    return RGBA(
-        start.r + val * (end.r - start.r),
-        start.g + val * (end.g - start.g),
-        start.b + val * (end.b - start.b),
-        start.a + val * (end.a - start.a)
-    );
+    return RGBA(start.r + val * (end.r - start.r),
+                start.g + val * (end.g - start.g),
+                start.b + val * (end.b - start.b),
+                start.a + val * (end.a - start.a));
 }
 
 // Blend between two HSV colors.
-HSV Maths::blendHSV(const HSV& col0, const HSV& col1)
+HSV Maths::BlendHSV(const HSV& col0, const HSV& col1)
 {
-    Vector2 totalVec = Vector2(col0.h, 1, true) + Vector2(col1.h, 1, true);
-    float avgHue = totalVec.getAngle();
-    float avgSat = (col0.s + col1.s) / 2;
-    float avgVal = (col0.v + col1.v) / 2;
+    const Vector2 totalVec = Vector2(col0.h, 1, true) + Vector2(col1.h, 1, true);
+    const float avgHue = totalVec.GetAngle();
+    const float avgSat = (col0.s + col1.s) / 2;
+    const float avgVal = (col0.v + col1.v) / 2;
     return HSV{ avgHue, avgSat, avgVal };
 }
 
 // Convert an RGB color (0 <= rgba <= 1) to HSV.
 HSV Maths::RGBAtoHSV(const RGBA& color)
 {
-    HSV hsv;
+    HSV hsv = {};
 
-    float minV = min(min(color.r, color.g), color.b);
-    float maxV = max(max(color.r, color.g), color.b);
-    float diff = maxV - minV;
+    const float minV = min(min(color.r, color.g), color.b);
+    const float maxV = max(max(color.r, color.g), color.b);
+    const float diff = maxV - minV;
 
-    float r = color.r;
-    float g = color.g;
-    float b = color.b;
+    const float r = color.r;
+    const float g = color.g;
+    const float b = color.b;
 
     // Set Value.
     hsv.v = maxV;
@@ -150,15 +148,15 @@ RGBA Maths::HSVtoRGBA(const HSV& hsv, const float& alpha)
 }
 
 // Shifts the hue of the given color.
-RGBA Maths::colorShift(const RGBA& color, const float& hue)
+RGBA Maths::ColorShift(const RGBA& color, const float& hue)
 {
     HSV hsv = RGBAtoHSV(color);
+    
     hsv.h += hue;
     if (hsv.h >= 2 * PI)
         hsv.h -= 2 * PI;
     else if (hsv.h < 0)
         hsv.h += 2 * PI;
-    RGBA out = HSVtoRGBA(hsv);
-
-    return out;
+    
+    return HSVtoRGBA(hsv);
 }
