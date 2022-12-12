@@ -66,7 +66,7 @@ Quaternion Quaternion::getInverse() const
 
 Quaternion Quaternion::rotateQuat(const Quaternion& q) const
 {
-    return *this * q * getInverse();
+    return q * *this; // TODO: Idk if this works.
 }
 
 Vector3 Quaternion::rotateVec(const Vector3& v) const
@@ -99,5 +99,14 @@ Mat4 Quaternion::toMatrix() const
         2*(x*y-z*w), 2*(w2+y2)-1, 2*(y*z+x*w), 0,
         2*(x*z+y*w), 2*(y*z-x*w), 2*(w2+z2)-1, 0,
         0,           0,           0,           1
+    );
+}
+
+Vector3 Maths::Quaternion::toEuler() const
+{
+    return Vector3(
+        atan2(2*(w*x+y*z), 1-2*(sqpow(w)+sqpow(x))),
+        asin(2*(w*y-z*x)),
+        atan2(2*(w*z+x*y), 1-2*(sqpow(y)+sqpow(z)))
     );
 }

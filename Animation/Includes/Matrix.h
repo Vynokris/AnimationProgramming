@@ -144,5 +144,8 @@ namespace Maths
     Mat4 getYRotationMatrix  (const float& angle);
     Mat4 getZRotationMatrix  (const float& angle);
     Mat4 getRotationMatrix   (const Vector3& rotation, const bool& reverse = false);
-    Mat4 getTransformMatrix  (const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
+    Mat4 getTransformMatrix  (const Vector3& position, const Vector3&    rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
+    Mat4 getTransformMatrix  (const Vector3& position, const Quaternion& rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
 }
+
+#include "Matrix.inl"

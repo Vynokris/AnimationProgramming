@@ -1,22 +1,20 @@
 #pragma once
 
+#include "Transform.h"
 #include <vector>
-#include <string>
 
 struct Bone
 {
-	int boneIndex;
-	std::string boneName;
+public:
+	int index;
+	std::string name;
+	Maths::Transform transform;
+	Bone* parent = nullptr;
+	std::vector<Bone*> children;
 
-	int parentBoneIndex;
-
-	Bone(const int& index, const std::string& name, int parentIndex) 
-	{
-		boneIndex = index;
-		boneName = name;
-
-		parentBoneIndex = parentIndex;
-	}
-
+	Bone(const int& _index, const std::string& _name, const Transform& _transform) 
+		: index(_index), name(_name), transform(_transform) {}
 	~Bone() {}
+
+	void UpdateChildrenTransform(const Mat4& parentMat);
 };

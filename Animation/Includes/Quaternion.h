@@ -65,6 +65,9 @@ namespace Maths
         
         // Returns the rotation matrix that corresponds to this quaternion.
         Mat4 toMatrix() const;
+
+        // Returns the euler angles that correspond to this quaternion.
+        Vector3 toEuler() const;
 	};
 }
 
