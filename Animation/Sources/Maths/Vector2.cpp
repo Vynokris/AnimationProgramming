@@ -11,94 +11,88 @@ Vector2::Vector2(const float& rad, const float& length, const bool& isAngle) : x
 
 // ---------- VECTOR2 OPERATORS ---------- //
 
-// Copy constructor.
-void Vector2::operator=(const Vector2& other) { x = other.x; y = other.y; }
-
 // Vector2 dot product.
-float Vector2::operator&(const Vector2& val) const { return (x * val.x) + (y * val.y); }
+float Vector2::operator&(const Vector2& v) const { return (x * v.x) + (y * v.y); }
+float Vector2::Dot      (const Vector2& v) const { return *this & v; }
 
 // Vector2 cross product.
-float Vector2::operator^(const Vector2& val) const { return (x * val.y) - (y * val.x); }
+float Vector2::operator^(const Vector2& v) const { return (x * v.y) - (y * v.x); }
+float Vector2::Cross    (const Vector2& v) const { return *this ^ v; }
 
 // Vector2 negation.
 Vector2 Vector2::operator-()                 const { return { -x, -y }; }
 
 // ------------ VECTOR2 METHODS ----------- //
 
-// Returns the middle of the given vector.
-Vector2 Vector2::getMiddle()                          const { return Vector2(x / 2, y / 2); }
+// Length.
+float Vector2::GetLength()              const { return sqrt(sqpow(x) + sqpow(y)); }
+void  Vector2::SetLength(const float& length) { Normalize(); *this *= length; }
 
-// Returns the length of the given vector.
-float Vector2::getLength()                            const { return sqrt(sqpow(x) + sqpow(y)); }
+// Normalization.
+void    Vector2::Normalize    ()       { x /= GetLength(); y /= GetLength(); }
+Vector2 Vector2::GetNormalized() const { return Vector2(x / GetLength(), y / GetLength()); }
 
-// Modifies the length of the given vector to correspond to the given value.
-void Vector2::setLength(const float& length) { *(this) = Vector2(getAngle(), length, true); }
+// Negation
+void    Vector2::Negate    ()       { x *= -1; y *= -1; }
+Vector2 Vector2::GetNegated() const { return Vector2(-x, -y); }
 
-// Normalizes the given vector so that its length is 1.
-void Vector2::normalize() { x /= getLength(); y /= getLength(); }
-
-// Normalizes the given vector so that its length is 1.
-Vector2 Vector2::getNormalized()                      const { return Vector2(x / getLength(), y / getLength()); }
-
-// Negates both of the coordinates of the given vector.
-void Vector2::negate() { *(this) = Vector2(-x, -y); }
-
-// Copies the signs from the source vector to the destination vector.
-void Vector2::copysign(const Vector2& source) { *(this) = Vector2(std::copysign(x, source.x), std::copysign(y, source.y)); }
-
-// Copies the signs from the source vector to the destination vector.
-Vector2 Vector2::getCopiedSign(const Vector2& source) const { return Vector2(std::copysign(x, source.x), std::copysign(y, source.y)); }
+// Copy signs.
+void    Vector2::CopySign     (const Vector2& source)       { *(this) = GetCopiedSign(source); }
+Vector2 Vector2::GetCopiedSign(const Vector2& source) const { return Vector2(std::copysign(x, source.x), std::copysign(y, source.y)); }
 
 // Returns the normal of a given vector.
-Vector2 Vector2::getNormal()                          const { return Vector2(-y, x); }
+Vector2 Vector2::GetNormal() const { return Vector2(-y, x); }
 
 // Interprets the vector as a point and returns the distance to another point.
-float Vector2::getDistanceFromPoint(const Vector2& p) const { return Vector2(*this, p).getLength(); }
+float Vector2::GetDistanceFromPoint(const Vector2& p) const { return Vector2(*this, p).GetLength(); }
 
-// Returns the angle (in radians) of the given vector.
-float Vector2::getAngle()                             const { return std::copysign(std::acos(getNormalized().x), std::asin(getNormalized().y)); }
-
-// Returns the angle (in radians) between two vectors.
-float Vector2::getAngleWithVector2(const Vector2& v)  const
+// Angle.
+float Vector2::GetAngle() const { return std::copysign(std::acos(GetNormalized().x), std::asin(GetNormalized().y)); }
+float Vector2::GetAngleWithVector2(const Vector2& v)  const
 {
-    float this_angle = getAngle();
-    float v_angle = v.getAngle();
-    return (this_angle >= v_angle ? (this_angle - v_angle) : (v_angle - this_angle));
+    const float thisAngle  = GetAngle();
+    const float otherAngle = v.GetAngle();
+    return (thisAngle >= otherAngle ? (thisAngle - otherAngle) : (otherAngle - thisAngle));
 }
 
-// Rotates the given vector by the given angle.
-void Vector2::rotate(const float& angle)
+// Rotation.
+void Vector2::Rotate(const float& angle)
 {
-    float this_length = getLength();
-    float this_angle = getAngle();
-    *(this) = Vector2(this_angle + angle, this_length, true);
+    const float length = GetLength();
+    const float origAngle = GetAngle();
+    *this = Vector2(origAngle + angle, length, true);
 }
-
-// Rotates the point around the given pivot point by the given angle (in rad).
-void Vector2::rotateAsPoint(const Vector2& pivot, const float& angle)
+void Vector2::RotateAsPoint(const Vector2& pivot, const float& angle)
 {
-    float s = sin(angle);
-    float c = cos(angle);
+    const float s = sin(angle);
+    const float c = cos(angle);
 
     // Translate the point back to the origin.
     x -= pivot.x;
     y -= pivot.y;
 
     // Rotate the point around the origin.
-    float xnew = x * c - y * s;
-    float ynew = x * s + y * c;
+    const float xNew = x * c - y * s;
+    const float yNew = x * s + y * c;
 
     // Translate point back to the pivot.
-    x = xnew + pivot.x;
-    y = ynew + pivot.y;
+    x = xNew + pivot.x;
+    y = yNew + pivot.y;
+}
+
+// Returns the vector's contents as a string.
+std::string Vector2::ToString(const int& precision) const
+{
+    std::ostringstream string;
+    string.precision(precision);
+    string << std::fixed << x << ", " << std::fixed << y;
+    return string.str();
 }
 
 
-
-
 // Calculates linear interpolation for a value from a start point to an end point.
-Vector2 Maths::point2Lerp(const float& val, const Vector2& start, const Vector2& end)
+Vector2 Maths::Point2Lerp(const float& val, const Vector2& start, const Vector2& end)
 {
     return Vector2(lerp(val, start.x, end.x),
-        lerp(val, start.y, end.y));
+                   lerp(val, start.y, end.y));
 }

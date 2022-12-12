@@ -3,7 +3,7 @@
 
 // ---------- MATRIX GLOBAL METHODS ---------- //
 
-Mat4 Maths::getTranslationMatrix(const Vector3& translation)
+Mat4 Maths::GetTranslationMatrix(const Vector3& translation)
 {
     return Mat4(1, 0, 0, 0,
                 0, 1, 0, 0,
@@ -11,15 +11,7 @@ Mat4 Maths::getTranslationMatrix(const Vector3& translation)
                 -translation.x, translation.y, translation.z, 1);
 }
 
-Mat4 Maths::getScaleMatrix(const Vector3& scale)
-{
-    return Mat4(scale.x, 0, 0, 0,
-                0, scale.y, 0, 0,
-                0, 0, scale.z, 0,
-                0, 0, 0, 1);
-}
-
-Mat4 Maths::getXRotationMatrix(const float& angle)
+Mat4 Maths::GetXRotationMatrix(const float& angle)
 {
     return Mat4(1, 0, 0, 0,
                 0, cosf(angle), sinf(angle), 0,
@@ -27,7 +19,7 @@ Mat4 Maths::getXRotationMatrix(const float& angle)
                 0, 0, 0, 1);
 }
 
-Mat4 Maths::getYRotationMatrix(const float& angle)
+Mat4 Maths::GetYRotationMatrix(const float& angle)
 {
     return Mat4(cosf(angle), 0, -sinf(angle), 0,
                 0, 1, 0, 0,
@@ -35,7 +27,7 @@ Mat4 Maths::getYRotationMatrix(const float& angle)
                 0, 0, 0, 1);
 }
 
-Mat4 Maths::getZRotationMatrix(const float& angle)
+Mat4 Maths::GetZRotationMatrix(const float& angle)
 {
     return Mat4(cosf(angle), sinf(angle), 0, 0,
                 -sinf(angle), cosf(angle), 0, 0,
@@ -43,70 +35,76 @@ Mat4 Maths::getZRotationMatrix(const float& angle)
                 0, 0, 0, 1);
 }
 
-Mat4 Maths::getRotationMatrix(const Vector3& rotation, const bool& reverse)
+Mat4 Maths::GetRotationMatrix(const Vector3& rotation, const bool& reverse)
 {
     // For cameras.
     if (reverse)
     {
-        return getYRotationMatrix(rotation.y) *
-               getXRotationMatrix(-rotation.x) *
-               getZRotationMatrix(rotation.z);
+        return GetYRotationMatrix(rotation.y) *
+               GetXRotationMatrix(-rotation.x) *
+               GetZRotationMatrix(rotation.z);
     }
     // For objects in world space.
     else
     {
-        return getZRotationMatrix(rotation.z) *
-               getXRotationMatrix(-rotation.x) *
-               getYRotationMatrix(rotation.y);
+        return GetZRotationMatrix(rotation.z) *
+               GetXRotationMatrix(-rotation.x) *
+               GetYRotationMatrix(rotation.y);
     }
 }
 
-Mat4 Maths::getTransformMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& reverse, const bool& transformNormals)
+Mat4 Maths::GetScaleMatrix(const Vector3& scale)
 {
-    // For cameras.
-    if (reverse)
-    {
-        return getTranslationMatrix(position)   *
-               getYRotationMatrix  (rotation.y) *
-               getXRotationMatrix  (rotation.x) *
-               getZRotationMatrix  (rotation.z) *
-               getScaleMatrix      (scale);
-    }
-    // For normals.
-    else if (transformNormals)
-    {
-        return getTransformMatrix(position, rotation, scale).inv4().transpose();
-    }
-    // For objects in world space.
-    else
-    {
-        return getScaleMatrix      (scale)      *
-               getZRotationMatrix  (rotation.z) *
-               getXRotationMatrix  (rotation.x) *
-               getYRotationMatrix  (rotation.y) *
-               getTranslationMatrix(position);
-    }
+    return Mat4(scale.x, 0, 0, 0,
+                0, scale.y, 0, 0,
+                0, 0, scale.z, 0,
+                0, 0, 0, 1);
 }
 
-Mat4 Maths::getTransformMatrix(const Vector3& position, const Quaternion& rotation, const Vector3& scale, const bool& reverse, const bool& transformNormals)
+Mat4 Maths::GetTransformMatrix(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& reverse, const bool& transformNormals)
 {
     // For cameras.
     if (reverse)
     {
-        return getTranslationMatrix(position) *
-               rotation.toMatrix   ()         *
-               getScaleMatrix      (scale);
+        return GetTranslationMatrix(position)   *
+               GetYRotationMatrix  (rotation.y) *
+               GetXRotationMatrix  (rotation.x) *
+               GetZRotationMatrix  (rotation.z) *
+               GetScaleMatrix      (scale);
     }
+    
     // For normals.
-    else if (transformNormals)
+    if (transformNormals)
     {
-        return getTransformMatrix(position, rotation, scale).inv4().transpose();
+        return GetTransformMatrix(position, rotation, scale).Inv4().GetTransposed();
     }
+    
     // For objects in world space.
-    else
+    return GetScaleMatrix      (scale)      *
+           GetZRotationMatrix  (rotation.z) *
+           GetXRotationMatrix  (rotation.x) *
+           GetYRotationMatrix  (rotation.y) *
+           GetTranslationMatrix(position);
+}
+
+Mat4 Maths::GetTransformMatrix(const Vector3& position, const Quaternion& rotation, const Vector3& scale, const bool& reverse, const bool& transformNormals)
+{
+    // For cameras.
+    if (reverse)
     {
-        return getScaleMatrix      (scale) *
-               rotation.toMatrix   ()      *
-               getTranslationMatrix(position);
+        return GetTranslationMatrix(position) *
+               rotation.ToMatrix   ()         *
+               GetScaleMatrix      (scale);
     }
+    
+    // For normals.
+    if (transformNormals)
+    {
+        return GetTransformMatrix(position, rotation, scale).Inv4().GetTransposed();
+    }
+    
+    // For objects in world space.
+    return GetScaleMatrix      (scale) *
+           rotation.ToMatrix   ()      *
+           GetTranslationMatrix(position);
 }

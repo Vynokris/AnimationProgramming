@@ -8,96 +8,100 @@ Vector3::Vector3()                                                  : x(0),   y(
 Vector3::Vector3(const float& all)                                  : x(all), y(all), z(all)                         {}; // Vector with equal coordinates.
 Vector3::Vector3(const float& _x, const float& _y, const float& _z) : x(_x),  y(_y),  z(_z)                          {}; // Vector with 3 coordinates.
 Vector3::Vector3(const Vector3& p1, const Vector3& p2)              : x(p2.x - p1.x), y(p2.y - p1.y), z(p2.z - p1.z) {}; // Vector from 2 points.
-Vector3::Vector3(const Vector3& angles, const float& length)
+Vector3::Vector3(const Vector3& angles, const float& length)        : x(0),   y(0),   z(0)
 {
-    *this = (Vector4(0, 0, 1, 1) * getRotationMatrix({ -angles.x, -angles.y, -angles.z })).toVector3(true) * length;
+    *this = (Vector4(0, 0, 1, 1) * GetRotationMatrix({ -angles.x, -angles.y, -angles.z })).ToVector3(true) * length;
 }
 
 // ---------- VECTOR3 OPERATORS ---------- //
 
-// Copy constructor.
-void Vector3::operator=(const Vector3& v) { x = v.x; y = v.y; z = v.z; }
-
 // Vector3 dot product.
-float Vector3::operator&(const Vector3& v)   const { return (x * v.x) + (y * v.y) + (z * v.z); }
+float Vector3::operator&(const Vector3& v) const { return (x * v.x) + (y * v.y) + (z * v.z); }
+float Vector3::Dot      (const Vector3& v) const { return *this & v; }
 
 // Vector3 cross product.
 Vector3 Vector3::operator^(const Vector3& v) const { return Vector3((y * v.z - z * v.y), (z * v.x - x * v.z), (x * v.y - y * v.x)); }
+Vector3 Vector3::Cross    (const Vector3& v) const { return *this ^ v; }
 
 // Vector3 negation.
 Vector3 Vector3::operator-()                 const { return { -x, -y, -z }; }
 
 // ------------ VECTOR3 METHODS ----------- //
 
-// Returns the length of the given vector.
-float Vector3::getLength() const { return sqrt(sqpow(x) + sqpow(y) + sqpow(z)); }
+// Length.
+float Vector3::GetLength() const { return sqrt(sqpow(x) + sqpow(y) + sqpow(z)); }
+void  Vector3::SetLength(const float& length) { Normalize(); *this *= length; }
 
-// Modifies the length of the given vector to correspond to the given value.
-void Vector3::setLength(const float& length) { normalize(); (*this) *= length; }
-
-// Normalizes the given vector so that its length is 1.
-void Vector3::normalize()
+// Normalization.
+void Vector3::Normalize()
 {
-    float length = getLength();
+    if (x == 0 && y == 0 && z == 0) return;
+    
+    const float length = GetLength();
     x /= length;
     y /= length;
     z /= length;
 }
-Vector3 Vector3::getNormalized() const
+Vector3 Vector3::GetNormalized() const
 {
-    if (x == 0 && y == 0 && z == 0)
-        return Vector3();
-    float length = getLength();
+    if (x == 0 && y == 0 && z == 0) return Vector3();
+    
+    const float length = GetLength();
     return Vector3(x / length, y / length, z / length);
 }
 
-// Negates both of the coordinates of the given vector.
-void    Vector3::negate    ()       { *(this) = getNegated(); }
-Vector3 Vector3::getNegated() const { return Vector3(-x, -y, -z); }
+// Negation.
+void    Vector3::Negate    ()       { x *= -1; y *= -1; z *= -1; }
+Vector3 Vector3::GetNegated() const { return Vector3(-x, -y, -z); }
 
-// Copies the signs from the source vector to the destination vector.
-void    Vector3::copysign     (const Vector3& source)       { *(this) = getCopiedSign(source); }
-Vector3 Vector3::getCopiedSign(const Vector3& source) const { return Vector3(std::copysign(x, source.x), std::copysign(y, source.y), std::copysign(z, source.z)); }
+// Copy signs.
+void    Vector3::CopySign     (const Vector3& source)       { *this = GetCopiedSign(source); }
+Vector3 Vector3::GetCopiedSign(const Vector3& source) const { return Vector3(std::copysign(x, source.x), std::copysign(y, source.y), std::copysign(z, source.z)); }
 
 // Interprets the vector as a point and returns the distance to another point.
-float Vector3::getDistanceFromPoint(const Vector3& p) const { return Vector3(*this, p).getLength(); }
+float Vector3::GetDistanceFromPoint(const Vector3& p) const { return Vector3(*this, p).GetLength(); }
 
-// Returns the angle (in radians) of the given vector.
-float Vector3::getXAngle() const { return asin(-y); }
-float Vector3::getYAngle() const { return atan2(x, z); }
-
-// Returns the angle (in radians) between two vectors.
-float Vector3::getXAngleWithVector3(const Vector3& v) const
+// Angles.
+float Vector3::GetXAngle() const { return asin(-y); }
+float Vector3::GetYAngle() const { return atan2(x, z); }
+float Vector3::GetXAngleWithVector3(const Vector3& v) const
 {
-    float this_angle = getXAngle();
-    float v_angle = v.getXAngle();
-    return (this_angle >= v_angle ? (this_angle - v_angle) : (v_angle - this_angle));
+    const float thisAngle  = GetXAngle();
+    const float otherAngle = v.GetXAngle();
+    return (thisAngle >= otherAngle ? (thisAngle - otherAngle) : (otherAngle - thisAngle));
 }
-float Vector3::getYAngleWithVector3(const Vector3& v) const
+float Vector3::GetYAngleWithVector3(const Vector3& v) const
 {
-    float this_angle = getYAngle();
-    float v_angle = v.getYAngle();
-    return (this_angle >= v_angle ? (this_angle - v_angle) : (v_angle - this_angle));
+    const float thisAngle  = GetYAngle();
+    const float otherAngle = v.GetYAngle();
+    return (thisAngle >= otherAngle ? (thisAngle - otherAngle) : (otherAngle - thisAngle));
 }
 
-// Rotates the given vector by the given angle.
-void Vector3::rotate(const Vector3& angles) 
+// Rotation.
+void Vector3::Rotate(const Vector3& angles) 
 { 
-    *this = getRotated(angles);
+    *this = GetRotated(angles);
 }
-Vector3 Vector3::getRotated(const Vector3& angles) const
+Vector3 Vector3::GetRotated(const Vector3& angles) const
 {
-    return Vector3({ getXAngle() + angles.x, getYAngle() + angles.y, angles.z }, getLength());
+    return Vector3(Vector3(GetXAngle() + angles.x, GetYAngle() + angles.y, angles.z), GetLength());
 }
 
 // Creates a Vector4 from this vector.
-Vector4 Vector3::toVector4() const { return Vector4(x, y, z, 1); }
+Vector4 Vector3::ToVector4() const { return Vector4(x, y, z, 1); }
 
-
+// Returns the vector's contents as a string.
+std::string Vector3::ToString(const int& precision) const
+{
+    std::ostringstream string;
+    string.precision(precision);
+    string << std::fixed << x << ", " << std::fixed << y << ", " << std::fixed << z;
+    return string.str();
+}
 
 
 // Calculates linear interpolation for a value from a start point to an end point.
-Vector3 Maths::point3Lerp(const float& val, const Vector3& start, const Vector3& end)
+Vector3 Maths::Point3Lerp(const float& val, const Vector3& start, const Vector3& end)
 {
     return Vector3(lerp(val, start.x, end.x),
                    lerp(val, start.y, end.y),
@@ -105,9 +109,9 @@ Vector3 Maths::point3Lerp(const float& val, const Vector3& start, const Vector3&
 }
 
 // Returns the coordinates of a point on a sphere of radius r, using the given angles.
-Vector3 Maths::getSphericalCoords(const float& r, const float& pitch, const float& yaw)
+Vector3 Maths::GetSphericalCoords(const float& r, const float& pitch, const float& yaw)
 {
     return { r * sinf(pitch) * cosf(yaw),
-             r * sinf(pitch) * sinf(yaw),
-             r * cosf(pitch) };
+                   r * sinf(pitch) * sinf(yaw),
+                   r * cosf(pitch) };
 }

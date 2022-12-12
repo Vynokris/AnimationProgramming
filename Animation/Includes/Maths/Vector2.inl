@@ -37,7 +37,7 @@ inline Vector2 Vector2::operator+<Vector2>(const Vector2& val) const
     return Vector2(x + val.x, y + val.y);
 }
 
-// Vector2 substraction.
+// Vector2 subtraction.
 template <typename T>
 inline Vector2 Vector2::operator-(const T& val) const
 {
@@ -73,7 +73,7 @@ inline Vector2 Vector2::operator/<Vector2>(const Vector2& val) const
     return Vector2(x / val.x, y / val.y);
 }
 
-// Vector2 addition assignement.
+// Vector2 addition assignment.
 template <typename T>
 inline void Vector2::operator+=(const T& val)
 {
@@ -87,7 +87,7 @@ inline void Vector2::operator+=<Vector2>(const Vector2& val)
     y += val.y;
 }
 
-// Vector2 substraction assignement.
+// Vector2 subtraction assignment.
 template <typename T>
 inline void Vector2::operator-=(const T& val)
 {
@@ -101,7 +101,7 @@ inline void Vector2::operator-=<Vector2>(const Vector2& val)
     y -= val.y;
 }
 
-// Vector2 multiplication assignement.
+// Vector2 multiplication assignment.
 template <typename T>
 inline void Vector2::operator*=(const T& val)
 {
@@ -115,7 +115,7 @@ inline void Vector2::operator*=<Vector2>(const Vector2& val)
     y *= val.y;
 }
 
-// Vector2 division assignement.
+// Vector2 division assignment.
 template <typename T>
 inline void Vector2::operator/=(const T& val)
 {

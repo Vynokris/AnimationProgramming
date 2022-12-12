@@ -16,7 +16,7 @@ namespace Maths
         AngleAxis();
         AngleAxis(const float& _angle, const Vector3& _axis);
 
-        Quaternion toQuaternion();
-        Mat4       toMatrix    ();
+        Quaternion ToQuaternion();
+        Mat4       ToMatrix    ();
     };
 }

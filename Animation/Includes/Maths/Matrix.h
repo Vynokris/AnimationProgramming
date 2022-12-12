@@ -23,18 +23,15 @@ namespace Maths
     template<int R, int C>
     class Matrix
     {
+    private:
+        float M[R][C];
+        
     public:
-        // ------- Members ------ //
-        float m[R][C];
-        float* ptr = &m[0][0];
+        // ----- Constructors ----- //
 
-        float* floatPtr();
-
-        // ----- Constructors & Destructor ----- //
-
-        Matrix(const bool& identity = false);
-        Matrix(const Matrix<R, C>& matrix); // Copy operator.
-        Matrix(const float matrix[R][C]);   // Matrix from float 2D array.
+        Matrix(const bool& identity = false); // Default constructor.
+        Matrix(const Matrix<R, C>& matrix);   // Copy operator.
+        Matrix(const float matrix[R][C]);     // Matrix from float 2D array.
 
         // Matrix 2x2 constructor.
         Matrix(const float& a, const float& b, 
@@ -49,28 +46,27 @@ namespace Maths
         Matrix(const float& a, const float& b, const float& c, const float& d,
                const float& e, const float& f, const float& g, const float& h,
                const float& i, const float& j, const float& k, const float& l,
-               const float& M, const float& n, const float& o, const float& p);
+               const float& m, const float& n, const float& o, const float& p);
 
         // Matrix 4x4 constructor (from 2x2 matrices).
         Matrix(const Mat2& a, const Mat2& b, const Mat2& c, const Mat2& d);
 
-        ~Matrix() {}
-
+        
         // ----- Operators ----- //
 
         // Matrix bracket operators.
-        const float* operator[](int index) const { return m[index]; }
-              float* operator[](int index)       { return m[index]; }
+        const float* operator[](int index) const { return M[index]; }
+              float* operator[](int index)       { return M[index]; }
 
         // Matrix copy.
-        Matrix<R, C> operator=(const Matrix<R, C>& matrix);
-        Matrix<R, C> operator=(float** matrix);
+        Matrix<R, C>& operator=(const Matrix<R, C>& matrix);
+        Matrix<R, C>& operator=(float** matrix);
 
         // Matrix addition.
         Matrix<R, C> operator+(const float& val) const;
         Matrix<R, C> operator+(const Matrix<R, C>& matrix) const;
 
-        // Matrix substraction and inversion.
+        // Matrix subtraction and inversion.
         Matrix<R, C> operator-() const;
         Matrix<R, C> operator-(const float& val) const;
         Matrix<R, C> operator-(const Matrix<R, C>& matrix) const;
@@ -78,74 +74,68 @@ namespace Maths
 
         // Matrix multiplication.
         Matrix<R, C> operator*(const float& val) const;
-        template<int _R, int _C>
-        Matrix<(R > _R ? R : _R), (C > _C ? C : _C)> operator*(const Matrix<_R, _C>& matrix) const;
+        template<int R2, int C2>
+        Matrix<(R > R2 ? R : R2), (C > C2 ? C : C2)> operator*(const Matrix<R2, C2>& matrix) const;
 
         // Matrix division by a scalar.
         Matrix<R, C> operator/(const float& val) const;
 
-        // Matrix addition assignement.
+        // Matrix addition assignment.
         void operator+=(const float& val);
         void operator+=(const Matrix<R, C>& matrix);
 
-        // Matrix substraction assignement.
+        // Matrix subtraction assignment.
         void operator-=(const float& val);
         void operator-=(const Matrix<R, C>& matrix);
 
-        // Matrix multiplication assignement.
+        // Matrix multiplication assignment.
         void operator*=(const float& val);
-        template<int _R, int _C>
-        void operator*=(const Matrix<_R, _C>& matrix)
-        {
-            *this = *this * matrix;
-        }
+        template<int R2, int C2>
+        void operator*=(const Matrix<R2, C2>& matrix);
 
         // Matrix power.
         Matrix<R, C> operator^(const float& n) const;
+        Matrix<R, C> Pow      (const float& n) const;
 
         // ----- Methods ----- //
 
         // Getters.
-        int   getRows()                    const { return R; }
-        int   getColumns()                 const { return C; }
-        float getMatrixValue(int i, int j) const { return m[i][j]; }
-        bool  isSquare()                   const { return R == C; }
-        bool  isIdentity() const;
+        float* AsPtr();                                               // Returns a pointer to the matrix's float array.
+        int    GetRows()                    const { return R; }       // Returns the matrix's number of rows.
+        int    GetColumns()                 const { return C; }       // Returns the matrix's number of columns.
+        float  GetMatrixValue(int i, int j) const { return M[i][j]; } // Returns the element at the given indices.
+        bool   IsSquare()                   const { return R == C; }  // Returns true if the matrix is square, false if not.
+        bool   IsIdentity() const;                                    // Returns true if the matrix is identity.
 
         // Determinants.
-        float det2() const;
-        float det3() const;
-        float det4() const;
+        float Det2() const; // Returns a 2x2 matrix's determinant.
+        float Det3() const; // Returns a 3x3 matrix's determinant.
+        float Det4() const; // Returns a 4x4 matrix's determinant.
 
         // Inverses.
-        Mat2 inv2() const;
-        Mat3 inv3() const;
-        Mat4 inv4() const;
+        Mat2 Inv2() const; // Returns the inverse of a 2x2 matrix's.
+        Mat3 Inv3() const; // Returns the inverse of a 3x3 matrix's.
+        Mat4 Inv4() const; // Returns the inverse of a 4x4 matrix's.
 
         // Transposition.
-        Matrix<R, C> transpose() const;
+        void         Transpose    ();       // Transposes the matrix.
+        Matrix<R, C> GetTransposed() const; // Returns a transposed copy of this matrix.
 
-        // Conversion to angle axis rotation (matrix must be 3x3 or 4x4 rotation only).
-        AngleAxis  toAngleAxis (); 
-
-        // Conversion to quaternion (matrix must be 3x3 or 4x4 rotation only).
-        Quaternion toQuaternion(); 
-
-        // Prints matrix contents.
-        void print(const bool& showSize = true) const;
-
-        // Returns matrix contents as string.
-        std::string printStr(const bool& showSize = true) const;
+        // Conversions.
+        AngleAxis   ToAngleAxis () const;                        // Conversion to angle axis rotation (matrix must be 3x3 or 4x4 rotation only).
+        Quaternion  ToQuaternion() const;                        // Conversion to quaternion (matrix must be 3x3 or 4x4 rotation only).
+        std::string ToString(const bool& showSize = true) const; // Returns matrix contents as string.
+        void        Print   (const bool& showSize = true) const; // Prints matrix contents.
     };
 
-    Mat4 getTranslationMatrix(const Vector3& translation);
-    Mat4 getScaleMatrix      (const Vector3& scale);
-    Mat4 getXRotationMatrix  (const float& angle);
-    Mat4 getYRotationMatrix  (const float& angle);
-    Mat4 getZRotationMatrix  (const float& angle);
-    Mat4 getRotationMatrix   (const Vector3& rotation, const bool& reverse = false);
-    Mat4 getTransformMatrix  (const Vector3& position, const Vector3&    rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
-    Mat4 getTransformMatrix  (const Vector3& position, const Quaternion& rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
+    Mat4 GetTranslationMatrix(const Vector3& translation);
+    Mat4 GetXRotationMatrix  (const float& angle);
+    Mat4 GetYRotationMatrix  (const float& angle);
+    Mat4 GetZRotationMatrix  (const float& angle);
+    Mat4 GetRotationMatrix   (const Vector3& rotation, const bool& reverse = false);
+    Mat4 GetScaleMatrix      (const Vector3& scale);
+    Mat4 GetTransformMatrix  (const Vector3& position, const Vector3&    rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
+    Mat4 GetTransformMatrix  (const Vector3& position, const Quaternion& rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
 }
 
 #include "Matrix.inl"

@@ -15,15 +15,12 @@ namespace Maths
 		float y;
 		float z;
         
-        // -- Constructors & Destructor -- //
+        // -- Constructors -- //
 		Quaternion();                                                               // Null quaternion.
 		Quaternion(const float& all);                                               // Quaternion with equal values.
 		Quaternion(const float& w, const float& x, const float& y, const float& z); // Quaternion with 4 values.
-		Quaternion(const Quaternion& q);
-		~Quaternion() {}
 
-        // -- Operators -- //
-                              void       operator= (const Quaternion& q);
+		// -- Operators -- //
         template <typename T> bool       operator==(const T& val) const;
         template <typename T> bool       operator!=(const T& val) const;
         template <typename T> Quaternion operator+ (const T& val) const;
@@ -34,40 +31,37 @@ namespace Maths
         template <typename T> void       operator-=(const T& val);
         template <typename T> void       operator*=(const T& val);
         template <typename T> void       operator/=(const T& val);
-                              Quaternion operator- ()                    const;
+                              Quaternion operator- ()             const;
         
         // -- Methods -- //
         
         // Returns the absolute value of the quaternion.
-        float getModulus() const;
+        float GetModulus() const;
 
         // Returns the argument of the quaternion.
-        float getArgument() const;
+        float GetArgument() const;
 
-        // Normalizes this quaternion so that its modulus is 1.
-        void normalize();
-        Quaternion getNormalized() const;
+		// Normalization.
+        void       Normalize();           // Normalizes this quaternion so that its modulus is 1.
+        Quaternion GetNormalized() const; // Returns a normalized copy of the quaternion.
 
-        // Conjugates the quaternion by inverting the sign of its x, y and z values.
-        void conjugate();
-        Quaternion getConjugate() const;
+		// Conjugation.
+        void       Conjugate();          // Conjugates the quaternion by inverting the sign of its x, y and z values.
+        Quaternion GetConjugate() const; // Returns the conjugate of the quaternion.
 
-        // Inverses the quaternion.
-        void inverse();
-        Quaternion getInverse() const;
+		// Inversion.
+        void       Inverse();          // Inverses the quaternion.
+        Quaternion GetInverse() const; // Returns the inverse of the quaternion.
 
-        // Applies this quaternion's rotation to the given object.
-        Quaternion rotateQuat(const Quaternion& q) const;
-        Vector3    rotateVec (const Vector3&    v) const;
+		// Rotation.
+        Quaternion RotateQuat(const Quaternion& q) const; // Applies this quaternion's rotation to the given quaternion.
+        Vector3    RotateVec (const Vector3&    v) const; // Applies this quaternion's rotation to the given 3D vector.
 
-        // Returns the angle-axis rotation that corresponds to this quaternion.
-        AngleAxis toAngleAxis() const;
-        
-        // Returns the rotation matrix that corresponds to this quaternion.
-        Mat4 toMatrix() const;
-
-        // Returns the euler angles that correspond to this quaternion.
-        Vector3 toEuler() const;
+		// Conversion.
+        AngleAxis   ToAngleAxis()                      const; // Returns the angle-axis rotation that corresponds to this quaternion.
+        Mat4        ToMatrix()                         const; // Returns the rotation matrix that corresponds to this quaternion.
+		Vector3     ToEuler ()                         const; // Returns the euler angles that correspond to this quaternion.
+		std::string ToString(const int& precision = 2) const; // Returns the quaternion's contents as a string.
 	};
 }
 

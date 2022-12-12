@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace Maths
 {
@@ -17,10 +18,8 @@ namespace Maths
         Vector3(const float& _x, const float& _y, const float& _z); // Vector with 3 coordinates.
         Vector3(const Vector3& p1, const Vector3& p2);              // Vector from 2 points.
         Vector3(const Vector3& angles, const float& length);        // Vector from angles (useless bool).
-        ~Vector3() {}
 
         // -- Operators -- //
-                              void    operator= (const Vector3& other);
         template <typename T> bool    operator==(const T& val) const;
         template <typename T> bool    operator!=(const T& val) const;
         template <typename T> Vector3 operator+ (const T& val) const;
@@ -31,53 +30,53 @@ namespace Maths
         template <typename T> void    operator-=(const T& val);
         template <typename T> void    operator*=(const T& val);
         template <typename T> void    operator/=(const T& val);
-                              float   operator& (const Vector3& val) const;
-                              Vector3 operator^ (const Vector3& val) const;
-                              Vector3 operator- ()                   const;
+                              float   operator& (const Vector3& v) const;
+                              float   Dot       (const Vector3& v) const;
+                              Vector3 operator^ (const Vector3& v) const;
+                              Vector3 Cross     (const Vector3& v) const;
+                              Vector3 operator- ()                 const;
 
         // -- Methods -- //
 
-        // Returns the length of the given vector.
-        float getLength() const;
-        // Modifies the length of the given vector to correspond to the given value.
-        void setLength(const float& length);
+        // Length.
+        float GetLength() const;              // Returns the vector's length.
+        void  SetLength(const float& length); // Modifies the vector's length to correspond to the given value.
 
-        // Normalizes the given vector so that its length is 1.
-        void normalize();
-        Vector3 getNormalized() const;
+        // Normalization.
+        void    Normalize();           // Normalizes the given vector so that its length is 1.
+        Vector3 GetNormalized() const; // Returns a normalized copy of the vector.
 
-        // Negates both of the coordinates of the given vector.
-        void negate();
-        Vector3 getNegated() const;
+        // Negation.
+        void    Negate();           // Negates the vector's coordinates.
+        Vector3 GetNegated() const; // Returns a negated copy of the vector.
 
-        // Copies the signs from the source vector to the destination vector.
-        void copysign(const Vector3& source);
-        Vector3 getCopiedSign(const Vector3& source) const;
+        // Copy signs.
+        void    CopySign     (const Vector3& source);       // Copies the signs from the source vector to this vector.
+        Vector3 GetCopiedSign(const Vector3& source) const; // Returns a copy of this vector with the given vector's signs.
 
         // Interprets the vector as a point and returns the distance to another point.
-        float getDistanceFromPoint(const Vector3& p) const;
+        float GetDistanceFromPoint(const Vector3& p) const;
 
-        // Returns the angle (in radians) of the given vector.
-        float getXAngle() const;
-        float getYAngle() const;
+        // Angles.
+        float GetXAngle() const; // Returns the pitch angle (in radians) of the given vector.
+        float GetYAngle() const; // Returns the yaw angle (in radians) of the given vector.
+        float GetXAngleWithVector3(const Vector3& v) const; // Returns the angle (in radians) between two vectors.
+        float GetYAngleWithVector3(const Vector3& v) const; // Returns the angle (in radians) between two vectors.
 
-        // Returns the angle (in radians) between two vectors.
-        float getXAngleWithVector3(const Vector3& v) const;
-        float getYAngleWithVector3(const Vector3& v) const;
+        // Rotation.
+        void    Rotate    (const Vector3& angles);       // Rotates the vector by the given angle.
+        Vector3 GetRotated(const Vector3& angles) const; // Returns a copy of the vector rotated by the given angle.
 
-        // Rotates the given vector by the given angle.
-        void rotate(const Vector3& angles);
-        Vector3 getRotated(const Vector3& angles) const;
-
-        // Creates a Vector4 from this vector.
-        Vector4 toVector4() const;
+        // Conversions.
+        Vector4     ToVector4() const;                        // Creates a Vector4 from this vector.
+        std::string ToString(const int& precision = 2) const; // Returns the vector's contents as a string.
     };
 
     // Calculates linear interpolation for a value from a start point to an end point.
-    Vector3 point3Lerp(const float& val, const Vector3& start, const Vector3& end);
+    Vector3 Point3Lerp(const float& val, const Vector3& start, const Vector3& end);
 
     // Returns the coordinates of a point on a sphere of radius r, using the given angles.
-    Vector3 getSphericalCoords(const float& r, const float& pitch, const float& yaw);
+    Vector3 GetSphericalCoords(const float& r, const float& pitch, const float& yaw);
 }
 
 #include "Vector3.inl"

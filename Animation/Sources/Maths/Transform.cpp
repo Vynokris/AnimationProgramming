@@ -1,6 +1,8 @@
 #include "Maths/Maths.h"
 using namespace Maths;
 
+
+// ----- Constructors ----- //
 Transform::Transform(const bool& _isCamera)
     : pos(), rot(), scale(1), worldMat(true), isCamera(_isCamera)
 {
@@ -19,17 +21,17 @@ void    Transform::SetPosition(const Vector3& position) { pos  = position; Updat
 void    Transform::Move       (const Vector3& movement) { pos += movement; UpdateLocalMat(); }
 
 // ----- Forward ----- //
-Vector3 Transform::Forward() const                    { return rot.toAngleAxis().axis; }
+Vector3 Transform::Forward() const                    { return rot.ToAngleAxis().axis; }
 Vector3 Transform::Up()      const                    { return Vector3(0); } // TODO: fix this.
 Vector3 Transform::Right()   const                    { return Vector3(0); } // TODO: fix this.
-void    Transform::SetForward(const Vector3& forward) { UpdateLocalMat(); }  // TODO: fix this.
+void    Transform::SetForward(const Vector3& forward) { UpdateLocalMat(); }     // TODO: fix this.
 
 // ----- Rotation ----- //
 Quaternion Transform::GetRotation() const                     { return rot; }
 void       Transform::SetRotation(const Quaternion& rotation) { rot = rotation; UpdateLocalMat(); }
 void       Transform::Rotate     (const Quaternion& rotation) 
 {
-    rot = rotation.rotateQuat(rot);
+    rot = rotation.RotateQuat(rot);
     UpdateLocalMat(); 
 }
 
@@ -39,9 +41,8 @@ Vector3 Transform::GetUniformScale() const         { return std::max(scale.x, st
 void    Transform::SetScale(const Vector3& _scale) { scale = _scale; UpdateLocalMat(); }
 
 // ----- Matrices ----- //
-Mat4 Transform::GetLocalMat() const { return localMat; }
 void Transform::UpdateLocalMat() 
 {
-    if (!isCamera) localMat = getTransformMatrix( pos, rot, scale);
-    else           localMat = getTransformMatrix(-pos, rot, { 1, 1, 1 }, true);
+    if (!isCamera) localMat = GetTransformMatrix( pos, rot, scale);
+    else           localMat = GetTransformMatrix(-pos, rot, { 1, 1, 1 }, true);
 }
