@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "WhiteBoxString.h"
 
 WHITEBOX_BEGIN

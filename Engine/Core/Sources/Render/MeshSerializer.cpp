@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "Render/MeshSerializer.h"
 
 #include "DataStream.h"

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "DataStream.h"
 
 #include "FileSystem.h"

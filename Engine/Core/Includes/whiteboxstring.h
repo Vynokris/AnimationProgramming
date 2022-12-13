@@ -483,7 +483,7 @@ namespace __gnu_cxx
 
 #elif defined( _WIN64 ) || defined( _WIN32 )
 
-#include <xfunctional>
+#include <functional>
 #include <xhash>
 
 namespace std
