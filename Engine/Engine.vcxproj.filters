@@ -67,6 +67,12 @@
     <Filter Include="Sources\Core\System\GearVR">
       <UniqueIdentifier>{90679751-aacf-46f2-841a-da2fcdd94e7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Core\Dll">
+      <UniqueIdentifier>{37016b7c-9e67-4490-8d15-48dc4ced5f24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Core\Dll">
+      <UniqueIdentifier>{48305dd3-0dbd-4e89-b330-5ab77c3ce5c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Includes\Application.h">
@@ -351,6 +357,12 @@
     <ClInclude Include="Core\Includes\Types\SparseArray.h">
       <Filter>Includes\Core\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Includes\Dll\stdafx.h">
+      <Filter>Includes\Core\Dll</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Dll\targetver.h">
+      <Filter>Includes\Core\Dll</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor\Sources\AssetExporter.cpp">
@@ -547,6 +559,15 @@
     </ClCompile>
     <ClCompile Include="Core\Sources\Tokenizer.cpp">
       <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Dll\dllmain.cpp">
+      <Filter>Sources\Core\Dll</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Dll\EngineMain.cpp">
+      <Filter>Sources\Core\Dll</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Dll\stdafx.cpp">
+      <Filter>Sources\Core\Dll</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

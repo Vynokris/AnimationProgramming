@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "Render/Renderer.h"
 
 //#include <OpenGL/gl.h> //OS x libs

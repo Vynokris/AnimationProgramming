@@ -1,11 +1,11 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 
 #include "Engine.h"
 #include "Simulation.h"
- #include "GlobalVariables.h"
- #include "System\OperatingSystem.h"
- #include "Application.h"
- #include "Animation\Animation.h"
+#include "GlobalVariables.h"
+#include "System\OperatingSystem.h"
+#include "Application.h"
+#include "Animation\Animation.h"
 #include "Render\RenderPipeline.h"
 
 using namespace WhiteBox;

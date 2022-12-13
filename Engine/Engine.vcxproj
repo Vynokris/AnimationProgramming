@@ -32,6 +32,8 @@
     <ClInclude Include="Core\Includes\Command.h" />
     <ClInclude Include="Core\Includes\CommandBuffer.h" />
     <ClInclude Include="Core\Includes\DataStream.h" />
+    <ClInclude Include="Core\Includes\Dll\stdafx.h" />
+    <ClInclude Include="Core\Includes\Dll\targetver.h" />
     <ClInclude Include="Core\Includes\Engine.h" />
     <ClInclude Include="Core\Includes\Event.h" />
     <ClInclude Include="Core\Includes\FileSystem.h" />
@@ -124,6 +126,9 @@
     <ClCompile Include="Core\Sources\Behavior.cpp" />
     <ClCompile Include="Core\Sources\Camera.cpp" />
     <ClCompile Include="Core\Sources\DataStream.cpp" />
+    <ClCompile Include="Core\Sources\Dll\dllmain.cpp" />
+    <ClCompile Include="Core\Sources\Dll\EngineMain.cpp" />
+    <ClCompile Include="Core\Sources\Dll\stdafx.cpp" />
     <ClCompile Include="Core\Sources\Engine.cpp" />
     <ClCompile Include="Core\Sources\FontSystem.cpp" />
     <ClCompile Include="Core\Sources\GlobalVariables.cpp" />
@@ -251,7 +256,9 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\GitHub\WhiteBoxEngine - Copie\Core\Inc;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\SDL\include;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\Glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(ProjectDir)Editor\Includes;%(ProjectDir)Core\Includes;%(ProjectDir)Core\Externals\SDL\include;%(ProjectDir)Core\Externals\Glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

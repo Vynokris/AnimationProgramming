@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "Render/TextureSerializer.h"
 
 #include "Render/Picture.h"
