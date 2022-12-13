@@ -16,6 +16,11 @@ void Skeleton::SetRootBone(Bone* bone)
 	rootBone = bone;
 }
 
+Bone* Skeleton::GetRootBone() const
+{
+	return rootBone;
+}
+
 void Skeleton::AddBone(Bone* bone)
 {
 	if (!DoesBoneExist(bone))
@@ -47,11 +52,6 @@ Bone* Skeleton::GetBone(const int& id) const
 std::vector<Bone*> Skeleton::GetBones()
 {
 	return bones;
-}
-
-void Skeleton::UpdateBoneTransforms() const
-{
-	rootBone->UpdateChildrenTransform(Mat4(true));
 }
 
 bool Skeleton::DoesBoneExist(const Bone* bone)

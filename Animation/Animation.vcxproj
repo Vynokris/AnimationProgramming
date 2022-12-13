@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Includes\Animation\Animation.h" />
     <ClInclude Include="Includes\Animation\Bone.h" />
     <ClInclude Include="Includes\Animation\Skeleton.h" />
     <ClInclude Include="Includes\Maths\AngleAxis.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Includes\Utilities\Includer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Animation\Animation.cpp" />
     <ClCompile Include="Sources\Animation\Bone.cpp" />
     <ClCompile Include="Sources\Animation\Skeleton.cpp" />
     <ClCompile Include="Sources\Core\Simulation.cpp" />
