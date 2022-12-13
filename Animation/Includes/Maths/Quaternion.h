@@ -19,6 +19,7 @@ namespace Maths
 		Quaternion();                                                               // Null quaternion.
 		Quaternion(const float& all);                                               // Quaternion with equal values.
 		Quaternion(const float& w, const float& x, const float& y, const float& z); // Quaternion with 4 values.
+		Quaternion(const Vector3& eulerAngles);                                     // Quaternion from euler angles.
 
 		// -- Operators -- //
         template <typename T> bool       operator==(const T& val) const;
@@ -37,9 +38,6 @@ namespace Maths
         
         // Returns the absolute value of the quaternion.
         float GetModulus() const;
-
-        // Returns the argument of the quaternion.
-        float GetArgument() const;
 
 		// Normalization.
         void       Normalize();           // Normalizes this quaternion so that its modulus is 1.

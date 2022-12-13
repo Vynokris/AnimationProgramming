@@ -57,6 +57,11 @@ void Skeleton::UpdateBoneTransforms()
 	rootBone->UpdateChildrenTransform(Mat4(true));
 }
 
+void Skeleton::SetBoneDefaultMatrices()
+{
+	rootBone->SetChildrenDefaultMatrices(Mat4(true));
+}
+
 bool Skeleton::DoesBoneExist(const Bone* bone)
 {
 	if (std::find(skeleton.begin(), skeleton.end(), bone) != skeleton.end())

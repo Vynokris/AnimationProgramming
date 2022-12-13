@@ -43,7 +43,7 @@ void CSimulation::Initialize()
 	{
 		bone->parent = skeleton.GetBone(GetSkeletonBoneParentIndex(bone->index));
 
-		// O(n^2)... didn't find better solution.
+		// O(n^2)... didn't find a better solution.
 		for (Bone* child : skeleton.GetBones()) {
 			if (GetSkeletonBoneParentIndex(child->index) == bone->index) {
 				bone->children.push_back(child);
@@ -51,9 +51,10 @@ void CSimulation::Initialize()
 		}
 	}
 
+	skeleton.SetBoneDefaultMatrices();
 	skeleton.UpdateBoneTransforms();
 
-	for (Bone* bone : skeleton.GetBones()) {
+	for (const Bone* bone : skeleton.GetBones()) {
 		const Vector3 worldPos = bone->transform.GetPosition() * bone->transform.GetWorldMat();
 		const Vector3 rotEuler = bone->transform.GetRotation().ToEuler();
 		std::cout << "Bone Index: " << bone->index << " | Name: " << bone->name << " | Parent: " << (bone->parent ? bone->parent->name : "none") << " | World pos: " << roundInt(worldPos.x) << ", " << roundInt(worldPos.y) << ", " << roundInt(worldPos.z) << " " << " | Rotation: " << roundInt(radToDeg(rotEuler.x)) << ", " << roundInt(radToDeg(rotEuler.y)) << ", " << roundInt(radToDeg(rotEuler.z)) << " " << std::endl;
@@ -75,10 +76,13 @@ void CSimulation::DrawGizmo(const int& x, const int& y, const int& z)
 
 void CSimulation::DrawSkeleton()
 {
-	for (Bone* bone : skeleton.GetBones())
+	for (const Bone* bone : skeleton.GetBones())
 	{
+		// Get the bone's and bone parent world positions.
 		const Vector3 pos  = bone->transform.GetPosition() * bone->transform.GetWorldMat();
 		const Vector3 pos2 = (bone->parent ? bone->parent->transform.GetPosition() * bone->parent->transform.GetWorldMat() : pos);
+
+		// Draw the bone as a line from itself to its parent.
 		DrawLine(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z, 1, 0, 1);
 	}
 }
