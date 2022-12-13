@@ -9,8 +9,9 @@ namespace Maths
     class Transform
     {
 	private:
-		Vector3    pos, scale;
+		Vector3    pos;
 		Quaternion rot;
+    	Vector3    scale;
 		Mat4       localMat, worldMat;
 
 	public:

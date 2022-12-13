@@ -3,14 +3,12 @@
 #include <iostream>
 #include <algorithm>
 
-Skeleton::Skeleton()
-{
-	skeleton = {};
-}
-
+Skeleton:: Skeleton() : rootBone(nullptr), bones({}) { }
 Skeleton::~Skeleton()
 {
-	skeleton.clear();
+	for (const Bone* bone : bones)
+		delete bone;
+	bones.clear();
 }
 
 void Skeleton::SetRootBone(Bone* bone)
@@ -22,7 +20,7 @@ void Skeleton::AddBone(Bone* bone)
 {
 	if (!DoesBoneExist(bone))
 	{
-		skeleton.push_back(bone);
+		bones.push_back(bone);
 		std::cout << "AddBone: " << bone->name << " with id: " << bone->index << std::endl;
 	}
 }
@@ -32,16 +30,15 @@ void Skeleton::RemoveBone(const int& id)
 	Bone* bone = GetBone(id);
 	if (!DoesBoneExist(bone)) return;
 
-	skeleton.erase(std::remove(skeleton.begin(), skeleton.end(), bone), skeleton.end());
-
 	std::cout << "RemoveBone: " << bone->name << std::endl;
+	bones.erase(std::remove(bones.begin(), bones.end(), bone), bones.end());
 
-	if(bone != nullptr) delete bone;
+	delete bone;
 }
 
-Bone* Skeleton::GetBone(const int& id)
+Bone* Skeleton::GetBone(const int& id) const
 {
-	for (Bone* bone : skeleton)
+	for (Bone* bone : bones)
 		if (bone->index == id) return bone;
 
 	return nullptr;
@@ -49,23 +46,15 @@ Bone* Skeleton::GetBone(const int& id)
 
 std::vector<Bone*> Skeleton::GetBones()
 {
-	return skeleton;
+	return bones;
 }
 
-void Skeleton::UpdateBoneTransforms()
+void Skeleton::UpdateBoneTransforms() const
 {
 	rootBone->UpdateChildrenTransform(Mat4(true));
 }
 
-void Skeleton::SetBoneDefaultMatrices()
-{
-	rootBone->SetChildrenDefaultMatrices(Mat4(true));
-}
-
 bool Skeleton::DoesBoneExist(const Bone* bone)
 {
-	if (std::find(skeleton.begin(), skeleton.end(), bone) != skeleton.end())
-		return true;
-
-	return false;
+	return std::find(bones.begin(), bones.end(), bone) != bones.end();
 }
