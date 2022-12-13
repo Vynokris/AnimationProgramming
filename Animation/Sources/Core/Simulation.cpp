@@ -63,8 +63,6 @@ void CSimulation::Initialize()
 			}
 		}
 	}
-	
-	skeleton.UpdateBoneTransforms();
 
 	/*
 	for (const Bone* bone : skeleton.GetBones()) {
@@ -73,10 +71,22 @@ void CSimulation::Initialize()
 		std::cout << "Bone Index: " << bone->index << " | Name: " << bone->name << " | Parent: " << (bone->parent ? bone->parent->name : "none") << " | World pos: " << roundInt(worldPos.x) << ", " << roundInt(worldPos.y) << ", " << roundInt(worldPos.z) << " " << " | Rotation: " << roundInt(radToDeg(rotEuler.x)) << ", " << roundInt(radToDeg(rotEuler.y)) << ", " << roundInt(radToDeg(rotEuler.z)) << " " << std::endl;
 	}
 	*/
+
+	lerpStart = skeleton.GetBone(4)->transform.GetRotation() * Quaternion({ 0,  PI/4, 0 });
+	lerpDest  = skeleton.GetBone(4)->transform.GetRotation() * Quaternion({ 0, -PI/4, 0 });
 }
 
 void CSimulation::Update(const float& deltaTime)
 {
+	static int incrementationDir = 1;
+	frameCounter += incrementationDir;
+	if (frameCounter > 5000 || frameCounter <= 0)
+		incrementationDir *= -1;
+	
+	skeleton.GetBone(4)->transform.SetRotation(Quaternion::SLerp(lerpStart, lerpDest, (float)frameCounter / 5000.f));
+
+	skeleton.UpdateBoneTransforms();
+	
 	DrawGizmo(100, 100, 100);
 	DrawSkeleton();
 }
