@@ -8,57 +8,32 @@ Mat4 Maths::GetTranslationMatrix(const Vector3& translation)
     return Mat4(1, 0, 0, 0,
                 0, 1, 0, 0,
                 0, 0, 1, 0,
-                -translation.x, translation.y, translation.z, 1);
+                translation.x, translation.y, translation.z, 1);
 }
 
 Mat4 Maths::GetXRotationMatrix(const float& angle)
 {
-    return Mat4(1, 0, 0, 0,
-                0, cosf(angle), sinf(angle), 0,
-                0, -sinf(angle), cosf(angle), 0,
-                0, 0, 0, 1);
+    return AngleAxis(angle, { 1, 0, 0 }).ToMatrix();
 }
 
 Mat4 Maths::GetYRotationMatrix(const float& angle)
 {
-    return Mat4(cosf(angle), 0, -sinf(angle), 0,
-                0, 1, 0, 0,
-                sinf(angle), 0, cosf(angle), 0,
-                0, 0, 0, 1);
+    return AngleAxis(angle, { 0, 1, 0 }).ToMatrix();
 }
 
 Mat4 Maths::GetZRotationMatrix(const float& angle)
 {
-    return Mat4(cosf(angle), sinf(angle), 0, 0,
-                -sinf(angle), cosf(angle), 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+    return AngleAxis(angle, { 0, 0, 1 }).ToMatrix();
 }
 
 Mat4 Maths::GetRotationMatrix(const Vector3& rotation, const bool& reverse)
 {
     // For cameras.
     if (reverse)
-    {
-        return GetYRotationMatrix(rotation.y) *
-               GetXRotationMatrix(-rotation.x) *
-               GetZRotationMatrix(rotation.z);
-    }
+        return Quaternion(rotation).ToMatrix().Inv4(); // TODO: Untested.
 
-    // TODO: Fix this shit lmao.
     // For objects in world space.
-    return GetZRotationMatrix(rotation.z) *
-           GetXRotationMatrix(-rotation.x) *
-           GetYRotationMatrix(rotation.y);
-    /*
-    const float cX = cos(rotation.x), sX = sin(rotation.x);
-    const float cY = cos(rotation.y), sY = sin(rotation.y);
-    const float cZ = cos(rotation.z), sZ = sin(rotation.z);
-    return Mat4(cX*cY*cZ-sX*sZ, -sX*cY*cZ-cX*sZ, sY*cZ, 0,
-                cX*cY*sZ+sX*cZ, -sX*cY*sZ+cX*cZ, sY*sZ, 0,
-                -cX*sY,         sX*sY,           cY,    0,
-                0,              0,               0,     1);
-    */
+    return Quaternion(rotation).ToMatrix();
 }
 
 Mat4 Maths::GetScaleMatrix(const Vector3& scale)

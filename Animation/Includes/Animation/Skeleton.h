@@ -6,8 +6,8 @@
 class Skeleton
 {
 private:
-	std::vector<Bone*> skeleton;
-	Bone* rootBone;
+	Bone*              rootBone;
+	std::vector<Bone*> bones;
 
 public:
 	Skeleton();
@@ -20,9 +20,8 @@ public:
 
 	bool DoesBoneExist(const Bone* bone);
 
-	Bone* GetBone(const int& id);
+	Bone* GetBone(const int& id) const;
 	std::vector<Bone*> GetBones();
 
-	void UpdateBoneTransforms();
-	void SetBoneDefaultMatrices();
+	void UpdateBoneTransforms() const;
 };
