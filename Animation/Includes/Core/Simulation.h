@@ -4,19 +4,24 @@
 #include "Engine.h"
 #include "Animation/Skeleton.h"
 
+struct ENGINE_API SGlobalVariables;
+
 class ENGINE_API ISimulation
 {
 public:
-	virtual ~ISimulation() {}
+	virtual ~ISimulation() = default;
 
 	virtual void Initialize() {}
-	virtual void Update(const float& deltaTime){}
+	virtual void Update(const float& deltaTime) {}
 };
 
 class CSimulation : public ISimulation
 {
 public:
+	int      frameCounter = 0;
+	int      selectedBone = 1;
 	Skeleton skeleton;
+	Vector3  skeletonDrawOffset = { 100, 0, 0 };
 
 	void Initialize() override;
 	void Update(const float& deltaTime) override;

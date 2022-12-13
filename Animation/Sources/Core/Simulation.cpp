@@ -23,26 +23,39 @@ void CSimulation::Initialize()
 	printf("Anim key : pos(%.2f,%.2f,%.2f) rotation quat(%.10f,%.10f,%.10f,%.10f)\n", posX, posY, posZ, quatW, quatX, quatY, quatZ);
 	*/
 
-	for (size_t i = 0; i < GetSkeletonBoneCount(); i++) {
+	for (size_t i = 0; i < GetSkeletonBoneCount(); i++)
+	{
+		// Get the bone's name and index.
 		const char* boneName  = GetSkeletonBoneName((int)i);
 		const int   boneIndex = GetSkeletonBoneIndex(boneName);
 
+		// Get the bone's position and rotation.
 		Vector3    bonePosition;
 		Quaternion boneRotation;
 		GetSkeletonBoneLocalBindTransform(boneIndex, bonePosition.x, bonePosition.y, bonePosition.z, boneRotation.w, boneRotation.x, boneRotation.y, boneRotation.z);
 
+		// Create the bone.
 		Bone* bone = new Bone(boneIndex, boneName, Transform(bonePosition, boneRotation, {1}));
 
-		if (std::strcmp(boneName, "root") == 0)
+		// Set the skeleton root and discard inverse kinematics bones.
+		if (boneIndex == 0) {
 			skeleton.SetRootBone(bone);
+		}
+		if (std::string(boneName).find("ik_") != std::string::npos) {
+			delete bone;
+			continue;
+		}
 
+		// Add the bone to the skeleton.
 		skeleton.AddBone(bone);
 	}
 
 	for (Bone* bone : skeleton.GetBones()) 
 	{
+		// Set the bone's parent.
 		bone->parent = skeleton.GetBone(GetSkeletonBoneParentIndex(bone->index));
 
+		// Find and set the bone's children.
 		// O(n^2)... didn't find a better solution.
 		for (Bone* child : skeleton.GetBones()) {
 			if (GetSkeletonBoneParentIndex(child->index) == bone->index) {
@@ -50,15 +63,16 @@ void CSimulation::Initialize()
 			}
 		}
 	}
-
-	skeleton.SetBoneDefaultMatrices();
+	
 	skeleton.UpdateBoneTransforms();
 
+	/*
 	for (const Bone* bone : skeleton.GetBones()) {
 		const Vector3 worldPos = bone->transform.GetPosition() * bone->transform.GetWorldMat();
 		const Vector3 rotEuler = bone->transform.GetRotation().ToEuler();
 		std::cout << "Bone Index: " << bone->index << " | Name: " << bone->name << " | Parent: " << (bone->parent ? bone->parent->name : "none") << " | World pos: " << roundInt(worldPos.x) << ", " << roundInt(worldPos.y) << ", " << roundInt(worldPos.z) << " " << " | Rotation: " << roundInt(radToDeg(rotEuler.x)) << ", " << roundInt(radToDeg(rotEuler.y)) << ", " << roundInt(radToDeg(rotEuler.z)) << " " << std::endl;
 	}
+	*/
 }
 
 void CSimulation::Update(const float& deltaTime)
@@ -78,11 +92,14 @@ void CSimulation::DrawSkeleton()
 {
 	for (const Bone* bone : skeleton.GetBones())
 	{
-		// Get the bone's and bone parent world positions.
-		const Vector3 pos  = bone->transform.GetPosition() * bone->transform.GetWorldMat();
-		const Vector3 pos2 = (bone->parent ? bone->parent->transform.GetPosition() * bone->parent->transform.GetWorldMat() : pos);
+		// Stop if the bone is the root or the pelvis.
+		if (!bone->parent || !bone->parent->parent) continue;
+		
+		// Get the world positions of the bone and its parent.
+		const Vector3 pos  = Vector3() * (bone        ->transform.GetLocalMat() * bone        ->transform.GetWorldMat()) + skeletonDrawOffset;
+		const Vector3 pos3 = Vector3() * (bone->parent->transform.GetLocalMat() * bone->parent->transform.GetWorldMat()) + skeletonDrawOffset;
 
 		// Draw the bone as a line from itself to its parent.
-		DrawLine(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z, 1, 0, 1);
+		DrawLine(pos.x, pos.y, pos.z, pos3.x, pos3.y, pos3.z, 1, 0, 1);
 	}
 }

@@ -52,7 +52,7 @@ Vector3 Vector3::GetNormalized() const
 
 // Negation.
 void    Vector3::Negate    ()       { x *= -1; y *= -1; z *= -1; }
-Vector3 Vector3::GetNegated() const { return Vector3(-x, -y, -z); }
+Vector3 Vector3::GetNegated() const { return Vector3(x*-1, y*-1, z*-1); }
 
 // Copy signs.
 void    Vector3::CopySign     (const Vector3& source)       { *this = GetCopiedSign(source); }

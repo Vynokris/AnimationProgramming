@@ -27,3 +27,11 @@ Mat4 AngleAxis::ToMatrix() const
                 x*z*(1-c)+y*s,    y*z*(1-c)-x*s,    sqpow(z)*(1-c)+c, 0,
                 0,                0,                0,                1);
 }
+
+std::string AngleAxis::ToString(const int& precision) const
+{
+    std::ostringstream string;
+    string.precision(precision);
+    string << std::fixed << angle << ", (" << axis.ToString(precision) << ")";
+    return string.str();
+}
