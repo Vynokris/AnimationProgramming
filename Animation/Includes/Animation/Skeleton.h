@@ -13,6 +13,7 @@ public:
 	Skeleton();
 	~Skeleton();
 
+	Bone* Skeleton::GetRootBone() const;
 	void SetRootBone(Bone* bone);
 	
 	void AddBone   (Bone* bone);
@@ -22,6 +23,4 @@ public:
 
 	Bone* GetBone(const int& id) const;
 	std::vector<Bone*> GetBones();
-
-	void UpdateBoneTransforms() const;
 };

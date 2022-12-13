@@ -80,6 +80,9 @@
     <ClInclude Include="Includes\Animation\Skeleton.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\Animation\Animation.h">
+      <Filter>Includes\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\main.cpp">
@@ -119,6 +122,9 @@
       <Filter>Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Animation\Skeleton.cpp">
+      <Filter>Sources\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Animation\Animation.cpp">
       <Filter>Sources\Animation</Filter>
     </ClCompile>
   </ItemGroup>

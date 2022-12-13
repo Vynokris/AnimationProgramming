@@ -12,14 +12,12 @@ public:
 	virtual ~ISimulation() = default;
 
 	virtual void Initialize() {}
-	virtual void Update(const float& deltaTime) {}
+	virtual void Update(float deltaTime) {}
 };
 
 class CSimulation : public ISimulation
 {
 public:
-	int      frameCounter = 0;
-	int      selectedBone = 1;
 	Skeleton skeleton;
 	Vector3  skeletonDrawOffset = { 100, 0, 0 };
 
@@ -27,7 +25,7 @@ public:
 	Quaternion lerpDest;
 
 	void Initialize() override;
-	void Update(const float& deltaTime) override;
+	void Update(float deltaTime) override;
 	static void DrawGizmo(const int& x, const int& y, const int& z);
 	void DrawSkeleton();
 };
