@@ -8,6 +8,17 @@ using namespace Maths;
 Quaternion::Quaternion()                                                               : w(0),   x(0),   y(0),   z(0)   {}
 Quaternion::Quaternion(const float& all)                                               : w(all), x(all), y(all), z(all) {}
 Quaternion::Quaternion(const float& w, const float& x, const float& y, const float& z) : w(w),   x(x),   y(y),   z(z)   {}
+Quaternion::Quaternion(const Vector3& eulerAngles)                                     : w(0),   x(0),   y(0),   z(0)
+{
+    const float cX = cos(eulerAngles.x * 0.5f), sX = sin(eulerAngles.x * 0.5f);
+    const float cY = cos(eulerAngles.y * 0.5f), sY = sin(eulerAngles.y * 0.5f);
+    const float cZ = cos(eulerAngles.z * 0.5f), sZ = sin(eulerAngles.z * 0.5f);
+
+    w = cX*cY*cZ + sX*sY*sZ;
+    x = sX*cY*cZ - cX*sY*sZ;
+    y = cX*sY*cZ + sX*cY*sZ;
+    z = cX*cY*sZ - sX*sY*cZ;
+}
 
 // Quaternion negation.
 Quaternion Quaternion::operator-() const { return { -w, -x, -y, -z }; }
@@ -19,12 +30,6 @@ Quaternion Quaternion::operator-() const { return { -w, -x, -y, -z }; }
 float Quaternion::GetModulus() const
 {
     return sqrt(sqpow(w) + sqpow(x) + sqpow(y) + sqpow(z));
-}
-
-// Returns the argument of the quaternion.
-float Quaternion::GetArgument() const // TODO: Test this.
-{
-    return acos(w / GetModulus());
 }
 
 // Normalization.
@@ -47,25 +52,26 @@ void Quaternion::Inverse()
 {
     *this = GetInverse();
 }
-Quaternion Quaternion::GetInverse() const // TODO: Test this.
+Quaternion Quaternion::GetInverse() const
 {
     const float sqAbs = sqpow(w) + sqpow(x) + sqpow(y) + sqpow(z);
     return Quaternion(w / sqAbs, -x / sqAbs, -y / sqAbs, -z / sqAbs);
 }
 
 // Rotation.
-Quaternion Quaternion::RotateQuat(const Quaternion& q) const // TODO: Test this.
+Quaternion Quaternion::RotateQuat(const Quaternion& q) const
 {
-    return q * *this;
+    return *this * q;
 }
-Vector3 Quaternion::RotateVec(const Vector3& v) const // TODO: Test this.
+Vector3 Quaternion::RotateVec(const Vector3& v) const
 {
-    const Quaternion rotatedVec = RotateQuat({ 0, v.x, v.y, v.z });
-    return Vector3(rotatedVec.x, rotatedVec.y, rotatedVec.z);
+    const Quaternion vecQuat = { 0, v.x, v.y, v.z };
+    const Quaternion rotated = *this * vecQuat * GetInverse();
+    return { rotated.x, rotated.y, rotated.z };
 }
 
 // Returns the angle-axis rotation that corresponds to this quaternion.
-AngleAxis Quaternion::ToAngleAxis() const // TODO: Test this.
+AngleAxis Quaternion::ToAngleAxis() const
 {
     const float angle = 2 * acos(w);
     return AngleAxis(
@@ -79,7 +85,7 @@ AngleAxis Quaternion::ToAngleAxis() const // TODO: Test this.
 }
 
 // Returns the rotation matrix that corresponds to this quaternion.
-Mat4 Quaternion::ToMatrix() const // TODO: Test this.
+Mat4 Quaternion::ToMatrix() const
 {
     const float w2 = sqpow(w);
     const float x2 = sqpow(x);
@@ -94,13 +100,26 @@ Mat4 Quaternion::ToMatrix() const // TODO: Test this.
 }
 
 // Returns the euler angles that correspond to this quaternion.
-Vector3 Quaternion::ToEuler() const // TODO: Test this.
+Vector3 Quaternion::ToEuler() const
 {
-    return Vector3(
-        atan2(2*(w*x+y*z), 1-2*(sqpow(w)+sqpow(x))),
-        asin(2*(w*y-z*x)),
-        atan2(2*(w*z+x*y), 1-2*(sqpow(y)+sqpow(z)))
-    );
+    Vector3 eulerAngles;
+
+    // X-axis rotation (roll).
+    const float sinX_cosY = 2 * (w * x + y * z);
+    const float cosX_cosY = 1 - 2 * (x * x + y * y);
+    eulerAngles.x = std::atan2(sinX_cosY, cosX_cosY);
+
+    // Y-axis rotation (pitch).
+    const float sinX = 2 * (w * y - z * x);
+    if (std::abs(sinX) >= 1) eulerAngles.y = std::copysign(PI/2, sinX); // Use 90 degrees if out of range.
+    else                     eulerAngles.y = std::asin(sinX);
+
+    // Z-axis rotation (yaw).
+    const float sinZ_cosY = 2 * (w * z + x * y);
+    const float cosZ_cosY = 1 - 2 * (y * y + z * z);
+    eulerAngles.z = std::atan2(sinZ_cosY, cosZ_cosY);
+
+    return eulerAngles;
 }
 
 // Returns the quaternion's contents as a string.

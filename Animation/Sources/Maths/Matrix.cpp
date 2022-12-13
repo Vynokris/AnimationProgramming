@@ -44,13 +44,21 @@ Mat4 Maths::GetRotationMatrix(const Vector3& rotation, const bool& reverse)
                GetXRotationMatrix(-rotation.x) *
                GetZRotationMatrix(rotation.z);
     }
+
+    // TODO: Fix this shit lmao.
     // For objects in world space.
-    else
-    {
-        return GetZRotationMatrix(rotation.z) *
-               GetXRotationMatrix(-rotation.x) *
-               GetYRotationMatrix(rotation.y);
-    }
+    return GetZRotationMatrix(rotation.z) *
+           GetXRotationMatrix(-rotation.x) *
+           GetYRotationMatrix(rotation.y);
+    /*
+    const float cX = cos(rotation.x), sX = sin(rotation.x);
+    const float cY = cos(rotation.y), sY = sin(rotation.y);
+    const float cZ = cos(rotation.z), sZ = sin(rotation.z);
+    return Mat4(cX*cY*cZ-sX*sZ, -sX*cY*cZ-cX*sZ, sY*cZ, 0,
+                cX*cY*sZ+sX*cZ, -sX*cY*sZ+cX*cZ, sY*sZ, 0,
+                -cX*sY,         sX*sY,           cY,    0,
+                0,              0,               0,     1);
+    */
 }
 
 Mat4 Maths::GetScaleMatrix(const Vector3& scale)
@@ -66,10 +74,8 @@ Mat4 Maths::GetTransformMatrix(const Vector3& position, const Vector3& rotation,
     // For cameras.
     if (reverse)
     {
-        return GetTranslationMatrix(position)   *
-               GetYRotationMatrix  (rotation.y) *
-               GetXRotationMatrix  (rotation.x) *
-               GetZRotationMatrix  (rotation.z) *
+        return GetTranslationMatrix(position)          *
+               GetRotationMatrix   (rotation, reverse) * 
                GetScaleMatrix      (scale);
     }
     
@@ -80,10 +86,8 @@ Mat4 Maths::GetTransformMatrix(const Vector3& position, const Vector3& rotation,
     }
     
     // For objects in world space.
-    return GetScaleMatrix      (scale)      *
-           GetZRotationMatrix  (rotation.z) *
-           GetXRotationMatrix  (rotation.x) *
-           GetYRotationMatrix  (rotation.y) *
+    return GetScaleMatrix      (scale)             *
+           GetRotationMatrix   (rotation, reverse) * 
            GetTranslationMatrix(position);
 }
 

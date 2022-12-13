@@ -24,4 +24,5 @@ public:
 	std::vector<Bone*> GetBones();
 
 	void UpdateBoneTransforms();
+	void SetBoneDefaultMatrices();
 };

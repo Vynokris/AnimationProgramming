@@ -410,6 +410,7 @@ inline AngleAxis Matrix<R, C>::ToAngleAxis() const
 template<int R, int C>
 inline Quaternion Matrix<R, C>::ToQuaternion() const
 {
+    // TODO: if this doesn't work, see https://danceswithcode.net/engineeringnotes/quaternions/quaternions.html
     assert(R == C && (R == 3 || R == 4));
     const float w = sqrt(1 + M[0][0] + M[1][1] + M[2][2]) / 2;
     return Quaternion(
