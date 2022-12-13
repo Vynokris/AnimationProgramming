@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "Render/Camera.h"
 #include "Render/Renderer.h"
 #include "GlobalVariables.h"

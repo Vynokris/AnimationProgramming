@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "Animation/Animation.h"
 #include "FileSystem.h"
 #include "GlobalVariables.h"

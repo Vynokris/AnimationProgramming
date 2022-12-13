@@ -1,8 +1,6 @@
 #ifndef __BEHAVIORCOMPONENT_H__
 #define __BEHAVIORCOMPONENT_H__
 
-#include "BaseTypes.h"
-
 #include "Object.h"
 #include "BehaviorManager.h"
 
