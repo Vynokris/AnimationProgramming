@@ -82,6 +82,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\main.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
     <ClCompile Include="Sources\Maths\AngleAxis.cpp">
       <Filter>Sources\Maths</Filter>
     </ClCompile>
@@ -103,23 +106,20 @@
     <ClCompile Include="Sources\Maths\Vector2.cpp">
       <Filter>Sources\Maths</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Maths\Vector4.cpp">
-      <Filter>Sources\Maths</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Maths\Vector3.cpp">
       <Filter>Sources\Maths</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\main.cpp">
-      <Filter>Sources</Filter>
+    <ClCompile Include="Sources\Maths\Vector4.cpp">
+      <Filter>Sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Core\Simulation.cpp">
+      <Filter>Sources\Core</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Animation\Bone.cpp">
       <Filter>Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Animation\Skeleton.cpp">
       <Filter>Sources\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Core\Simulation.cpp">
-      <Filter>Sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
