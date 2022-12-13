@@ -74,14 +74,10 @@ Vector3 Quaternion::RotateVec(const Vector3& v) const
 AngleAxis Quaternion::ToAngleAxis() const
 {
     const float angle = 2 * acos(w);
-    return AngleAxis(
-        angle,
-        {
-            x / sin(angle/2),
-            y / sin(angle/2),
-            z / sin(angle/2)
-        }
-    );
+    AngleAxis angleAxis;
+    if (angle == 0.f || angle == PI) angleAxis = AngleAxis(angle, Vector3(x, y, z).GetNormalized());
+    else                             angleAxis = AngleAxis(angle, Vector3(x, y, z) / sin(angle/2));
+    return angleAxis;
 }
 
 // Returns the rotation matrix that corresponds to this quaternion.
@@ -91,12 +87,10 @@ Mat4 Quaternion::ToMatrix() const
     const float x2 = sqpow(x);
     const float y2 = sqpow(y);
     const float z2 = sqpow(z);
-    return Mat4(
-        2*(w2+x2)-1, 2*(x*y+z*w), 2*(x*z-y*w), 0,
-        2*(x*y-z*w), 2*(w2+y2)-1, 2*(y*z+x*w), 0,
-        2*(x*z+y*w), 2*(y*z-x*w), 2*(w2+z2)-1, 0,
-        0,           0,           0,           1
-    );
+    return Mat4(2*(w2+x2)-1, 2*(x*y+z*w), 2*(x*z-y*w), 0,
+                2*(x*y-z*w), 2*(w2+y2)-1, 2*(y*z+x*w), 0,
+                2*(x*z+y*w), 2*(y*z-x*w), 2*(w2+z2)-1, 0,
+                0,           0,           0,           1);
 }
 
 // Returns the euler angles that correspond to this quaternion.

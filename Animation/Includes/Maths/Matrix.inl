@@ -1,3 +1,6 @@
+#include <iostream>
+
+#include "Maths/Maths.h"
 #include "Matrix.h"
 #include "AngleAxis.h"
 #include "Quaternion.h"
@@ -16,16 +19,16 @@ inline Matrix<R, C>::Matrix(const bool& identity)
     {
         for (int i = 0; i < R; i++)
             for (int j = 0; j < C; j++)
-                M[i][j] = 0;
+                m[i][j] = 0;
     }
     else
     {
         for (int i = 0; i < R; i++)
             for (int j = 0; j < C; j++)
                 if (i == j)
-                    M[i][j] = 1;
+                    m[i][j] = 1;
                 else
-                    M[i][j] = 0;
+                    m[i][j] = 0;
     }
 }
 
@@ -36,7 +39,7 @@ inline Matrix<R, C>::Matrix(const Matrix<R, C>& matrix)
     assert(R >= 2 && C >= 2/*, "Matrix size is too small."*/);
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] = matrix[i][j];
+            m[i][j] = matrix[i][j];
 }
 
 // Matrix from float 2D array.
@@ -46,42 +49,42 @@ inline Matrix<R, C>::Matrix(const float matrix[R][C])
     assert(R > 2 && C > 2/*, "Matrix size is too small."*/);
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] = matrix[i][j];
+            m[i][j] = matrix[i][j];
 }
 
 // Matrix 2x2 constructor.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const float& a, const float& b, const float& c, const float& d)
+inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m10, const float& m11)
 {
     assert(R == 2 && C == 2/*, "Matrix size doesn't correspond to the number of initializers."*/);
-    M[0][0] = a; M[0][1] = b;
-    M[1][0] = c; M[1][1] = d;
+    m[0][0] = m00; m[0][1] = m01;
+    m[1][0] = m10; m[1][1] = m11;
 }
 
 // Matrix 3x3 constructor.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const float& a, const float& b, const float& c, 
-                            const float& d, const float& e, const float& f, 
-                            const float& g, const float& h, const float& i)
+inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02, 
+                            const float& m10, const float& m11, const float& m12, 
+                            const float& m20, const float& m21, const float& m22)
 {
     assert(R == 3 && C == 3/*, "Matrix size doesn't correspond to the number of initializers."*/);
-    M[0][0] = a; M[0][1] = b; M[0][2] = c;
-    M[1][0] = d; M[1][1] = e; M[1][2] = f;
-    M[2][0] = g; M[2][1] = h; M[2][2] = i;
+    m[0][0] = m00; m[0][1] = m01; m[0][2] = m02;
+    m[1][0] = m10; m[1][1] = m11; m[1][2] = m12;
+    m[2][0] = m20; m[2][1] = m21; m[2][2] = m22;
 }
 
 // Matrix 4x4 constructor.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const float& a, const float& b, const float& c, const float& d, 
-                            const float& e, const float& f, const float& g, const float& h, 
-                            const float& i, const float& j, const float& k, const float& l, 
-                            const float& m, const float& n, const float& o, const float& p)
+inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02, const float& m03, 
+                            const float& m10, const float& m11, const float& m12, const float& m13, 
+                            const float& m20, const float& m21, const float& m22, const float& m23, 
+                            const float& m30, const float& m31, const float& m32, const float& m33)
 {
     assert(R == 4 && C == 4/*, "Matrix size doesn't correspond to the number of initializers."*/);
-    M[0][0] = a; M[0][1] = b; M[0][2] = c; M[0][3] = d;
-    M[1][0] = e; M[1][1] = f; M[1][2] = g; M[1][3] = h;
-    M[2][0] = i; M[2][1] = j; M[2][2] = k; M[2][3] = l;
-    M[3][0] = m; M[3][1] = n; M[3][2] = o; M[3][3] = p;
+    m[0][0] = m00; m[0][1] = m01; m[0][2] = m02; m[0][3] = m03;
+    m[1][0] = m10; m[1][1] = m11; m[1][2] = m12; m[1][3] = m13;
+    m[2][0] = m20; m[2][1] = m21; m[2][2] = m22; m[2][3] = m23;
+    m[3][0] = m30; m[3][1] = m31; m[3][2] = m32; m[3][3] = m33;
 }
 
 // Matrix 4x4 constructor (from 2x2 matrices).
@@ -89,10 +92,10 @@ template<int R, int C>
 inline Matrix<R, C>::Matrix(const Mat2& a, const Mat2& b, const Mat2& c, const Mat2& d)
 {
     assert(R == 4 && C == 4/*, "Matrix size doesn't correspond to the number of initializers."*/);
-    M[0][0] = a[0][0]; M[0][1] = a[0][1]; M[0][2] = b[0][0]; M[0][3] = b[0][1];
-    M[1][0] = a[1][0]; M[1][1] = a[1][1]; M[1][2] = b[1][0]; M[1][3] = b[1][1];
-    M[2][0] = c[0][0]; M[2][1] = c[0][1]; M[2][2] = d[0][0]; M[2][3] = d[0][1];
-    M[3][0] = c[1][0]; M[3][1] = c[1][1]; M[3][2] = d[1][0]; M[3][3] = d[1][1];
+    m[0][0] = a[0][0]; m[0][1] = a[0][1]; m[0][2] = b[0][0]; m[0][3] = b[0][1];
+    m[1][0] = a[1][0]; m[1][1] = a[1][1]; m[1][2] = b[1][0]; m[1][3] = b[1][1];
+    m[2][0] = c[0][0]; m[2][1] = c[0][1]; m[2][2] = d[0][0]; m[2][3] = d[0][1];
+    m[3][0] = c[1][0]; m[3][1] = c[1][1]; m[3][2] = d[1][0]; m[3][3] = d[1][1];
 }
 
 
@@ -107,7 +110,7 @@ inline Matrix<R, C>& Matrix<R, C>::operator=(const Matrix<R, C>& matrix)
     // Matrix content copy
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] = matrix[i][j];
+            m[i][j] = matrix[i][j];
 
     return *this;
 }
@@ -119,7 +122,7 @@ inline Matrix<R, C>& Matrix<R, C>::operator=(float** matrix)
 
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] = matrix[i][j];
+            m[i][j] = matrix[i][j];
 
     return *this;
 }
@@ -131,7 +134,7 @@ inline Matrix<R, C> Matrix<R, C>::operator+(const float& val) const
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            tmp[i][j] = M[i][j] + val;
+            tmp[i][j] = m[i][j] + val;
     return tmp;
 }
 
@@ -141,7 +144,7 @@ inline Matrix<R, C> Matrix<R, C>::operator+(const Matrix<R, C>& matrix) const
     Matrix<_R, _C> tmp;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            tmp[i][j] = M[i][j] + matrix[i][j];
+            tmp[i][j] = m[i][j] + matrix[i][j];
     return tmp;
 }
 
@@ -152,7 +155,7 @@ inline Matrix<R, C> Matrix<R, C>::operator-() const
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            tmp[i][j] = -M[i][j];
+            tmp[i][j] = -m[i][j];
     return tmp;
 }
 
@@ -162,7 +165,7 @@ inline Matrix<R, C> Matrix<R, C>::operator-(const float& val) const
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            tmp[i][j] = M[i][j] - val;
+            tmp[i][j] = m[i][j] - val;
     return tmp;
 }
 
@@ -172,7 +175,7 @@ inline Matrix<R, C> Matrix<R, C>::operator-(const Matrix<R, C>& matrix) const
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            tmp[i][j] = M[i][j] - matrix[i][j];
+            tmp[i][j] = m[i][j] - matrix[i][j];
     return tmp;
 }
 
@@ -183,7 +186,7 @@ inline Matrix<R, C> Matrix<R, C>::operator*(const float& val) const
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            tmp[i][j] = M[i][j] * val;
+            tmp[i][j] = m[i][j] * val;
     return tmp;
 }
 
@@ -199,7 +202,7 @@ inline Matrix<(R > R2 ? R : R2), (C > C2 ? C : C2)> Matrix<R, C>::operator*(cons
         {
             result[i][j] = 0;
             for (int k = 0; k < R2; k++)
-                result[i][j] += M[i][k] * matrix[k][j];
+                result[i][j] += m[i][k] * matrix[k][j];
         }
     }
     return result;
@@ -212,7 +215,7 @@ inline Matrix<R, C> Matrix<R, C>::operator/(const float& val) const
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            tmp[i][j] = M[i][j] / val;
+            tmp[i][j] = m[i][j] / val;
     return tmp;
 }
 
@@ -222,7 +225,7 @@ inline void Matrix<R, C>::operator+=(const float& val)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] += val;
+            m[i][j] += val;
 }
 
 template<int R, int C>
@@ -230,7 +233,7 @@ inline void Matrix<R, C>::operator+=(const Matrix<R, C>& matrix)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] += matrix[i][j];
+            m[i][j] += matrix[i][j];
 }
 
 // Matrix subtraction assignment.
@@ -239,7 +242,7 @@ inline void Matrix<R, C>::operator-=(const float& val)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] -= val;
+            m[i][j] -= val;
 }
 
 template<int R, int C>
@@ -247,7 +250,7 @@ inline void Matrix<R, C>::operator-=(const Matrix<R, C>& matrix)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] -= matrix[i][j];
+            m[i][j] -= matrix[i][j];
 }
 
 // Matrix multiplication assignment.
@@ -256,7 +259,7 @@ inline void Matrix<R, C>::operator*=(const float& val)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            M[i][j] *= val;
+            m[i][j] *= val;
 }
 
 template <int R, int C>
@@ -274,7 +277,7 @@ inline Matrix<R, C> Matrix<R, C>::operator^(const float& n) const
     for (int n0 = 0; n0 < n; n0++)
         for (int i = 0; i < R; i++)
             for (int j = 0; j < C; j++)
-                tmp[i][j] *= M[i][j];
+                tmp[i][j] *= m[i][j];
     return tmp;
 }
 
@@ -291,16 +294,30 @@ Matrix<R, C> Matrix<R, C>::Pow(const float& n) const
 template<int R, int C>
 inline float* Matrix<R, C>::AsPtr()
 {
-    return &M[0][0];
+    return &m[0][0];
 }
 
 template<int R, int C>
 inline bool Matrix<R, C>::IsIdentity() const
 {
-    for (int i = 0; i < R; i++)
-        for (int j = 0; j < C; j++)
-            if ((i != j && M[i][j] != 0) || (i == j && M[i][j] != 1))
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            if ((i != j && m[i][j] != 0) || (i == j && m[i][j] != 1))
                 return false;
+        }
+    }
+    return true;
+}
+
+template <int R, int C>
+bool Matrix<R, C>::IsSymmetrical() const
+{
+    for (int i = 0; i < R; i++) {
+        for (int j = i+1; j < C; j++) {
+            if (roundInt(m[i][j]*10000)/10000.f != roundInt(m[j][i]*10000)/10000.f) // Round to 5 floating points.
+                return false;
+        }
+    }
     return true;
 }
 
@@ -308,57 +325,60 @@ inline bool Matrix<R, C>::IsIdentity() const
 template<int R, int C>
 inline float Matrix<R, C>::Det2() const
 {
-    return (M[0][0] * M[1][1]) - (M[0][1] * M[1][0]);
+    return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
 }
 
 template<int R, int C>
 inline float Matrix<R, C>::Det3() const
 {
-    return M[0][0] * Mat2 { M[1][1], M[1][2], M[2][1], M[2][2] }.Det2() -
-           M[0][1] * Mat2 { M[1][0], M[1][2], M[2][0], M[2][2] }.Det2() +
-           M[0][2] * Mat2 { M[1][0], M[1][1], M[2][0], M[2][1] }.Det2();
+    return m[0][0] * Mat2 { m[1][1], m[1][2], m[2][1], m[2][2] }.Det2() -
+           m[0][1] * Mat2 { m[1][0], m[1][2], m[2][0], m[2][2] }.Det2() +
+           m[0][2] * Mat2 { m[1][0], m[1][1], m[2][0], m[2][1] }.Det2();
 }
 
 template<int R, int C>
 inline float Matrix<R, C>::Det4() const
 {
-    Mat3 a(M[1][1], M[1][2], M[1][3], M[2][1], M[2][2], M[2][3], M[3][1], M[3][2], M[3][3]);
-    Mat3 b(M[1][0], M[1][2], M[1][3], M[2][0], M[2][2], M[2][3], M[3][0], M[3][2], M[3][3]);
-    Mat3 c(M[1][0], M[1][1], M[1][3], M[2][0], M[2][1], M[2][3], M[3][0], M[3][1], M[3][3]);
-    Mat3 d(M[1][0], M[1][1], M[1][2], M[2][0], M[2][1], M[2][2], M[3][0], M[3][1], M[3][2]);
+    Mat3 a(m[1][1], m[1][2], m[1][3], m[2][1], m[2][2], m[2][3], m[3][1], m[3][2], m[3][3]);
+    Mat3 b(m[1][0], m[1][2], m[1][3], m[2][0], m[2][2], m[2][3], m[3][0], m[3][2], m[3][3]);
+    Mat3 c(m[1][0], m[1][1], m[1][3], m[2][0], m[2][1], m[2][3], m[3][0], m[3][1], m[3][3]);
+    Mat3 d(m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2], m[3][0], m[3][1], m[3][2]);
 
-    return (a.Det3() * M[0][0] - b.Det3() * M[0][1] + c.Det3() * M[0][2] - d.Det3() * M[0][3]);
+    return (a.Det3() * m[0][0] - b.Det3() * m[0][1] + c.Det3() * m[0][2] - d.Det3() * m[0][3]);
 }
 
 // Inverses.
 template<int R, int C>
 inline Mat2 Matrix<R, C>::Inv2() const
 {
-    Mat2 val(M[1][1], -M[0][1], -M[1][0], M[0][0]);
+    Mat2 val(m[1][1], -m[0][1], -m[1][0], m[0][0]);
     return val / val.Det2();
 }
 
 template<int R, int C>
 inline Mat3 Matrix<R, C>::Inv3() const
 {
-    Mat4 val(M[0][0], M[0][1], M[0][2], 0,
-             M[1][0], M[1][1], M[1][2], 0,
-             M[2][0], M[2][1], M[2][2], 0,
+    Mat4 val(m[0][0], m[0][1], m[0][2], 0,
+             m[1][0], m[1][1], m[1][2], 0,
+             m[2][0], m[2][1], m[2][2], 0,
              0, 0, 0, 1);
+    
     val = val.Inv4();
-    Mat3 result(val.M[0][0], val.M[0][1], val.M[0][2],
-                val.M[1][0], val.M[1][1], val.M[1][2],
-                val.M[2][0], val.M[2][1], val.M[2][2]);
+    
+    Mat3 result(val.m[0][0], val.m[0][1], val.m[0][2],
+                val.m[1][0], val.m[1][1], val.m[1][2],
+                val.m[2][0], val.m[2][1], val.m[2][2]);
+    
     return result;
 }
 
 template<int R, int C>
 inline Mat4 Matrix<R, C>::Inv4() const
 {
-    Mat2 a(M[0][0], M[0][1], M[1][0], M[1][1]);
-    Mat2 b(M[0][2], M[0][3], M[1][2], M[1][3]);
-    Mat2 c(M[2][0], M[2][1], M[3][0], M[3][1]);
-    Mat2 d(M[2][2], M[2][3], M[3][2], M[3][3]);
+    const Mat2 a(m[0][0], m[0][1], m[1][0], m[1][1]);
+    const Mat2 b(m[0][2], m[0][3], m[1][2], m[1][3]);
+    const Mat2 c(m[2][0], m[2][1], m[3][0], m[3][1]);
+    const Mat2 d(m[2][2], m[2][3], m[3][2], m[3][3]);
 
     Mat4 result =
     {
@@ -382,7 +402,7 @@ inline Matrix<R, C> Matrix<R, C>::GetTransposed() const
     Matrix<C, R> result;
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
-            result[j][i] = M[i][j];
+            result[j][i] = m[i][j];
     return result;
 }
 
@@ -392,71 +412,37 @@ template<int R, int C>
 inline AngleAxis Matrix<R, C>::ToAngleAxis() const
 {
     assert(R == C && (R == 3 || R == 4));
-    const float angle = acos((M[0][0] + M[1][1] + M[2][2] - 1) / 2);
+    const float angle = acos((m[0][0] + m[1][1] + m[2][2] - 1) / 2);
     const float n     = 2 * sin(angle);
-
-    if (angle == 0 || angle == PI) printf("Rot mat to angle axis is probably wrong...");
-
-    return AngleAxis(
-        angle,
-        {
-            (M[2][1]-M[1][2]) / n,
-            (M[0][2]-M[2][0]) / n,
-            (M[1][0]-M[0][1]) / n
-        }
-    );
+    
+    AngleAxis angleAxis;
+    if (angle == 0.f || angle == PI) angleAxis = AngleAxis(angle, Vector3(m[1][2]-m[2][1], m[2][0]-m[0][2], m[0][1]-m[1][0]).GetNormalized().GetNegated());
+    else                             angleAxis = AngleAxis(angle, Vector3(m[1][2]-m[2][1], m[2][0]-m[0][2], m[0][1]-m[1][0])/n);
+    return angleAxis;
 }
 
 template<int R, int C>
 inline Quaternion Matrix<R, C>::ToQuaternion() const
 {
-    // TODO: if this doesn't work, see https://danceswithcode.net/engineeringnotes/quaternions/quaternions.html
-    assert(R == C && (R == 3 || R == 4));
-    const float w = sqrt(1 + M[0][0] + M[1][1] + M[2][2]) / 2;
-    return Quaternion(
-        w,
-        (M[2][1]-M[1][2]) / (4*w),
-        (M[0][2]-M[2][0]) / (4*w),
-        (M[1][0]-M[0][1]) / (4*w)
-    );
+    return ToAngleAxis().ToQuaternion();
 }
 
 template<int R, int C>
-inline std::string Matrix<R, C>::ToString(const bool& showSize) const
+inline std::string Matrix<R, C>::ToString(const int& precision) const
 {
-    std::string output = "";
+    std::ostringstream output;
 
-    // Add data to output.
-    if (showSize)
-        output += "Matrix<" + std::to_string(R) + "," + std::to_string(C) + ">\n";
-
-    // Add content to output.
     for (int i = 0; i < R; i++)
     {
         for (int j = 0; j < C; j++)
         {
-            std::ostringstream temp;
-            temp.precision(2);
-            temp << std::fixed << M[i][j];
-            output += temp.str() + ", ";
+            output.precision(precision);
+            output << std::fixed << m[i][j];
+            if (i < R-1 || j < C-1)
+                output << ", ";
         }
-        output += "\n";
+        if (i < R-1)
+            output << std::endl;
     }
-    return output + "\n";
-}
-
-template<int R, int C>
-inline void Matrix<R, C>::Print(const bool& showSize) const
-{
-    // Print data
-    if (showSize)
-        printf("Matrix<%d,%d>\n", R, C);
-
-    // Print content
-    for (int i = 0; i < R; i++)
-    {
-        for (int j = 0; j < C; j++) printf("%.2f, ", M[i][j]);
-        printf("\n");
-    }
-    printf("\n");
+    return output.str();
 }
