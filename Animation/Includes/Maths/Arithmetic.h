@@ -32,11 +32,11 @@ namespace Maths
     // Clamps the given value to be superior or equal to the minimum value.
     float clampAbove(float val, const float& min);
 
-    // Compute linear interpolation between start and end for the parameter val (if 0 <= val <= 1: start <= return <= end).
-    float lerp(const float& val, const float& start, const float& end);
+    // Compute linear interpolation between start and dest for the parameter val (if 0 <= val <= 1: start <= return <= end).
+    float lerp(const float& start, const float& dest, const float& val);
 
     // Compute the linear interpolation factor that returns val when lerping between start and end.
-    float getLerp(const float& val, const float& start, const float& end);
+    float getLerp(const float& start, const float& dest, const float& val);
 
     // Remaps the given value from one range to another.
     float remap(const float& val, const float& inputStart, const float& inputEnd, const float& outputStart, const float& outputEnd);

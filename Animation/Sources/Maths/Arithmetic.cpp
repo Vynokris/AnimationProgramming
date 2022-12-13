@@ -39,17 +39,17 @@ float Maths::clampUnder(float val, const float& max) { if (val > max) val = max;
 // Clamps the given value to be superior or equal to the minimum value.
 float Maths::clampAbove(float val, const float& min) { if (val < min) val = min; return val; }
 
-// Compute linear interpolation between start and end for the parameter val (if 0 <= val <= 1: start <= return <= end).
-float Maths::lerp(const float& val, const float& start, const float& end)
+// Compute linear interpolation between start and dest for the parameter val (if 0 <= val <= 1: start <= return <= end).
+float Maths::lerp(const float& start, const float& dest, const float& val)
 {
-    return start + val * (end - start);
+    return start + val * (dest - start);
 }
 
 // Compute the linear interpolation factor that returns val when lerping between start and end.
-float Maths::getLerp(const float& val, const float& start, const float& end)
+float Maths::getLerp(const float& start, const float& dest, const float& val)
 {
-    if (end - start != 0)
-        return (val - start) / (end - start);
+    if (dest - start != 0)
+        return (val - start) / (dest - start);
     return 0;
 }
 

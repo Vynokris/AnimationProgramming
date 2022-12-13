@@ -22,6 +22,7 @@ namespace Maths
         template <typename T> bool    operator==(const T& val) const;
         template <typename T> bool    operator!=(const T& val) const;
         template <typename T> Vector4 operator+ (const T& val) const;
+                              Vector4 operator- (            ) const;
         template <typename T> Vector4 operator- (const T& val) const;
         template <typename T> Vector4 operator* (const T& val) const;
         template <typename T> Vector4 operator/ (const T& val) const;
@@ -29,11 +30,8 @@ namespace Maths
         template <typename T> void    operator-=(const T& val);
         template <typename T> void    operator*=(const T& val);
         template <typename T> void    operator/=(const T& val);
-                              float   operator& (const Vector4& v) const;
                               float   Dot       (const Vector4& v) const;
-                              Vector3 operator^ (const Vector4& v) const;
                               Vector3 Cross     (const Vector4& v) const;
-                              Vector4 operator- ()                 const;
 
         // -- Methods -- //
 

@@ -20,6 +20,7 @@ namespace Maths
         template <typename T> bool    operator==(const T& val) const;
         template <typename T> bool    operator!=(const T& val) const;
         template <typename T> Vector2 operator+ (const T& val) const;
+                              Vector2 operator- (            ) const;
         template <typename T> Vector2 operator- (const T& val) const;
         template <typename T> Vector2 operator* (const T& val) const;
         template <typename T> Vector2 operator/ (const T& val) const;
@@ -27,11 +28,8 @@ namespace Maths
         template <typename T> void    operator-=(const T& val);
         template <typename T> void    operator*=(const T& val);
         template <typename T> void    operator/=(const T& val);
-                              float   operator& (const Vector2& v) const;
                               float   Dot       (const Vector2& v) const;
-                              float   operator^ (const Vector2& v) const;
                               float   Cross     (const Vector2& v) const;
-                              Vector2 operator- ()                 const;
 
         // -- Methods -- //
 
@@ -70,7 +68,7 @@ namespace Maths
     };
 
     // Calculates linear interpolation for a value from a start point to an end point.
-    Vector2 Point2Lerp(const float& val, const Vector2& start, const Vector2& end);
+    Vector2 Point2Lerp(const Vector2& start, const Vector2& dest, const float& val);
 }
 
 #include "Vector2.inl"

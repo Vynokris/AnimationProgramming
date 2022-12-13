@@ -25,14 +25,15 @@ namespace Maths
         template <typename T> bool       operator==(const T& val) const;
         template <typename T> bool       operator!=(const T& val) const;
         template <typename T> Quaternion operator+ (const T& val) const;
+                              Quaternion operator- (            ) const;
         template <typename T> Quaternion operator- (const T& val) const;
         template <typename T> Quaternion operator* (const T& val) const;
         template <typename T> Quaternion operator/ (const T& val) const;
         template <typename T> void       operator+=(const T& val);
         template <typename T> void       operator-=(const T& val);
         template <typename T> void       operator*=(const T& val);
-        template <typename T> void       operator/=(const T& val);
-                              Quaternion operator- ()             const;
+		template <typename T> void       operator/=(const T& val);
+							  float      Dot       (const Quaternion& q) const;
         
         // -- Methods -- //
         
@@ -58,7 +59,7 @@ namespace Maths
 		// Interpolation.
 		static Quaternion Lerp (const Quaternion& start, const Quaternion& dest, const float& t);
 		static Quaternion NLerp(const Quaternion& start, const Quaternion& dest, const float& t);
-		static Quaternion SLerp(const Quaternion& start, const Quaternion& dest, const float& t);
+		static Quaternion SLerp(const Quaternion& start, const Quaternion& dest, const float& t, const bool& useShortestPath = true);
 
 		// Conversion.
         AngleAxis   ToAngleAxis()                      const; // Returns the angle-axis rotation that corresponds to this quaternion.
