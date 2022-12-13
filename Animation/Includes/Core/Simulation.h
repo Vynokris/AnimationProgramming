@@ -23,6 +23,9 @@ public:
 	Skeleton skeleton;
 	Vector3  skeletonDrawOffset = { 100, 0, 0 };
 
+	Quaternion lerpStart;
+	Quaternion lerpDest;
+
 	void Initialize() override;
 	void Update(const float& deltaTime) override;
 	static void DrawGizmo(const int& x, const int& y, const int& z);

@@ -70,6 +70,32 @@ Vector3 Quaternion::RotateVec(const Vector3& v) const
     return { rotated.x, rotated.y, rotated.z };
 }
 
+// Interpolation.
+Quaternion Quaternion::Lerp(const Quaternion& start, const Quaternion& dest, const float& t)
+{
+    return Quaternion(lerp(t, start.w, dest.w),
+                      lerp(t, start.x, dest.x),
+                      lerp(t, start.y, dest.y),
+                      lerp(t, start.z, dest.z));
+}
+
+Quaternion Quaternion::NLerp(const Quaternion& start, const Quaternion& dest, const float& t)
+{
+    return Lerp(start, dest, t).GetNormalized();
+}
+
+Quaternion Quaternion::SLerp(const Quaternion& start, const Quaternion& dest, const float& t)
+{
+    const float theta = acos(start.x*dest.x + start.y*dest.y + start.z*dest.z + start.w*dest.w);
+    const float sn    = sin(theta);
+    const float Wa    = sin((1-t)*theta) / sn;
+    const float Wb    = sin(t*theta) / sn;
+    return Quaternion(Wa * start.w + Wb * dest.w,
+                      Wa * start.x + Wb * dest.x,
+                      Wa * start.y + Wb * dest.y,
+                      Wa * start.z + Wb * dest.z).GetNormalized();
+}
+
 // Returns the angle-axis rotation that corresponds to this quaternion.
 AngleAxis Quaternion::ToAngleAxis() const
 {

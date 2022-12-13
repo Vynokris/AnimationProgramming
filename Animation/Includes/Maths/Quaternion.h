@@ -55,6 +55,11 @@ namespace Maths
         Quaternion RotateQuat(const Quaternion& q) const; // Applies this quaternion's rotation to the given quaternion.
         Vector3    RotateVec (const Vector3&    v) const; // Applies this quaternion's rotation to the given 3D vector.
 
+		// Interpolation.
+		static Quaternion Lerp (const Quaternion& start, const Quaternion& dest, const float& t);
+		static Quaternion NLerp(const Quaternion& start, const Quaternion& dest, const float& t);
+		static Quaternion SLerp(const Quaternion& start, const Quaternion& dest, const float& t);
+
 		// Conversion.
         AngleAxis   ToAngleAxis()                      const; // Returns the angle-axis rotation that corresponds to this quaternion.
         Mat4        ToMatrix()                         const; // Returns the rotation matrix that corresponds to this quaternion.
