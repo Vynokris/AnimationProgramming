@@ -7,7 +7,6 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-
 WHITEBOX_BEGIN
 
 class CFontSystem

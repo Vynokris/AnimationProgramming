@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "Render/VertexBuffer.h"
 
 #include "GlobalVariables.h"

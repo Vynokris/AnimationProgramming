@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "ResourcePointer.h"
 #include "ResourceManager.h"
 #include "GlobalVariables.h"

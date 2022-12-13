@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Dll/stdafx.h"
 #include "Render/Picture.h"
 #include "Png/lodepng.h"
 
