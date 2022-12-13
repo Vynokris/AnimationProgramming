@@ -49,7 +49,7 @@ void CSimulation::Initialize()
 			}
 		}
 
-		bone->animation.SetCurrentAnimation(WALK_ANIMATION, bone->index);
+		bone->animation.SetCurrentAnimation(WALK_ANIMATION);
 	}
 }
 

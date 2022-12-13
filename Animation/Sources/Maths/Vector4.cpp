@@ -15,16 +15,14 @@ Vector4::Vector4(const Vector3& angles, const float& length, const float& _w)   
 
 // ---------- VECTOR4 OPERATORS ---------- //
 
-// Vector4 dot product.
-float Vector4::operator&(const Vector4& v) const { return (x * v.x) + (y * v.y) + (z * v.z); }
-float Vector4::Dot      (const Vector4& v) const { return *this & v; }
-
-// Vector4 cross product.
-Vector3 Vector4::operator^(const Vector4& v) const { return Vector3((y * v.z - z * v.y), (z * v.x - x * v.z), (x * v.y - y * v.x)); }
-Vector3 Vector4::Cross    (const Vector4& v) const { return *this ^ v; }
-
 // Vector4 negation.
 Vector4 Vector4::operator-() const { return { -x, -y, -z, w }; }
+
+// Vector4 dot product.
+float Vector4::Dot(const Vector4& v) const { return (x * v.x) + (y * v.y) + (z * v.z); }
+
+// Vector4 cross product.
+Vector3 Vector4::Cross(const Vector4& v) const { return Vector3((y * v.z - z * v.y), (z * v.x - x * v.z), (x * v.y - y * v.x)); }
 
 // ------------ VECTOR4 METHODS ----------- //
 

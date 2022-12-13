@@ -23,6 +23,12 @@ Quaternion::Quaternion(const Vector3& eulerAngles)                              
 // Quaternion negation.
 Quaternion Quaternion::operator-() const { return { -w, -x, -y, -z }; }
 
+// Quaternion dot product.
+float Quaternion::Dot(const Quaternion& q) const
+{
+    return w*q.w + x*q.x + y*q.y + z*q.z;
+}
+
 
 // ---------- QUATERNION METHODS ---------- //
 
@@ -73,10 +79,10 @@ Vector3 Quaternion::RotateVec(const Vector3& v) const
 // Interpolation.
 Quaternion Quaternion::Lerp(const Quaternion& start, const Quaternion& dest, const float& t)
 {
-    return Quaternion(lerp(t, start.w, dest.w),
-                      lerp(t, start.x, dest.x),
-                      lerp(t, start.y, dest.y),
-                      lerp(t, start.z, dest.z));
+    return Quaternion(lerp(start.w, dest.w, t),
+                      lerp(start.x, dest.x, t),
+                      lerp(start.y, dest.y, t),
+                      lerp(start.z, dest.z, t));
 }
 
 Quaternion Quaternion::NLerp(const Quaternion& start, const Quaternion& dest, const float& t)
@@ -84,16 +90,35 @@ Quaternion Quaternion::NLerp(const Quaternion& start, const Quaternion& dest, co
     return Lerp(start, dest, t).GetNormalized();
 }
 
-Quaternion Quaternion::SLerp(const Quaternion& start, const Quaternion& dest, const float& t)
+Quaternion Quaternion::SLerp(const Quaternion& start, const Quaternion& dest, const float& t, const bool& useShortestPath)
 {
-    const float theta = acos(start.x*dest.x + start.y*dest.y + start.z*dest.z + start.w*dest.w);
-    const float sn    = sin(theta);
-    const float Wa    = sin((1-t)*theta) / sn;
-    const float Wb    = sin(t*theta) / sn;
-    return Quaternion(Wa * start.w + Wb * dest.w,
-                      Wa * start.x + Wb * dest.x,
-                      Wa * start.y + Wb * dest.y,
-                      Wa * start.z + Wb * dest.z).GetNormalized();
+    const float cosAngle    = start.Dot(dest);
+    const float cosAngleAbs = abs(cosAngle);
+    
+    float coeff1, coeff2;
+    if (1-cosAngleAbs < 0.01f)
+    {
+        // Linear interpolation for close orientations.
+        coeff1 = 1-t;
+        coeff2 = t;
+    }
+    else
+    {
+        // Spherical interpolation.
+        const float angle    = acos(cosAngleAbs);
+        const float sinAngle = sin(angle);
+        coeff1 = sin(angle * (1-t)) / sinAngle;
+        coeff2 = sin(angle * t)     / sinAngle;
+    }
+
+    // Use the shortest path.
+    if (useShortestPath && cosAngle < 0)  coeff1 *= -1;
+
+    // Return the interpolated quaternion.
+    return Quaternion (coeff1 * start.w + coeff2 * dest.w,
+                       coeff1 * start.x + coeff2 * dest.x,
+                       coeff1 * start.y + coeff2 * dest.y,
+                       coeff1 * start.z + coeff2 * dest.z).GetNormalized();
 }
 
 // Returns the angle-axis rotation that corresponds to this quaternion.

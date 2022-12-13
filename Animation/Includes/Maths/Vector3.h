@@ -23,6 +23,7 @@ namespace Maths
         template <typename T> bool    operator==(const T& val) const;
         template <typename T> bool    operator!=(const T& val) const;
         template <typename T> Vector3 operator+ (const T& val) const;
+                              Vector3 operator- (            ) const;
         template <typename T> Vector3 operator- (const T& val) const;
         template <typename T> Vector3 operator* (const T& val) const;
         template <typename T> Vector3 operator/ (const T& val) const;
@@ -30,11 +31,8 @@ namespace Maths
         template <typename T> void    operator-=(const T& val);
         template <typename T> void    operator*=(const T& val);
         template <typename T> void    operator/=(const T& val);
-                              float   operator& (const Vector3& v) const;
                               float   Dot       (const Vector3& v) const;
-                              Vector3 operator^ (const Vector3& v) const;
                               Vector3 Cross     (const Vector3& v) const;
-                              Vector3 operator- ()                 const;
 
         // -- Methods -- //
 
@@ -73,7 +71,7 @@ namespace Maths
     };
 
     // Calculates linear interpolation for a value from a start point to an end point.
-    Vector3 Point3Lerp(const float& val, const Vector3& start, const Vector3& end);
+    Vector3 Point3Lerp(const Vector3& start, const Vector3& dest, const float& val);
 
     // Returns the coordinates of a point on a sphere of radius r, using the given angles.
     Vector3 GetSphericalCoords(const float& r, const float& pitch, const float& yaw);

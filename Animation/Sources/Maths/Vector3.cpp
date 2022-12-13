@@ -15,16 +15,14 @@ Vector3::Vector3(const Vector3& angles, const float& length)        : x(0),   y(
 
 // ---------- VECTOR3 OPERATORS ---------- //
 
+// Vector3 negation.
+Vector3 Vector3::operator-() const { return { -x, -y, -z }; }
+
 // Vector3 dot product.
-float Vector3::operator&(const Vector3& v) const { return (x * v.x) + (y * v.y) + (z * v.z); }
-float Vector3::Dot      (const Vector3& v) const { return *this & v; }
+float Vector3::Dot(const Vector3& v) const { return (x * v.x) + (y * v.y) + (z * v.z); }
 
 // Vector3 cross product.
-Vector3 Vector3::operator^(const Vector3& v) const { return Vector3((y * v.z - z * v.y), (z * v.x - x * v.z), (x * v.y - y * v.x)); }
-Vector3 Vector3::Cross    (const Vector3& v) const { return *this ^ v; }
-
-// Vector3 negation.
-Vector3 Vector3::operator-()                 const { return { -x, -y, -z }; }
+Vector3 Vector3::Cross(const Vector3& v) const { return Vector3((y * v.z - z * v.y), (z * v.x - x * v.z), (x * v.y - y * v.x)); }
 
 // ------------ VECTOR3 METHODS ----------- //
 
@@ -101,11 +99,11 @@ std::string Vector3::ToString(const int& precision) const
 
 
 // Calculates linear interpolation for a value from a start point to an end point.
-Vector3 Maths::Point3Lerp(const float& val, const Vector3& start, const Vector3& end)
+Vector3 Maths::Point3Lerp(const Vector3& start, const Vector3& dest, const float& val)
 {
-    return Vector3(lerp(val, start.x, end.x),
-                   lerp(val, start.y, end.y),
-                   lerp(val, start.z, end.z));
+    return Vector3(lerp(start.x, dest.x, val),
+                   lerp(start.y, dest.y, val),
+                   lerp(start.z, dest.z, val));
 }
 
 // Returns the coordinates of a point on a sphere of radius r, using the given angles.

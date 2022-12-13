@@ -1,6 +1,9 @@
 #include "Animation/Bone.h"
 #include <Core/Engine.h>
 
+Bone::Bone(const int& _index, const std::string& _name, const Transform& _defaultTransform)
+	: index(_index), name(_name), defaultTransform(_defaultTransform), animation(index) {}
+
 void Bone::SetChildrenDefaultTransform(const Mat4 & parentMat)
 {
 	Vector3 position; Quaternion rotation;
@@ -18,7 +21,7 @@ void Bone::SetChildrenDefaultTransform(const Mat4 & parentMat)
 void Bone::UpdateChildrenAnimation(const float& deltaTime, const Mat4& parentMat)
 {
 	animation.UpdateTimer(deltaTime);
-	animation.UpdatePoseTransform(index);
+	animation.UpdatePoseTransform();
 
 	const Mat4 curMat = GetLocalMat() * parentMat;
 	for (Bone* child : children)

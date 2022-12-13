@@ -11,16 +11,14 @@ Vector2::Vector2(const float& rad, const float& length, const bool& isAngle) : x
 
 // ---------- VECTOR2 OPERATORS ---------- //
 
+// Vector2 negation.
+Vector2 Vector2::operator-() const { return { -x, -y }; }
+
 // Vector2 dot product.
-float Vector2::operator&(const Vector2& v) const { return (x * v.x) + (y * v.y); }
-float Vector2::Dot      (const Vector2& v) const { return *this & v; }
+float Vector2::Dot(const Vector2& v) const { return (x * v.x) + (y * v.y); }
 
 // Vector2 cross product.
-float Vector2::operator^(const Vector2& v) const { return (x * v.y) - (y * v.x); }
-float Vector2::Cross    (const Vector2& v) const { return *this ^ v; }
-
-// Vector2 negation.
-Vector2 Vector2::operator-()                 const { return { -x, -y }; }
+float Vector2::Cross(const Vector2& v) const { return (x * v.y) - (y * v.x); }
 
 // ------------ VECTOR2 METHODS ----------- //
 
@@ -91,8 +89,8 @@ std::string Vector2::ToString(const int& precision) const
 
 
 // Calculates linear interpolation for a value from a start point to an end point.
-Vector2 Maths::Point2Lerp(const float& val, const Vector2& start, const Vector2& end)
+Vector2 Maths::Point2Lerp(const Vector2& start, const Vector2& dest, const float& val)
 {
-    return Vector2(lerp(val, start.x, end.x),
-                   lerp(val, start.y, end.y));
+    return Vector2(lerp(start.x, dest.x, val),
+                   lerp(start.y, dest.y, val));
 }
