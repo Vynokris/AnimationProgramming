@@ -12,6 +12,7 @@ Copyright	:	Copyright 2015 Oculus VR, LLC. All Rights reserved.
 
 *************************************************************************************/
 
+#include "stdafx.h"
 #ifdef __GEAR_VR
 
 #include "System/OperatingSystem.h"	

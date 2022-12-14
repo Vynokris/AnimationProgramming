@@ -15,6 +15,7 @@
  ******************************************************************************/
 /** @author Xoppa */
 
+#include "stdafx.h"
 #if 0
 
 #if defined(_MSC_VER) && defined(_DEBUG)

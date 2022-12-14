@@ -958,7 +958,7 @@ Resources
   Resource
   {
     path = "skinning.program"
-    size = 885
+    size = 884
     
     Dependency
     {
@@ -974,13 +974,13 @@ Resources
   Resource
   {
     path = "skinning.ps"
-    size = 990
+    size = 642
   }
   
   Resource
   {
     path = "skinning.vs"
-    size = 1990
+    size = 1683
   }
   
   Resource

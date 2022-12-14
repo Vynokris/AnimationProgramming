@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #ifdef __GEAR_VR
 
 #include <android/log.h>

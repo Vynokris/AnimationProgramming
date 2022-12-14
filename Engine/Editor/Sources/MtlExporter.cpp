@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MtlExporter.h"
 
 WHITEBOX_BEGIN

@@ -1,9 +1,9 @@
 #include "Utilities/Includer.h"
 #include <iostream>
 
-#include "../Externals/imgui/imgui.h"
-#include "../Externals/imgui/imconfig.h"
-#include "../Externals/imgui/imgui_internal.h"
+#include "imgui.h"
+#include "imconfig.h"
+#include "imgui_internal.h"
 
 #include "Core/Engine.h"
 #include "Core/Simulation.h"
@@ -13,8 +13,7 @@ using namespace Maths;
 
 void CSimulation::Initialize()
 {
-	// TODO: Unresolved external symbol for SetCurrentContext and GetImGUIContext.
-	// ImGui::SetCurrentContext((ImGuiContext*)GetImGUIContext());
+	ImGui::SetCurrentContext((ImGuiContext*)GetImGUIContext());
 	
 	for (size_t i = 0; i < GetSkeletonBoneCount(); i++)
 	{
@@ -72,6 +71,13 @@ void CSimulation::Update(float deltaTime)
 	
 	DrawGizmo    ({  55,  0, 0 }, 50);
 	skeleton.Draw({ -80, 0, 0 });
+
+	if (ImGui::Begin("Stats"))
+	{
+		ImGui::Text("FPS: %d", roundInt(1/deltaTime));
+		ImGui::Text("Delta Time: %f", deltaTime);
+	}
+	ImGui::End();
 }
 
 void CSimulation::DrawGizmo(const Vector3& offset, const float& size)

@@ -716,7 +716,7 @@ namespace readers {
 				FbxTime fbxTime;
 				// Calculate all keyframes upfront
 				for (float time = (*itr).second.start; time <= last; time += stepSize) {
-					time = std::min(time, (*itr).second.stop);
+					time = min(time, (*itr).second.stop);
 					fbxTime.SetMilliSeconds((FbxLongLong)time);
 					Keyframe *kf = new Keyframe();
 					kf->time = (time - animStart);
@@ -750,10 +750,10 @@ namespace readers {
 			curve->GetTimeInterval(fts);
 			const FbxTime start = fts.GetStart();
 			const FbxTime stop = fts.GetStop();
-			ts.start = std::max(animStart, std::min(ts.start, (float)(start.GetMilliSeconds())));
-			ts.stop = std::min(animStop, std::max(ts.stop, (float)stop.GetMilliSeconds()));
+			ts.start = max(animStart, min(ts.start, (float)(start.GetMilliSeconds())));
+			ts.stop = min(animStop, max(ts.stop, (float)stop.GetMilliSeconds()));
 			// Could check the number and type of keys (ie curve->KeyGetInterpolation) to lower the framerate
-			ts.framerate = std::max(ts.framerate, (float)stop.GetFrameRate(FbxTime::eDefaultMode));
+			ts.framerate = max(ts.framerate, (float)stop.GetFrameRate(FbxTime::eDefaultMode));
 		}
 
 		void addKeyframes(NodeAnimation *const &anim, std::vector<Keyframe *> &keyframes) {

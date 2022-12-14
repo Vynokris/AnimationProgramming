@@ -15,7 +15,8 @@ void BoneAnim::SetCurrentAnimation(const char* animName)
     GetAnimLocalBoneTransform(animName, boneIndex, 1, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
     poseTransform.SetPosRot(position, rotation);
 
-    // Initialize the current keyframe and the keyframe timer.
+    // Initialize the keyframe count, the current keyframe and the keyframe timer.
+    keyFrameCount = (int)GetAnimKeyCount(curAnimName);
     curKeyFrame   = 1;
     keyFrameTimer = 0;
 }
@@ -31,7 +32,7 @@ void BoneAnim::UpdatePoseTransform()
 
     // Advance to the next keyframe.
     keyFrameTimer = 0;
-    curKeyFrame   = (curKeyFrame + 1) % (int)GetAnimKeyCount(curAnimName);
+    curKeyFrame   = (curKeyFrame + 1) % keyFrameCount;
     if (curKeyFrame == 0) curKeyFrame++;
 
     // Get the new keyframe transform.

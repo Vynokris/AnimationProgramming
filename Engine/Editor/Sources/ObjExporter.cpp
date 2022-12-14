@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ObjExporter.h"
 
 #include "Render/MeshHelper.h"

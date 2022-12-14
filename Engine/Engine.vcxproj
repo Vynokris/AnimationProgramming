@@ -86,15 +86,15 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS; _CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Core\Externals;$(ProjectDir)Core\Externals\SDL\include;$(ProjectDir)Core\Inc;$(ProjectDir)Core\Externals\Glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)System;$(ProjectDir)Editor\Includes;$(ProjectDir)Editor\Externals;$(ProjectDir)Core\Includes;$(ProjectDir)Core\Externals;$(ProjectDir)Core\Externals\SDL\include;$(ProjectDir)Core\Externals\Glew\include;$(ProjectDir)Core\Externals\FreeType\include;$(ProjectDir)Editor\Externals\FbxSdk\2015.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)Core\Data;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;freetype.lib;FreeImage.lib;libfbxsdk.lib;imgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -205,6 +205,11 @@
     <ClInclude Include="System\targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Externals\imgui\imgui.cpp" />
+    <ClCompile Include="Core\Externals\imgui\imgui_draw.cpp" />
+    <ClCompile Include="Core\Externals\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Core\Externals\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="Core\Externals\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Core\Sources\Animation\Animation.cpp" />
     <ClCompile Include="Core\Sources\Animation\AnimationSerializer.cpp" />
     <ClCompile Include="Core\Sources\Animation\AnimationTrack.cpp" />
@@ -261,6 +266,9 @@
     <ClCompile Include="Core\Sources\System\Thread.cpp" />
     <ClCompile Include="Core\Sources\Tokenizer.cpp" />
     <ClCompile Include="Core\Sources\Types\WhiteBoxString.cpp" />
+    <ClCompile Include="Editor\Externals\DDS\image_DXT.cpp" />
+    <ClCompile Include="Editor\Externals\FbxConv\src\main.cpp" />
+    <ClCompile Include="Editor\Externals\FbxConv\src\modeldata\Serialization.cpp" />
     <ClCompile Include="Editor\Sources\AssetExporter.cpp" />
     <ClCompile Include="Editor\Sources\AssetManager.cpp" />
     <ClCompile Include="Editor\Sources\CopyExporter.cpp" />
@@ -271,7 +279,9 @@
     <ClCompile Include="Editor\Sources\TextureExporter.cpp" />
     <ClCompile Include="System\dllmain.cpp" />
     <ClCompile Include="System\EngineMain.cpp" />
-    <ClCompile Include="System\stdafx.cpp" />
+    <ClCompile Include="System\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

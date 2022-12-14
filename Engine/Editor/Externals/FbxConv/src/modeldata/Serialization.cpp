@@ -14,6 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 /** @author Xoppa */
+#include "stdafx.h"
 #include "Node.h"
 #include "NodePart.h"
 #include "Animation.h"

@@ -178,9 +178,9 @@ namespace readers {
 		AnimInfo() : start(FLT_MAX), stop(-1.f), framerate(0.f), translate(false), rotate(false), scale(false) {}
 
 		inline AnimInfo& operator+=(const AnimInfo& rhs) {
-			start = std::min(rhs.start, start);
-			stop = std::max(rhs.stop, stop);
-			framerate = std::max(rhs.framerate, framerate);
+			start = min(rhs.start, start);
+			stop = max(rhs.stop, stop);
+			framerate = max(rhs.framerate, framerate);
 			translate = translate || rhs.translate;
 			rotate = rotate || rhs.rotate;
 			scale = scale || rhs.scale;

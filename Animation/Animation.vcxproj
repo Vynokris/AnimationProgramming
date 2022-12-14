@@ -39,6 +39,11 @@
     <ClInclude Include="Includes\Utilities\Includer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Externals\Sources\imgui\imgui.cpp" />
+    <ClCompile Include="Externals\Sources\imgui\imgui_draw.cpp" />
+    <ClCompile Include="Externals\Sources\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Externals\Sources\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="Externals\Sources\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Sources\Animation\BoneAnim.cpp" />
     <ClCompile Include="Sources\Animation\Bone.cpp" />
     <ClCompile Include="Sources\Animation\Skeleton.cpp" />
@@ -116,6 +121,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <ReferencePath>$(VC_ReferencesPath_x86);$(SolutionDir)Externals\Libs</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -138,19 +144,24 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes;$(SolutionDir)Externals\Includes;$(SolutionDir)Externals\Includes\imgui;$(SolutionDir)Externals\Includes\SDL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>Includer.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Externals;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Externals\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Engine.lib;opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
+    <PostBuildEvent>
+      <Command>echo n | copy /-y "$(SolutionDir)Externals\Libs\Engine.dll" "$(TargetDir)"
+echo n | copy /-y  "$(SolutionDir)Externals\Libs\glew32.dll" "$(TargetDir)"
+echo n | copy /-y  "$(SolutionDir)Externals\Libs\SDL2.dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Physics/ColliderNode.h"
 #include "GlobalVariables.h"
 #include "Application.h"

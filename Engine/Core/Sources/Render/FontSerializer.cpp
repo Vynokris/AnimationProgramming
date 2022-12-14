@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Render/FontSerializer.h"
 
 #include "Render/Font.h"
