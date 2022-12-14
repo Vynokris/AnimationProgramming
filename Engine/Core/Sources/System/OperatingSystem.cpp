@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "System/OperatingSystem.h"
 
 
@@ -10,6 +10,11 @@
 #ifndef __GEAR_VR
 #include <SDL.h>
 #include <GL/glew.h>
+// Dear ImGui
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_sdl.h"
+#include "imgui/imgui_impl_opengl3.h"
+
 #endif
 #include "FileSystem.h"
 
@@ -63,6 +68,8 @@ struct SSDLData
 		m_sdlKeyMap[ SDL_SCANCODE_A] = Key::Q;
 		m_sdlKeyMap[ SDL_SCANCODE_S] = Key::S;
 		m_sdlKeyMap[ SDL_SCANCODE_D] = Key::D;
+		m_sdlKeyMap[ SDL_SCANCODE_Q] = Key::A;
+		m_sdlKeyMap[ SDL_SCANCODE_E] = Key::E;
 
 		ResetKeys();
 	}
@@ -93,6 +100,7 @@ bool ProcessEvents( COperatingSystem& os, SSDLData* pSDLData )
 
 	while (SDL_PollEvent(&event))
 	{
+		ImGui_ImplSDL2_ProcessEvent(&event);
 		switch (event.type)
 		{
 		case SDL_QUIT:
@@ -180,12 +188,22 @@ void	COperatingSystem::Init(uint width, uint height)
 	}
 
 	context = SDL_GL_CreateContext(window);
-	SDL_GL_SetSwapInterval(0);
+	SDL_GL_SetSwapInterval(1); // No need to run at 10e34 fps per seconds
 
 	if (GLEW_OK != glewInit())
 	{
 		return;
 	}
+	IMGUI_CHECKVERSION();
+	ImguiContext = ImGui::CreateContext();
+
+	// setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsClassic();
+
+	// setup platform/renderer bindings
+	ImGui_ImplSDL2_InitForOpenGL(window, context);
+	ImGui_ImplOpenGL3_Init();
 
 	gVars->pApplication->InitApplication( width, height );
 
@@ -193,11 +211,23 @@ void	COperatingSystem::Init(uint width, uint height)
 
 	while (ProcessEvents(*this, static_cast<SSDLData*>(m_pSpecificData)))
 	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplSDL2_NewFrame(window);
+		ImGui::NewFrame();
+
 		gVars->pApplication->FrameUpdate();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		SDL_GL_SwapWindow(window);
 	}
 
 	//gVars->pRenderer->Reset();
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
@@ -264,11 +294,16 @@ void	COperatingSystem::GetDataStream( const String& path, CDataStream& dataStrea
 		gVars->pFileSystem->SetCursor( file, 0 );
 	}
 	char* pData = new char[ size + 1 ];
-	pData[ size ] = '\0'; 
 	gVars->pFileSystem->Read( file, 1, size, pData );
+	pData[ size ] = '\0';
 	gVars->pFileSystem->CloseFile( file );
 	
 	dataStream = CDataStream( pData, size );
+}
+
+void* COperatingSystem::GetImGUIContext() const
+{
+	return ImguiContext;
 }
 
 

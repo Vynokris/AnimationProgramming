@@ -1,573 +1,432 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Sources">
-      <UniqueIdentifier>{d225e050-a61b-4465-8265-3c97e4ddce6b}</UniqueIdentifier>
+    <Filter Include="Core">
+      <UniqueIdentifier>{0c808e4e-59ca-4b11-9929-1ef4f4f1ccfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes">
-      <UniqueIdentifier>{1d87ea82-bd2a-4034-b5f2-614c5899979c}</UniqueIdentifier>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{00ab7219-e92d-40b1-9b16-bddb99fabe9a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core">
-      <UniqueIdentifier>{368b5a1f-e7de-48a3-bd06-fb2556d4db12}</UniqueIdentifier>
+    <Filter Include="Editor\Includes">
+      <UniqueIdentifier>{4e5e4ba1-daa1-4eeb-aa1f-02a64c883f22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Editor">
-      <UniqueIdentifier>{ad0d1f1c-3529-4407-bff1-baab6b912fcb}</UniqueIdentifier>
+    <Filter Include="Editor\Sources">
+      <UniqueIdentifier>{731d974a-4b80-41c8-91da-428834da774d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core">
-      <UniqueIdentifier>{d06a7fd6-87f1-4699-98d2-c626cbfcfdba}</UniqueIdentifier>
+    <Filter Include="Core\Includes">
+      <UniqueIdentifier>{9345d9c1-3050-4813-b43f-7e67939c54ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Editor">
-      <UniqueIdentifier>{5020069d-1698-4f0c-b18a-8c204fda46e2}</UniqueIdentifier>
+    <Filter Include="Core\Sources">
+      <UniqueIdentifier>{b32ed077-fca2-45c1-9be2-ed48cdcfd199}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\Animation">
-      <UniqueIdentifier>{ab715ad0-bba4-4683-b00b-8bed4ba4f249}</UniqueIdentifier>
+    <Filter Include="Core\Sources\Animation">
+      <UniqueIdentifier>{fecc25b5-9130-4378-ad79-63e2ff6b9ea7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\LogSystem">
-      <UniqueIdentifier>{e15b56d0-fd70-403d-953f-6c380cf70028}</UniqueIdentifier>
+    <Filter Include="Core\Sources\LogSystem">
+      <UniqueIdentifier>{2402792b-6117-44be-8ece-3d469e49af23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\Physics">
-      <UniqueIdentifier>{1cb9a54c-59fd-44cb-9e1f-8af498e364d6}</UniqueIdentifier>
+    <Filter Include="Core\Sources\Physics">
+      <UniqueIdentifier>{49e382dc-e392-4180-bff5-8fc666a9b531}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\Png">
-      <UniqueIdentifier>{c5659128-9fde-40ef-b62c-bddfa43fecdd}</UniqueIdentifier>
+    <Filter Include="Core\Sources\Png">
+      <UniqueIdentifier>{8e8cd0a7-9f3d-4458-aad9-e2c7192ba58f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\Render">
-      <UniqueIdentifier>{2ae874a5-bb87-43ee-8da7-ee9d0429f935}</UniqueIdentifier>
+    <Filter Include="Core\Sources\Render">
+      <UniqueIdentifier>{e68fd048-5eab-4737-a9b5-fe67007d2b61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\System">
-      <UniqueIdentifier>{e5b2bf25-d625-400d-8800-cdb157ee6d9b}</UniqueIdentifier>
+    <Filter Include="Core\Sources\System">
+      <UniqueIdentifier>{e7d61108-887d-4277-94a3-9b92dfcc25f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\Types">
-      <UniqueIdentifier>{cedf929d-ca3f-4925-87dc-5d46deb74ffe}</UniqueIdentifier>
+    <Filter Include="Core\Sources\Types">
+      <UniqueIdentifier>{8d4dcf54-868f-4440-89fe-00ba46f5fd17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Includes\Core\System\GearVR">
-      <UniqueIdentifier>{9e282fc6-8963-49d8-a62a-4c0c864e9f73}</UniqueIdentifier>
+    <Filter Include="Core\Includes\Animation">
+      <UniqueIdentifier>{993fea4a-a28c-4497-b642-0ff7fdf71ca9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\Animation">
-      <UniqueIdentifier>{c92e92db-cc91-49dc-bdd1-658e1c6d7604}</UniqueIdentifier>
+    <Filter Include="Core\Includes\LogSystem">
+      <UniqueIdentifier>{ca7774dc-bb9a-4251-bf03-bdb8774b512c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\LogSystem">
-      <UniqueIdentifier>{38c50ea6-c137-4cee-8511-0572ab1707c0}</UniqueIdentifier>
+    <Filter Include="Core\Includes\Physics">
+      <UniqueIdentifier>{c70249b5-9934-42c8-83f7-32917d00aa6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\Physics">
-      <UniqueIdentifier>{fdbd4869-bc8b-4a1f-8bfd-18ed44b6dc61}</UniqueIdentifier>
+    <Filter Include="Core\Includes\Png">
+      <UniqueIdentifier>{39b29911-ebb5-4b24-9ef4-b48e53a92432}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\Png">
-      <UniqueIdentifier>{1eff0eea-8a9b-47cf-a08c-0537d75bd05d}</UniqueIdentifier>
+    <Filter Include="Core\Includes\Render">
+      <UniqueIdentifier>{ac415d56-3705-46d8-8966-4058c380cbb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\Render">
-      <UniqueIdentifier>{f05b2a26-ec9f-4199-a77d-fbdb6adbe55d}</UniqueIdentifier>
+    <Filter Include="Core\Includes\System">
+      <UniqueIdentifier>{5da29ad6-aebe-4ec6-91cf-c0fc123c22ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\System">
-      <UniqueIdentifier>{710cc26e-0247-49a6-bdea-d814122473d5}</UniqueIdentifier>
+    <Filter Include="Core\Includes\Types">
+      <UniqueIdentifier>{b3f5a438-ba1b-4a5e-bf4e-711807dfbfc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\Types">
-      <UniqueIdentifier>{03028447-7800-45bd-937d-ac8af6a06a04}</UniqueIdentifier>
+    <Filter Include="Core\Sources\System\GearVR">
+      <UniqueIdentifier>{c8860adc-0357-4917-a342-2c38229a7477}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\System\GearVR">
-      <UniqueIdentifier>{90679751-aacf-46f2-841a-da2fcdd94e7d}</UniqueIdentifier>
+    <Filter Include="Core\Includes\System\GearVR">
+      <UniqueIdentifier>{ea501d93-b069-4516-aa4f-f20c08291406}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Core\Dll">
-      <UniqueIdentifier>{37016b7c-9e67-4490-8d15-48dc4ced5f24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Includes\Core\Dll">
-      <UniqueIdentifier>{48305dd3-0dbd-4e89-b330-5ab77c3ce5c7}</UniqueIdentifier>
+    <Filter Include="System">
+      <UniqueIdentifier>{2bae47d2-9be6-44e8-8c2b-93172aeb0781}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\Includes\Application.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\BaseTypes.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Behavior.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\BehaviorComponent.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\BehaviorManager.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Command.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\CommandBuffer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\DataStream.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Engine.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Event.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\FileSystem.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\FontSystem.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\GlobalVariables.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Handle.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\InputManager.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\maths.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\MeshRenderComponent.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Object.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ObjectManager.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\PhysicsAPI.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\RenderAPI.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\RenderTypes.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Resource.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ResourceDescriptor.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ResourceManager.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\resourcepointer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ResourceSerializer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ResourceSpecificManager.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ResourceType.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\RigidBodyComponent.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\SceneNode.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Script.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ScriptResourceSerializer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ScriptSerializer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\SerializableFactory.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Serializer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Simulation.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\SmartPointer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Temp.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Text.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\ThreadDoubleBuffer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Tokenizer.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\TriMesh.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\WhiteBoxNameSpace.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\whiteboxstring.h">
-      <Filter>Includes\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Editor\Includes\AssetExporter.h">
-      <Filter>Includes\Editor</Filter>
+      <Filter>Editor\Includes</Filter>
     </ClInclude>
     <ClInclude Include="Editor\Includes\AssetManager.h">
-      <Filter>Includes\Editor</Filter>
+      <Filter>Editor\Includes</Filter>
     </ClInclude>
     <ClInclude Include="Editor\Includes\CopyExporter.h">
-      <Filter>Includes\Editor</Filter>
+      <Filter>Editor\Includes</Filter>
     </ClInclude>
     <ClInclude Include="Editor\Includes\FbxExporter.h">
-      <Filter>Includes\Editor</Filter>
+      <Filter>Editor\Includes</Filter>
     </ClInclude>
     <ClInclude Include="Editor\Includes\MtlExporter.h">
-      <Filter>Includes\Editor</Filter>
+      <Filter>Editor\Includes</Filter>
     </ClInclude>
     <ClInclude Include="Editor\Includes\ObjExporter.h">
-      <Filter>Includes\Editor</Filter>
+      <Filter>Editor\Includes</Filter>
     </ClInclude>
     <ClInclude Include="Editor\Includes\TextureExporter.h">
-      <Filter>Includes\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Animation\Animation.h">
-      <Filter>Includes\Core\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Animation\AnimationSerializer.h">
-      <Filter>Includes\Core\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Animation\AnimationTrack.h">
-      <Filter>Includes\Core\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Animation\Skeleton.h">
-      <Filter>Includes\Core\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Animation\SkeletonSerializer.h">
-      <Filter>Includes\Core\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\LogSystem\LogSystem.h">
-      <Filter>Includes\Core\LogSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Camera.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Font.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\FontSerializer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\IndexBuffer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Material.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\MaterialHelper.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\MaterialSerializer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Mesh.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\MeshHelper.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\MeshRenderNode.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\MeshSerializer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Picture.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Renderer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\RenderPipeline.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\RenderTarget.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\RenderWindow.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Shader.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\ShaderProgram.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\ShaderProgramSerializer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\ShaderSerializer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\SkinnedMeshRenderNode.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\TextMesh.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\Texture.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\TextureSerializer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Render\VertexBuffer.h">
-      <Filter>Includes\Core\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Png\lodepng.h">
-      <Filter>Includes\Core\Png</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\System\OperatingSystem.h">
-      <Filter>Includes\Core\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\System\Thread.h">
-      <Filter>Includes\Core\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\System\GearVR\WhiteBoxGearLibrary.h">
-      <Filter>Includes\Core\System\GearVR</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Includes\Physics\PhysicsSystem.h">
-      <Filter>Includes\Core\Physics</Filter>
+      <Filter>Editor\Includes</Filter>
     </ClInclude>
     <ClInclude Include="Core\Includes\Physics\BulletPhysicsSystem.h">
-      <Filter>Includes\Core\Physics</Filter>
+      <Filter>Core\Includes\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Core\Includes\Physics\ColliderNode.h">
-      <Filter>Includes\Core\Physics</Filter>
+      <Filter>Core\Includes\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Physics\PhysicsSystem.h">
+      <Filter>Core\Includes\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Png\lodepng.h">
+      <Filter>Core\Includes\Png</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Camera.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Font.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\FontSerializer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\IndexBuffer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Material.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\MaterialHelper.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\MaterialSerializer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Mesh.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\MeshHelper.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\MeshRenderNode.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\MeshSerializer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Picture.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Renderer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\RenderPipeline.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\RenderTarget.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\RenderWindow.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Shader.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\ShaderProgram.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\ShaderProgramSerializer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\ShaderSerializer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\SkinnedMeshRenderNode.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\TextMesh.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\Texture.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\TextureSerializer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Render\VertexBuffer.h">
+      <Filter>Core\Includes\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\System\OperatingSystem.h">
+      <Filter>Core\Includes\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\System\Thread.h">
+      <Filter>Core\Includes\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\System\GearVR\WhiteBoxGearLibrary.h">
+      <Filter>Core\Includes\System\GearVR</Filter>
     </ClInclude>
     <ClInclude Include="Core\Includes\Types\Array.h">
-      <Filter>Includes\Core\Types</Filter>
+      <Filter>Core\Includes\Types</Filter>
     </ClInclude>
     <ClInclude Include="Core\Includes\Types\BitArray.h">
-      <Filter>Includes\Core\Types</Filter>
+      <Filter>Core\Includes\Types</Filter>
     </ClInclude>
     <ClInclude Include="Core\Includes\Types\HashMap.h">
-      <Filter>Includes\Core\Types</Filter>
+      <Filter>Core\Includes\Types</Filter>
     </ClInclude>
     <ClInclude Include="Core\Includes\Types\SparseArray.h">
-      <Filter>Includes\Core\Types</Filter>
+      <Filter>Core\Includes\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Includes\Dll\stdafx.h">
-      <Filter>Includes\Core\Dll</Filter>
+    <ClInclude Include="Core\Includes\LogSystem\LogSystem.h">
+      <Filter>Core\Includes\LogSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Includes\Dll\targetver.h">
-      <Filter>Includes\Core\Dll</Filter>
+    <ClInclude Include="Core\Includes\Animation\Animation.h">
+      <Filter>Core\Includes\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Animation\AnimationSerializer.h">
+      <Filter>Core\Includes\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Animation\AnimationTrack.h">
+      <Filter>Core\Includes\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Animation\Skeleton.h">
+      <Filter>Core\Includes\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Includes\Animation\SkeletonSerializer.h">
+      <Filter>Core\Includes\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="System\stdafx.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\targetver.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor\Sources\AssetExporter.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Editor\Sources\AssetManager.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Editor\Sources\CopyExporter.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Editor\Sources\FbxExporter.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Editor\Sources\main.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Editor\Sources\MtlExporter.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Editor\Sources\ObjExporter.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Editor\Sources\TextureExporter.cpp">
-      <Filter>Sources\Editor</Filter>
+      <Filter>Editor\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Animation\Animation.cpp">
-      <Filter>Sources\Core\Animation</Filter>
+      <Filter>Core\Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Animation\AnimationSerializer.cpp">
-      <Filter>Sources\Core\Animation</Filter>
+      <Filter>Core\Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Animation\AnimationTrack.cpp">
-      <Filter>Sources\Core\Animation</Filter>
+      <Filter>Core\Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Animation\Skeleton.cpp">
-      <Filter>Sources\Core\Animation</Filter>
+      <Filter>Core\Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Animation\SkeletonSerializer.cpp">
-      <Filter>Sources\Core\Animation</Filter>
+      <Filter>Core\Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\LogSystem\LogSystem.cpp">
-      <Filter>Sources\Core\LogSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Physics\BulletPhysicsSystem.cpp">
-      <Filter>Sources\Core\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Physics\ColliderNode.cpp">
-      <Filter>Sources\Core\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Png\lodepng.cpp">
-      <Filter>Sources\Core\Png</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\Font.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\FontSerializer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\IndexBuffer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\Material.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\MaterialHelper.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\MaterialSerializer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\Mesh.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\MeshHelper.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\MeshRenderNode.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\MeshSerializer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\Picture.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\Renderer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\RenderPipeline.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\RenderWindow.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\Shader.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\ShaderProgram.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\ShaderProgramSerializer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\ShaderSerializer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\SkinnedMeshRenderNode.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\TextMesh.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\Texture.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\TextureSerializer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\Render\VertexBuffer.cpp">
-      <Filter>Sources\Core\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\System\FileSystem.cpp">
-      <Filter>Sources\Core\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\System\OperatingSystem.cpp">
-      <Filter>Sources\Core\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\System\Thread.cpp">
-      <Filter>Sources\Core\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\System\GearVR\GearVR_AndroidApp.cpp">
-      <Filter>Sources\Core\System\GearVR</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\System\GearVR\GearVR_OperatingSystem.cpp">
-      <Filter>Sources\Core\System\GearVR</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\System\GearVR\GearVR_ReadFromAPK.cpp">
-      <Filter>Sources\Core\System\GearVR</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Sources\System\GearVR\WhiteBoxGearLibrary.cpp">
-      <Filter>Sources\Core\System\GearVR</Filter>
+      <Filter>Core\Sources\LogSystem</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Types\WhiteBoxString.cpp">
-      <Filter>Sources\Core\Types</Filter>
+      <Filter>Core\Sources\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\System\FileSystem.cpp">
+      <Filter>Core\Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\System\OperatingSystem.cpp">
+      <Filter>Core\Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\System\Thread.cpp">
+      <Filter>Core\Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\System\GearVR\GearVR_AndroidApp.cpp">
+      <Filter>Core\Sources\System\GearVR</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\System\GearVR\GearVR_OperatingSystem.cpp">
+      <Filter>Core\Sources\System\GearVR</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\System\GearVR\GearVR_ReadFromAPK.cpp">
+      <Filter>Core\Sources\System\GearVR</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\System\GearVR\WhiteBoxGearLibrary.cpp">
+      <Filter>Core\Sources\System\GearVR</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\Font.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\FontSerializer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\IndexBuffer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\Material.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\MaterialHelper.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\MaterialSerializer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\Mesh.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\MeshHelper.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\MeshRenderNode.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\MeshSerializer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\Picture.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\Renderer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\RenderPipeline.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\RenderWindow.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\Shader.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\ShaderProgram.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\ShaderProgramSerializer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\ShaderSerializer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\SkinnedMeshRenderNode.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\TextMesh.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\Texture.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\TextureSerializer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Render\VertexBuffer.cpp">
+      <Filter>Core\Sources\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Png\lodepng.cpp">
+      <Filter>Core\Sources\Png</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Sources\Physics\ColliderNode.cpp">
+      <Filter>Core\Sources\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Application.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Behavior.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Camera.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\DataStream.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Engine.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\FontSystem.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\GlobalVariables.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Maths.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\ResourceDescriptor.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\ResourceManager.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\ResourcePointer.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\ResourceSpecificManager.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\SceneNode.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Script.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\ScriptResourceSerializer.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\ScriptSerializer.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="Core\Sources\Tokenizer.cpp">
-      <Filter>Sources\Core</Filter>
+      <Filter>Core\Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Sources\Dll\dllmain.cpp">
-      <Filter>Sources\Core\Dll</Filter>
+    <ClCompile Include="System\dllmain.cpp">
+      <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Sources\Dll\EngineMain.cpp">
-      <Filter>Sources\Core\Dll</Filter>
+    <ClCompile Include="System\EngineMain.cpp">
+      <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Sources\Dll\stdafx.cpp">
-      <Filter>Sources\Core\Dll</Filter>
+    <ClCompile Include="System\stdafx.cpp">
+      <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

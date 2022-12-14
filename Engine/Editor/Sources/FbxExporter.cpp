@@ -5,7 +5,7 @@
 #include "FileSystem.h"
 
 #pragma optimize( "", on ) 
-#include "FbxConv.h"
+#include <FbxConv.h>
 #pragma optimize( "", off ) 
 
 #include "Application.h"
@@ -106,7 +106,7 @@ void CFbxExporter::Export( const String& assetFolder, const String& resourceFold
 
 			Transform* trackKeys = new Transform[ keyframes.size() ];
 
-			for (size_t iKey = 0; iKey < keyframes.size(); ++iKey)
+			for (int iKey = 0; iKey < keyframes.size(); ++iKey)
 			{
 				const Keyframe& k = *(keyframes[ iKey ]);
 
@@ -149,15 +149,15 @@ void CFbxExporter::Export( const String& assetFolder, const String& resourceFold
 	for (Mesh* mesh : model->meshes)
 	{
 		CMeshHelper mh;
-		size_t vertexCount = mesh->vertexCount();
-		size_t vertexFloatCount = mesh->vertexSize;
+		int vertexCount = mesh->vertexCount();
+		int vertexFloatCount = mesh->vertexSize;
 		mh.m_positionArray.reserve(vertexCount);
 		mh.m_normalArray.reserve(vertexCount);
 
-		size_t attCount = mesh->attributes.length();
-		for (size_t att = 0; att < attCount; ++att)
+		int attCount = mesh->attributes.length();
+		for (int att = 0; att < attCount; ++att)
 		{
-			size_t idx = mesh->attributes.get(att);
+			int idx = mesh->attributes.get(att);
 
 
 			unsigned int offset = 0;
@@ -170,19 +170,16 @@ void CFbxExporter::Export( const String& assetFolder, const String& resourceFold
 			{
 			case ATTRIBUTE_POSITION:
 			{
-				for (size_t i = 0; i < vertexCount; ++i)
+				for (int i = 0; i < vertexCount; ++i)
 				{
 					mh.AddPosition(*(Vec3*)(&mesh->vertices[vertexFloatCount * i]));
-
-
-
 				}
 				break;
 			}
 			case ATTRIBUTE_NORMAL:
 			{
 		
-					for (size_t i = 0; i < vertexCount; ++i)
+					for (int i = 0; i < vertexCount; ++i)
 					{
 						mh.AddNormal(*(Vec3*)(&mesh->vertices[offset + vertexFloatCount * i]));
 					}
@@ -197,8 +194,8 @@ void CFbxExporter::Export( const String& assetFolder, const String& resourceFold
 			case ATTRIBUTE_BLENDWEIGHT6:
 			case ATTRIBUTE_BLENDWEIGHT7:
 			{
-				size_t attributeIndex = idx - (size_t)ATTRIBUTE_BLENDWEIGHT0;
-				for (size_t i = 0; i < vertexCount; ++i)
+				int attributeIndex = idx - (int)ATTRIBUTE_BLENDWEIGHT0;
+				for (int i = 0; i < vertexCount; ++i)
 				{
 					mh.AddBlendWeight( attributeIndex, *((SVertexBlendWeight*)(&mesh->vertices[offset + vertexFloatCount * i])) );
 				}

@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Behavior.h"
 #include "BehaviorManager.h"
 #include "GlobalVariables.h"
