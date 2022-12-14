@@ -10,7 +10,7 @@ Vector3::Vector3(const float& _x, const float& _y, const float& _z) : x(_x),  y(
 Vector3::Vector3(const Vector3& p1, const Vector3& p2)              : x(p2.x - p1.x), y(p2.y - p1.y), z(p2.z - p1.z) {}; // Vector from 2 points.
 Vector3::Vector3(const Vector3& angles, const float& length)        : x(0),   y(0),   z(0)
 {
-    *this = (Vector4(0, 0, 1, 1) * GetRotationMatrix({ -angles.x, -angles.y, -angles.z })).ToVector3(true) * length;
+    *this = (Vector4(0, 0, 1, 1) * Mat4::FromEuler(-angles)).ToVector3(true) * length;
 }
 
 // ---------- VECTOR3 OPERATORS ---------- //

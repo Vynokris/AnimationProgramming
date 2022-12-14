@@ -4,13 +4,13 @@ using namespace Maths;
 
 // ----- Constructors ----- //
 Transform::Transform(const bool& _isCamera)
-    : pos(), rot(), scale(1), worldMat(true), isCamera(_isCamera)
+    : scale(1), isCamera(_isCamera)
 {
     UpdateLocalMat();
 }
 
-Transform::Transform(const Vector3& _pos, const Quaternion& _rot, const Vector3& _scale, const bool& _isCamera)
-    : pos(_pos), rot(_rot), scale(_scale), worldMat(true), isCamera(_isCamera)
+Transform::Transform(const Vector3& position, const Quaternion& rotation, const Vector3& _scale, const bool& _isCamera)
+    : pos(position), rot(rotation), scale(_scale), isCamera(_isCamera)
 {
     UpdateLocalMat();
 }
@@ -40,9 +40,17 @@ Vector3 Transform::GetScale()        const         { return scale;   }
 Vector3 Transform::GetUniformScale() const         { return std::max(scale.x, std::max(scale.y, scale.z)); }
 void    Transform::SetScale(const Vector3& _scale) { scale = _scale; UpdateLocalMat(); }
 
+// ----- Is Camera ----- //
+bool Transform::IsCamera() const                   { return isCamera; }
+void Transform::SetIsCamera(const bool& _isCamera) { isCamera = _isCamera; UpdateLocalMat(); }
+
+// ----- Multiple Values ----- //
+void Transform::SetPosRot(const Vector3& position, const Quaternion& rotation)                        { pos = position; rot = rotation; UpdateLocalMat(); }
+void Transform::SetValues(const Vector3& position, const Quaternion& rotation, const Vector3& _scale) { pos = position; rot = rotation; scale = _scale; UpdateLocalMat(); }
+
 // ----- Matrices ----- //
 void Transform::UpdateLocalMat() 
 {
-    if (!isCamera) localMat = GetTransformMatrix( pos, rot, scale);
-    else           localMat = GetTransformMatrix(-pos, rot, { 1, 1, 1 }, true);
+    if (!isCamera) localMat = Mat4::FromTransform( pos, rot, scale);
+    else           localMat = Mat4::FromTransform(-pos, rot, { 1, 1, 1 }, true);
 }

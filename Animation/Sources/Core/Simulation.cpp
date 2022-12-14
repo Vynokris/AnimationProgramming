@@ -12,8 +12,8 @@ void CSimulation::Initialize()
 	for (size_t i = 0; i < GetSkeletonBoneCount(); i++)
 	{
 		// Get the bone's name and index.
-		const char* boneName  = GetSkeletonBoneName((int)i);
-		const int   boneIndex = GetSkeletonBoneIndex(boneName);
+		const int   boneIndex = (int)i;
+		const char* boneName  = GetSkeletonBoneName(boneIndex);
 
 		// Get the bone's position and rotation.
 		Vector3    bonePosition;
@@ -27,7 +27,10 @@ void CSimulation::Initialize()
 		if (boneIndex == 0) {
 			skeleton.SetRootBone(bone);
 		}
-		if (std::string(boneName).find("ik_") != std::string::npos) {
+		if (bone->name.find("ik_") != std::string::npos) {
+			// Note: This works because all IK bones are at the end of the bone array.
+			//       If it wasn't the case, some bone indices would be different from their IDs,
+			//       because removing bones from the middle of the array would modify the indices of the following elements.
 			delete bone;
 			continue;
 		}
@@ -49,37 +52,25 @@ void CSimulation::Initialize()
 			}
 		}
 
-		bone->animation.SetCurrentAnimation(WALK_ANIMATION);
+		bone->animation.SetCurrentAnimation(RUN_ANIMATION);
 	}
+
+	// Set default pose bone transforms.
+	skeleton.GetRootBone()->SetChildrenDefaultTransform();
 }
 
 void CSimulation::Update(float deltaTime)
 {
-	skeleton.GetRootBone()->UpdateChildrenAnimation(deltaTime);
+	skeleton.UpdateAnimation(deltaTime);
 	
-	DrawGizmo(100, 100, 100);
-	DrawSkeleton();
+	DrawGizmo    ({  55,  0, 0 }, 50);
+	skeleton.Draw({ -80, 0, 0 });
 }
 
-void CSimulation::DrawGizmo(const int& x, const int& y, const int& z)
+void CSimulation::DrawGizmo(const Vector3& offset, const float& size)
 {
-	DrawLine(0, 0, 0, (float)x, 0, 0, 1, 0, 0);
-	DrawLine(0, 0, 0, 0, (float)y, 0, 0, 1, 0);
-	DrawLine(0, 0, 0, 0, 0, (float)z, 0, 0, 1);
+	DrawLine(offset.x, offset.y, offset.z, offset.x+size, offset.y,      offset.z,      1, 0, 0);
+	DrawLine(offset.x, offset.y, offset.z, offset.x,      offset.y+size, offset.z,      0, 1, 0);
+	DrawLine(offset.x, offset.y, offset.z, offset.x,      offset.y,      offset.z+size, 0, 0, 1);
 }
 
-void CSimulation::DrawSkeleton()
-{
-	for (const Bone* bone : skeleton.GetBones())
-	{
-		// Stop if the bone is the root or the pelvis.
-		if (!bone->parent || !bone->parent->parent) continue;
-		
-		// Get the world positions of the bone and its parent.
-		const Vector3 pos  = Vector3() * bone        ->GetWorldMat() + skeletonDrawOffset;
-		const Vector3 pos2 = Vector3() * bone->parent->GetWorldMat() + skeletonDrawOffset;
-
-		// Draw the bone as a line from itself to its parent.
-		DrawLine(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z, 1, 0, 1);
-	}
-}

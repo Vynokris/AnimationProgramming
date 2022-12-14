@@ -12,14 +12,13 @@ namespace Maths
 		Vector3    pos;
 		Quaternion rot;
     	Vector3    scale;
-		Mat4       localMat, worldMat;
+		bool       isCamera;
+		Mat4       localMat, parentMat;
 
 	public:
-		bool isCamera;
-
     	// Constructors.
 		Transform(const bool& _isCamera = false);
-		Transform(const Vector3& _pos, const Quaternion& _rot, const Vector3& _scale, const bool& _isCamera = false);
+		Transform(const Vector3& position, const Quaternion& rotation, const Vector3& _scale, const bool& _isCamera = false);
 
         // Position.
 		Vector3 GetPosition() const;                  // Returns the transform's position.
@@ -42,10 +41,19 @@ namespace Maths
 		Vector3 GetUniformScale() const;		 // Returns the maximum value between the x, y and z elements of the transform's scale.
 		void    SetScale(const Vector3& _scale); // Modifies the transform's scale.
 
+    	// Is camera.
+    	bool IsCamera() const;                   // Returns true if the transform is a camera transform, false if it is an object transform.
+    	void SetIsCamera(const bool& _isCamera); // Modifies the transform's type (object transform or camera transform).
+
+    	// Multiple values at a time.
+    	void SetPosRot(const Vector3& position, const Quaternion& rotation);                        // Modify the transform's position and rotation.
+    	void SetValues(const Vector3& position, const Quaternion& rotation, const Vector3& _scale); // Modify all of the transform's values.
+
 		// Matrices.
-		Mat4 GetLocalMat() const { return localMat; }   // Returns the transform's local matrix.
-		Mat4 GetWorldMat() const { return worldMat; }   // Returns the transform's world matrix.
-		void SetWorldMat(const Mat4& mat) { worldMat = mat; } // Modifies the transform's world matrix.
+		Mat4 GetLocalMat () const { return localMat;  }          // Returns the transform's local matrix.
+		Mat4 GetParentMat() const { return parentMat; }          // Returns the transform's parent matrix.
+    	Mat4 GetWorldMat () const { return localMat * parentMat; } // Returns the transform's world matrix (local * parent).
+		void SetParentMat(const Mat4& mat) { parentMat = mat; }    // Modifies the transform's parent matrix.
 
 	private:
 		void UpdateLocalMat();

@@ -19,12 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Includes\Animation\Animation.h" />
+    <ClInclude Include="Includes\Animation\BoneAnim.h" />
     <ClInclude Include="Includes\Animation\Bone.h" />
     <ClInclude Include="Includes\Animation\Skeleton.h" />
     <ClInclude Include="Includes\Maths\AngleAxis.h" />
     <ClInclude Include="Includes\Maths\Arithmetic.h" />
     <ClInclude Include="Includes\Maths\Color.h" />
+    <ClInclude Include="Includes\Maths\MathConstants.h" />
     <ClInclude Include="Includes\Maths\Maths.h" />
     <ClInclude Include="Includes\Maths\Matrix.h" />
     <ClInclude Include="Includes\Maths\Quaternion.h" />
@@ -38,7 +39,7 @@
     <ClInclude Include="Includes\Utilities\Includer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\Animation\Animation.cpp" />
+    <ClCompile Include="Sources\Animation\BoneAnim.cpp" />
     <ClCompile Include="Sources\Animation\Bone.cpp" />
     <ClCompile Include="Sources\Animation\Skeleton.cpp" />
     <ClCompile Include="Sources\Core\Simulation.cpp" />
@@ -46,7 +47,6 @@
     <ClCompile Include="Sources\Maths\AngleAxis.cpp" />
     <ClCompile Include="Sources\Maths\Arithmetic.cpp" />
     <ClCompile Include="Sources\Maths\Color.cpp" />
-    <ClCompile Include="Sources\Maths\Matrix.cpp" />
     <ClCompile Include="Sources\Maths\Quaternion.cpp" />
     <ClCompile Include="Sources\Maths\Transform.cpp" />
     <ClCompile Include="Sources\Maths\Vector2.cpp" />

@@ -1,42 +1,53 @@
+// ----- Input variables ----- //
 
-/////////////////////
-// INPUT VARIABLES //
-/////////////////////
-in lowp vec3 inputPosition;
-in lowp vec3 normal;
+in lowp vec3 inPosition;
+in lowp vec3 inNormal;
 in lowp vec4 boneIndices;
 in lowp vec4 boneWeights;
 
-//////////////////////
-// OUTPUT VARIABLES //
-//////////////////////
+
+// ----- Output variables ----- //
+
 smooth out vec2 texCoord;
 smooth out vec3 outNormal;
 
+
+// ----- Uniform variables ----- //
+
 uniform SceneMatrices
 {
-	uniform mat4 projectionMatrix;
+    uniform mat4 projectionMatrix;
 } sm;
 
 uniform mat4 modelViewMatrix;
 
 uniform SkinningMatrices
 {
-	uniform mat4 mat[64];
+    uniform mat4 mat[64];
 } skin;
 
 
+// ----- Vertex shader ----- //
 
-////////////////////////////////////////////////////////////////////////////////
-// Vertex Shader
-////////////////////////////////////////////////////////////////////////////////
 void main(void)
 {
-	// Calculate the position of the vertex against the world, view, and projection matrices.
-	vec4 pos = vec4(inputPosition, 1.0f);
+    vec4 outPosition = vec4(inPosition, 1.0f);
 
-	gl_Position = sm.projectionMatrix * (modelViewMatrix * vec4(pos.xyz, 1.0f));
-	outNormal = mat3(modelViewMatrix) * normal;
+    // Transform the vertice's position and normal with the bone matrices.
+    outPosition =    (skin.mat[int(boneIndices.x)]  * outPosition) * boneWeights.x + 
+                     (skin.mat[int(boneIndices.y)]  * outPosition) * boneWeights.y + 
+                     (skin.mat[int(boneIndices.z)]  * outPosition) * boneWeights.z + 
+                     (skin.mat[int(boneIndices.w)]  * outPosition) * boneWeights.w;
+    outNormal = (mat3(skin.mat[int(boneIndices.x)]) * outNormal  ) * boneWeights.x + 
+                (mat3(skin.mat[int(boneIndices.y)]) * outNormal  ) * boneWeights.y + 
+                (mat3(skin.mat[int(boneIndices.z)]) * outNormal  ) * boneWeights.z + 
+                (mat3(skin.mat[int(boneIndices.w)]) * outNormal  ) * boneWeights.w;
 
-	outNormal = normalize(outNormal);
+    // Transform the vertice's position and normal with the world, view, and projection matrices.
+    outPosition = sm.projectionMatrix * (modelViewMatrix * outPosition);
+    outNormal   = mat3(modelViewMatrix) * inNormal;
+
+    // Output the vertice's position and normal.
+    gl_Position = outPosition;
+    outNormal   = normalize(outNormal);
 }

@@ -3,7 +3,7 @@
 #include "Maths/Transform.h"
 #include <vector>
 
-#include "Animation.h"
+#include "BoneAnim.h"
 
 struct Bone
 {
@@ -11,7 +11,7 @@ public:
 	int index;
 	std::string name;
 	Transform defaultTransform;
-	Animation animation;
+	BoneAnim animation;
 	
 	Bone* parent = nullptr;
 	std::vector<Bone*> children;

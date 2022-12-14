@@ -1,11 +1,21 @@
 #include "Maths/Maths.h"
 using namespace Maths;
 
-
-// ---------- ANGLE-AXIS METHODS ---------- //
+// ----- Constructors ----- //
 
 AngleAxis::AngleAxis()                                          : angle(0),      axis({ 0 }) {}
 AngleAxis::AngleAxis(const float& _angle, const Vector3& _axis) : angle(_angle), axis(_axis.GetNormalized()) {}
+AngleAxis::AngleAxis(const Quaternion& quaternion) { *this = quaternion.ToAngleAxis(); }
+AngleAxis::AngleAxis(const Mat4&       matrix    ) { *this = matrix    .ToAngleAxis(); }
+
+
+// ----- Static constructors ----- //
+
+AngleAxis AngleAxis::FromQuaternion(const Quaternion& quaternion) { return quaternion.ToAngleAxis(); }
+AngleAxis AngleAxis::FromMatrix    (const Mat4&       matrix    ) { return matrix    .ToAngleAxis(); }
+
+
+// ----- Conversions ----- //
 
 Quaternion AngleAxis::ToQuaternion() const
 {

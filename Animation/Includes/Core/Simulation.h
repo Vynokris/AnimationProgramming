@@ -17,17 +17,15 @@ public:
 
 class CSimulation : public ISimulation
 {
-public:
+private:
 	Skeleton skeleton;
-	Vector3  skeletonDrawOffset = { 100, 0, 0 };
-
-	Quaternion lerpStart;
-	Quaternion lerpDest;
-
+	
+public:
 	void Initialize() override;
+	
 	void Update(float deltaTime) override;
-	static void DrawGizmo(const int& x, const int& y, const int& z);
-	void DrawSkeleton();
+	
+	void DrawGizmo(const Vector3& offset, const float& size);
 };
 
 #endif

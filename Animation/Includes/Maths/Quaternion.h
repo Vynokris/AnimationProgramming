@@ -19,7 +19,17 @@ namespace Maths
 		Quaternion();                                                               // Null quaternion.
 		Quaternion(const float& all);                                               // Quaternion with equal values.
 		Quaternion(const float& w, const float& x, const float& y, const float& z); // Quaternion with 4 values.
-		Quaternion(const Vector3& eulerAngles);                                     // Quaternion from euler angles.
+		Quaternion(const Vector3&   eulerAngles);                                   // Quaternion from euler angles (pitch, roll, yaw).
+		Quaternion(const AngleAxis& angleAxis  );                                   // Quaternion from angle axis.
+		Quaternion(const Mat4&      matrix     );                                   // Quaternion from 4x4 matrix.
+
+		// -- Static constructors -- //
+		static Quaternion FromPitch    (const float&     angle    ); // Quaternion that rotates around the X axis by the given angle.
+		static Quaternion FromRoll     (const float&     angle    ); // Quaternion that rotates around the Y axis by the given angle.
+		static Quaternion FromYaw      (const float&     angle    ); // Quaternion that rotates around the Z axis by the given angle.
+		static Quaternion FromEuler    (const Vector3&   angles   ); // Quaternion from euler angles (pitch, roll, yaw).
+		static Quaternion FromAngleAxis(const AngleAxis& angleAxis); // Quaternion from angle axis.
+		static Quaternion FromMatrix   (const Mat4&      matrix   ); // Quaternion from 4x4 matrix.
 
 		// -- Operators -- //
         template <typename T> bool       operator==(const T& val) const;
@@ -57,9 +67,9 @@ namespace Maths
         Vector3    RotateVec (const Vector3&    v) const; // Applies this quaternion's rotation to the given 3D vector.
 
 		// Interpolation.
-		static Quaternion Lerp (const Quaternion& start, const Quaternion& dest, const float& t);
-		static Quaternion NLerp(const Quaternion& start, const Quaternion& dest, const float& t);
-		static Quaternion SLerp(const Quaternion& start, const Quaternion& dest, const float& t, const bool& useShortestPath = true);
+		static Quaternion Lerp (const Quaternion& start, const Quaternion& dest, const float& t);                                     // Interpolates between start and dest without normalizing the output.
+		static Quaternion NLerp(const Quaternion& start, const Quaternion& dest, const float& t);                                     // Normalized interpolation of start and dest.
+		static Quaternion SLerp(const Quaternion& start, const Quaternion& dest, const float& t, const bool& useShortestPath = true); // Spherical interpolation of start and dest.
 
 		// Conversion.
         AngleAxis   ToAngleAxis()                      const; // Returns the angle-axis rotation that corresponds to this quaternion.

@@ -1,12 +1,11 @@
 #pragma once
 
-#include <cstdio>
 #include <string>
-#include <sstream>
-#include <cassert>
+
 
 namespace Maths
 {
+    class Vector3;
     class AngleAxis;
     class Quaternion;
 
@@ -27,12 +26,16 @@ namespace Maths
         float m[R][C];
         
     public:
-        // ----- Constructors ----- //
-
-        Matrix(const bool& identity = false); // Default constructor.
-        Matrix(const Matrix<R, C>& matrix);   // Copy operator.
-        Matrix(const float matrix[R][C]);     // Matrix from float 2D array.
-
+        // -- Constructors -- //
+        
+        Matrix(const bool& identity = true); // Default constructor.
+        Matrix(const Matrix& matrix);        // Copy operator.
+        Matrix(const float matrix[R][C]);    // Matrix from float 2D array.
+        
+        Matrix(const Vector3&    eulerAngles); // Matrix from euler angles (pitch, roll, yaw).
+        Matrix(const AngleAxis&  angleAxis  ); // Matrix from angle-axis.
+        Matrix(const Quaternion& quaternion ); // Matrix from quaternion.
+        
         // Matrix 2x2 constructor.
         Matrix(const float& m00, const float& m01, 
                const float& m10, const float& m11);
@@ -51,42 +54,55 @@ namespace Maths
         // Matrix 4x4 constructor (from 2x2 matrices).
         Matrix(const Mat2& a, const Mat2& b, const Mat2& c, const Mat2& d);
 
+
+        // -- Static constructors -- //
+
+        static Matrix FromTranslation(const Vector3&    translation); // Matrix from translation.
+        static Matrix FromPitch      (const float&      angle      ); // Matrix that rotates around the X axis by the given angle.
+        static Matrix FromRoll       (const float&      angle      ); // Matrix that rotates around the Y axis by the given angle.
+        static Matrix FromYaw        (const float&      angle      ); // Matrix that rotates around the Z axis by the given angle.
+        static Matrix FromEuler      (const Vector3&    angles     ); // Matrix from euler angles (pitch, roll, yaw).
+        static Matrix FromAngleAxis  (const AngleAxis&  angleAxis  ); // Matrix from angle-axis.
+        static Matrix FromQuaternion (const Quaternion& quaternion ); // Matrix from quaternion.
+        static Matrix FromScale      (const Vector3&    scale      ); // Matrix from scale.
+        static Matrix FromTransform  (const Vector3& pos, const Quaternion& rot, const Vector3& scale, const bool& reverse = false); // Matrix from transform.
         
-        // ----- Operators ----- //
+        
+        // -- Operators -- //
 
         // Matrix bracket operators.
         const float* operator[](int index) const { return m[index]; }
               float* operator[](int index)       { return m[index]; }
 
         // Matrix copy.
-        Matrix<R, C>& operator=(const Matrix<R, C>& matrix);
-        Matrix<R, C>& operator=(float** matrix);
+        Matrix& operator=(const Matrix& matrix);
+        Matrix& operator=(float** matrix);
 
         // Matrix addition.
-        Matrix<R, C> operator+(const float& val) const;
-        Matrix<R, C> operator+(const Matrix<R, C>& matrix) const;
+        Matrix operator+(const float& val) const;
+        Matrix operator+(const Matrix& matrix) const;
 
         // Matrix subtraction and inversion.
-        Matrix<R, C> operator-() const;
-        Matrix<R, C> operator-(const float& val) const;
-        Matrix<R, C> operator-(const Matrix<R, C>& matrix) const;
+        Matrix operator-() const;
+        Matrix operator-(const float& val) const;
+        Matrix operator-(const Matrix& matrix) const;
 
 
         // Matrix multiplication.
-        Matrix<R, C> operator*(const float& val) const;
+        Matrix operator*(const float& val) const;
         template<int R2, int C2>
         Matrix<(R > R2 ? R : R2), (C > C2 ? C : C2)> operator*(const Matrix<R2, C2>& matrix) const;
 
         // Matrix division by a scalar.
-        Matrix<R, C> operator/(const float& val) const;
+        Matrix operator/(const float& val) const;
 
         // Matrix addition assignment.
         void operator+=(const float& val);
-        void operator+=(const Matrix<R, C>& matrix);
+        void operator+=(const Matrix& matrix);
 
         // Matrix subtraction assignment.
         void operator-=(const float& val);
-        void operator-=(const Matrix<R, C>& matrix);
+        void operator-=(const Matrix& matrix);
 
         // Matrix multiplication assignment.
         void operator*=(const float& val);
@@ -94,10 +110,11 @@ namespace Maths
         void operator*=(const Matrix<R2, C2>& matrix);
 
         // Matrix power.
-        Matrix<R, C> operator^(const float& n) const;
-        Matrix<R, C> Pow      (const float& n) const;
+        Matrix operator^(const float& n) const;
+        Matrix Pow      (const float& n) const;
 
-        // ----- Methods ----- //
+        
+        // -- Methods -- //
 
         // Getters.
         float* AsPtr();                                               // Returns a pointer to the matrix's float array.
@@ -119,15 +136,18 @@ namespace Maths
         Mat4 Inv4() const; // Returns the inverse of a 4x4 matrix's.
 
         // Transposition.
-        void         Transpose    ();       // Transposes the matrix.
-        Matrix<R, C> GetTransposed() const; // Returns a transposed copy of this matrix.
+        void   Transpose    ();       // Transposes the matrix.
+        Matrix GetTransposed() const; // Returns a transposed copy of this matrix.
 
-        // Conversions.
+
+        // -- Conversions -- //
+        
         AngleAxis   ToAngleAxis () const;                     // Conversion to angle axis rotation (matrix must be 3x3 or 4x4 rotation only).
         Quaternion  ToQuaternion() const;                     // Conversion to quaternion (matrix must be 3x3 or 4x4 rotation only).
         std::string ToString(const int& precision = 2) const; // Returns matrix contents as string.
     };
 
+    /*
     Mat4 GetTranslationMatrix(const Vector3& translation);
     Mat4 GetXRotationMatrix  (const float& angle);
     Mat4 GetYRotationMatrix  (const float& angle);
@@ -136,6 +156,7 @@ namespace Maths
     Mat4 GetScaleMatrix      (const Vector3& scale);
     Mat4 GetTransformMatrix  (const Vector3& position, const Vector3&    rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
     Mat4 GetTransformMatrix  (const Vector3& position, const Quaternion& rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
+    */
 }
 
 #include "Matrix.inl"
