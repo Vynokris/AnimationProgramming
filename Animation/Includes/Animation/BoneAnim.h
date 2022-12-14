@@ -11,7 +11,8 @@ class BoneAnim
 private:
 	const int   boneIndex;
 	const char* curAnimName   = "";
-	int         curKeyFrame   = -1;
+	int         keyFrameCount = 0;
+	int         curKeyFrame   = 0;
 	float       keyFrameTimer = 0;
 	Transform   poseTransform;
 	Transform   prevPoseTransform;

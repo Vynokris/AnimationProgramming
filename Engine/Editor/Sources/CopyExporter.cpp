@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "CopyExporter.h"
 
 #include "FileSystem.h"

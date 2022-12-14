@@ -1,10 +1,11 @@
+#include "stdafx.h"
 #include "TextureExporter.h"
 
-#include <FreeImage.h>
+#include <FreeImage\Src\Source\FreeImage.h>
 
 #if defined(_WIN32) || defined(_WIN64)
 extern "C" {
-	#include "image_DXT.h"
+	#include "DDS\image_DXT.h"
 }
 #else
 #include "image_DXT.h"

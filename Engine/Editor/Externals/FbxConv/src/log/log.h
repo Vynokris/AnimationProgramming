@@ -21,9 +21,9 @@
 #define FBXCONV_LOG_LOG_H
 
 #include <vector>
-#include <stdarg.h>
+#include <cstdarg>
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <cassert>
 #include "codes.h"
@@ -120,7 +120,7 @@ namespace log {
 			log(type, vformat(m, vl));
 		}
 
-		virtual void log(const int &type, const int &code, ...) {
+		virtual void log(const int &type, const int code, ...) {
 			va_list vl; va_start(vl, code); vlog(type, code, vl); va_end(vl);
 		}
 

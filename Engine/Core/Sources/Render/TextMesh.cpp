@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Render/TextMesh.h"
 
 #include "FontSystem.h"

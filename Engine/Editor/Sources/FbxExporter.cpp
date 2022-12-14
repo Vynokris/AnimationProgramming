@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "FbxExporter.h"
 
 #include "Render/MeshHelper.h"
@@ -5,7 +6,7 @@
 #include "FileSystem.h"
 
 #pragma optimize( "", on ) 
-#include <FbxConv.h>
+#include <FbxConv\src\FbxConv.h>
 #pragma optimize( "", off ) 
 
 #include "Application.h"

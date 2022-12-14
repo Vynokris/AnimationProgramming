@@ -30,6 +30,9 @@
     <Filter Include="Sources\Animation">
       <UniqueIdentifier>{6328f82c-5699-4c80-9a68-2ae4d2080fd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Externals">
+      <UniqueIdentifier>{6aadecc7-552b-4e84-b93f-3c233215d484}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Includes\Utilities\Includer.h">
@@ -126,6 +129,21 @@
     </ClCompile>
     <ClCompile Include="Sources\Animation\BoneAnim.cpp">
       <Filter>Sources\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Externals\Sources\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Sources\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="Externals\Sources\imgui\imgui_impl_sdl.cpp">
+      <Filter>Sources\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="Externals\Sources\imgui\imgui_widgets.cpp">
+      <Filter>Sources\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="Externals\Sources\imgui\imgui.cpp">
+      <Filter>Sources\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="Externals\Sources\imgui\imgui_draw.cpp">
+      <Filter>Sources\Externals</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

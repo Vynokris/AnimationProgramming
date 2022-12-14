@@ -5,7 +5,7 @@
 
 #include "BoneAnim.h"
 
-struct Bone
+class Bone
 {
 public:
 	int index;

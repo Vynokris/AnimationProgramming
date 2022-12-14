@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "AssetExporter.h"
 
 WHITEBOX_BEGIN

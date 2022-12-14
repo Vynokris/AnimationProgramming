@@ -70,6 +70,18 @@
     <Filter Include="System">
       <UniqueIdentifier>{2bae47d2-9be6-44e8-8c2b-93172aeb0781}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ExternalSources">
+      <UniqueIdentifier>{ea11b1df-3122-4182-b7ed-ffcb0ad38f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalSources\imgui">
+      <UniqueIdentifier>{51d6f961-8525-4f35-a3ae-4f2b83d6f05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalSources\fbxconv">
+      <UniqueIdentifier>{d08a6070-9931-4261-8cd0-ee7cab118a0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalSources\dxtlib">
+      <UniqueIdentifier>{409e3f2c-c19b-4ed3-a3aa-7745c031ce19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor\Includes\AssetExporter.h">
@@ -427,6 +439,30 @@
     </ClCompile>
     <ClCompile Include="System\stdafx.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Externals\imgui\imgui.cpp">
+      <Filter>ExternalSources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Externals\imgui\imgui_draw.cpp">
+      <Filter>ExternalSources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Externals\imgui\imgui_impl_opengl3.cpp">
+      <Filter>ExternalSources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Externals\imgui\imgui_impl_sdl.cpp">
+      <Filter>ExternalSources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Externals\imgui\imgui_widgets.cpp">
+      <Filter>ExternalSources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\Externals\FbxConv\src\main.cpp">
+      <Filter>ExternalSources\fbxconv</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\Externals\FbxConv\src\modeldata\Serialization.cpp">
+      <Filter>ExternalSources\fbxconv</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\Externals\DDS\image_DXT.cpp">
+      <Filter>ExternalSources\dxtlib</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
