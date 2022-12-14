@@ -80,7 +80,10 @@
     <ClInclude Include="Includes\Animation\Skeleton.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\Animation\Animation.h">
+    <ClInclude Include="Includes\Maths\MathConstants.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Animation\BoneAnim.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,9 +98,6 @@
       <Filter>Sources\Maths</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Maths\Color.cpp">
-      <Filter>Sources\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Maths\Matrix.cpp">
       <Filter>Sources\Maths</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Maths\Quaternion.cpp">
@@ -124,7 +124,7 @@
     <ClCompile Include="Sources\Animation\Skeleton.cpp">
       <Filter>Sources\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Animation\Animation.cpp">
+    <ClCompile Include="Sources\Animation\BoneAnim.cpp">
       <Filter>Sources\Animation</Filter>
     </ClCompile>
   </ItemGroup>

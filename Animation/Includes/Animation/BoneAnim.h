@@ -1,12 +1,12 @@
 #pragma once
 #include "Maths/Transform.h"
 
-constexpr float KEYFRAME_DURATION = 0.05f;
+constexpr float KEYFRAME_DURATION = 1/30.f;
 
 constexpr const char* WALK_ANIMATION = "ThirdPersonWalk.anim";
 constexpr const char* RUN_ANIMATION  = "ThirdPersonRun.anim";
 
-class Animation
+class BoneAnim
 {
 private:
 	const int   boneIndex;
@@ -17,11 +17,13 @@ private:
 	Transform   prevPoseTransform;
 	
 public:
-	Animation(const int& boneId) : boneIndex(boneId) {}
+	BoneAnim(const int& boneId) : boneIndex(boneId) {}
 	
 	void SetCurrentAnimation(const char* animName);
 	void UpdateTimer		(const float& deltaTime);
 	void UpdatePoseTransform();
-	
-	Mat4 GetPoseMat() const;
+
+	Mat4 GetPoseLocalMat() const;
+	Mat4 GetParentMat   () const;
+	void SetParentMat   (const Mat4& worldMat);
 };

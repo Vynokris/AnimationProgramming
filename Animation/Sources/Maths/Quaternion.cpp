@@ -2,37 +2,51 @@
 using namespace Maths;
 
 
-// ---------- QUATERNION OPERATORS & CONSTRUCTORS ---------- //
+// ----- Constructors ----- //
 
-// Constructors.
-Quaternion::Quaternion()                                                               : w(0),   x(0),   y(0),   z(0)   {}
+Quaternion::Quaternion()                                                               : w(1),   x(0),   y(0),   z(0)   {}
 Quaternion::Quaternion(const float& all)                                               : w(all), x(all), y(all), z(all) {}
 Quaternion::Quaternion(const float& w, const float& x, const float& y, const float& z) : w(w),   x(x),   y(y),   z(z)   {}
-Quaternion::Quaternion(const Vector3& eulerAngles)                                     : w(0),   x(0),   y(0),   z(0)
+Quaternion::Quaternion(const Vector3& eulerAngles)                                     : w(1),   x(0),   y(0),   z(0)
 {
-    const float cX = cos(eulerAngles.x * 0.5f), sX = sin(eulerAngles.x * 0.5f);
-    const float cY = cos(eulerAngles.y * 0.5f), sY = sin(eulerAngles.y * 0.5f);
-    const float cZ = cos(eulerAngles.z * 0.5f), sZ = sin(eulerAngles.z * 0.5f);
+    const float cX = cos(eulerAngles.x/2.f), sX = sin(eulerAngles.x/2.f);
+    const float cY = cos(eulerAngles.y/2.f), sY = sin(eulerAngles.y/2.f);
+    const float cZ = cos(eulerAngles.z/2.f), sZ = sin(eulerAngles.z/2.f);
 
     w = cX*cY*cZ + sX*sY*sZ;
     x = sX*cY*cZ - cX*sY*sZ;
     y = cX*sY*cZ + sX*cY*sZ;
     z = cX*cY*sZ - sX*sY*cZ;
 }
+Quaternion::Quaternion(const AngleAxis& angleAxis) { *this = angleAxis.ToQuaternion(); }
+Quaternion::Quaternion(const Mat4&      matrix   ) { *this = matrix   .ToQuaternion(); }
 
-// Quaternion negation.
-Quaternion Quaternion::operator-() const { return { -w, -x, -y, -z }; }
 
-// Quaternion dot product.
+// ----- Static constructors  ----- //
+
+Quaternion Quaternion::FromPitch    (const float&     angle    ) { return Quaternion(cos(angle/2.f), sin(angle/2.f), 0, 0); }
+Quaternion Quaternion::FromRoll     (const float&     angle    ) { return Quaternion(cos(angle/2.f), 0, sin(angle/2.f), 0); }
+Quaternion Quaternion::FromYaw      (const float&     angle    ) { return Quaternion(cos(angle/2.f), 0, 0, sin(angle/2.f)); }
+Quaternion Quaternion::FromEuler    (const Vector3&   angles   ) { return Quaternion(angles); }
+Quaternion Quaternion::FromAngleAxis(const AngleAxis& angleAxis) { return angleAxis.ToQuaternion(); }
+Quaternion Quaternion::FromMatrix   (const Mat4&      matrix   ) { return matrix   .ToQuaternion(); }
+
+// ----- Operators  ----- //
+
+Quaternion Quaternion::operator-() const
+{
+    return { -w, -x, -y, -z };
+}
+
 float Quaternion::Dot(const Quaternion& q) const
 {
     return w*q.w + x*q.x + y*q.y + z*q.z;
 }
 
 
-// ---------- QUATERNION METHODS ---------- //
+// ----- Methods ----- //
 
-// Returns the absolute value of the quaternion.
+// Absolute value.
 float Quaternion::GetModulus() const
 {
     return sqrt(sqpow(w) + sqpow(x) + sqpow(y) + sqpow(z));
@@ -121,7 +135,10 @@ Quaternion Quaternion::SLerp(const Quaternion& start, const Quaternion& dest, co
                        coeff1 * start.z + coeff2 * dest.z).GetNormalized();
 }
 
-// Returns the angle-axis rotation that corresponds to this quaternion.
+
+// ----- Conversions ----- //
+
+// Angle-axis.
 AngleAxis Quaternion::ToAngleAxis() const
 {
     const float angle = 2 * acos(w);
@@ -131,7 +148,7 @@ AngleAxis Quaternion::ToAngleAxis() const
     return angleAxis;
 }
 
-// Returns the rotation matrix that corresponds to this quaternion.
+// Rotation matrix.
 Mat4 Quaternion::ToMatrix() const
 {
     const float w2 = sqpow(w);
@@ -144,7 +161,7 @@ Mat4 Quaternion::ToMatrix() const
                 0,           0,           0,           1);
 }
 
-// Returns the euler angles that correspond to this quaternion.
+// Euler angles.
 Vector3 Quaternion::ToEuler() const
 {
     Vector3 eulerAngles;
@@ -167,7 +184,7 @@ Vector3 Quaternion::ToEuler() const
     return eulerAngles;
 }
 
-// Returns the quaternion's contents as a string.
+// String.
 std::string Quaternion::ToString(const int& precision) const
 {
     std::ostringstream string;

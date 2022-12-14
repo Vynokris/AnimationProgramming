@@ -15,12 +15,12 @@ Program
 
 	Attribute
 	{
-		name = "inputPosition"
+		name = "inPosition"
 	}
 
 	Attribute
 	{
-		name = "normal"
+		name = "inNormal"
 	}
 
 	Attribute

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include "Core/Engine.h"
+
 Skeleton:: Skeleton() : rootBone(nullptr), bones({}) { }
 Skeleton::~Skeleton()
 {
@@ -41,6 +43,38 @@ void Skeleton::RemoveBone(const int& id)
 	delete bone;
 }
 
+bool Skeleton::DoesBoneExist(const Bone* bone)
+{
+	return std::find(bones.begin(), bones.end(), bone) != bones.end();
+}
+
+void Skeleton::UpdateAnimation(const float& deltaTime)
+{
+	GetRootBone()->UpdateChildrenAnimation(deltaTime);
+	UpdateBoneMatrices();
+	
+	SetSkinningPose(GetBoneMatrices()[0].AsPtr(), GetBoneMatrices().size());
+}
+
+void Skeleton::Draw(const Vector3& offset) const
+{
+	for (int boneId = 0; boneId < (int)bones.size(); boneId++)
+	{
+		// Stop if the bone is the root or the pelvis.
+		if (!bones[boneId]->parent || !bones[boneId]->parent->parent) continue;
+
+		// Get the bone parent's index.
+		const int parentId = bones[boneId]->parent->index;
+		
+		// Get the world positions of the bone and its parent.
+		const Vector3 pos  = bones[boneId  ]->defaultTransform.GetPosition() * bones[boneId  ]->defaultTransform.GetParentMat() * boneMatrices[boneId  ] + offset;
+		const Vector3 pos2 = bones[parentId]->defaultTransform.GetPosition() * bones[parentId]->defaultTransform.GetParentMat() * boneMatrices[parentId] + offset;
+
+		// Draw the bone as a line from itself to its parent.
+		DrawLine(pos.x, pos.y, pos.z, pos2.x, pos2.y, pos2.z, 1, 0, 1);
+	}
+}
+
 Bone* Skeleton::GetBone(const int& id) const
 {
 	for (Bone* bone : bones)
@@ -49,12 +83,25 @@ Bone* Skeleton::GetBone(const int& id) const
 	return nullptr;
 }
 
-std::vector<Bone*> Skeleton::GetBones()
+std::vector<Bone*>& Skeleton::GetBones()
 {
 	return bones;
 }
 
-bool Skeleton::DoesBoneExist(const Bone* bone)
+void Skeleton::UpdateBoneMatrices()
 {
-	return std::find(bones.begin(), bones.end(), bone) != bones.end();
+	boneMatrices.clear();
+	if (boneMatrices.capacity() < bones.size())
+		boneMatrices.reserve(bones.size());
+	
+	for (const Bone* bone : bones)
+	{
+		// Matrix that transforms a position in the following way: global in default pose -> local to bone in default pose -> local to bone in animated pose -> global in animated pose.
+		boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4() * bone->animation.GetPoseLocalMat() * bone->defaultTransform.GetLocalMat() * bone->animation.GetParentMat());
+	}
+}
+
+std::vector<Mat4>& Skeleton::GetBoneMatrices()
+{
+	return boneMatrices;
 }

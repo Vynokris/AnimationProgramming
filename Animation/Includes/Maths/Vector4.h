@@ -5,6 +5,7 @@ namespace Maths
     class Vector3;
 
     // Point in 3D space with homogeneous coordinates.
+    // TODO: Remove most computations from this class and leave them to Vector3.
     class Vector4
     {
     public:

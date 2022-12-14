@@ -10,7 +10,7 @@ Vector4::Vector4(const Vector4& p1, const Vector4& p2, const float& _w)         
 Vector4::Vector4(const Vector3& vec, const float& _w)                                : x(vec.x), y(vec.y), z(vec.z), w(_w) {};                   // Vector from Segment3.
 Vector4::Vector4(const Vector3& angles, const float& length, const float& _w)        : x(0),  y(0),  z(0),  w(_w)
 {
-    *this = (Vector4(0, 0, 1, 1) * GetRotationMatrix({ -angles.x, -angles.y, -angles.z })).GetHomogenized();
+    *this = (Vector4(0, 0, 1, 1) * Mat4::FromEuler(-angles)).GetHomogenized();
 }
 
 // ---------- VECTOR4 OPERATORS ---------- //

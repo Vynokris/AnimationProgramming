@@ -1,17 +1,18 @@
+#include <cassert>
+#include <sstream>
 #include <iostream>
 
-#include "Maths/Maths.h"
 #include "Matrix.h"
+#include "MathConstants.h"
 #include "AngleAxis.h"
 #include "Quaternion.h"
-using namespace Maths;
 
 
-// ---------- MATRIX CONSTRUCTORS ---------- //
+// ----- Constructors ----- //
 
 // Default constructor.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const bool& identity)
+Matrix<R, C>::Matrix(const bool& identity)
 {
     assert(R >= 2 && C >= 2/*, "Matrix size is too small."*/);
 
@@ -34,7 +35,7 @@ inline Matrix<R, C>::Matrix(const bool& identity)
 
 // Copy operator.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const Matrix<R, C>& matrix)
+Matrix<R, C>::Matrix(const Matrix<R, C>& matrix)
 {
     assert(R >= 2 && C >= 2/*, "Matrix size is too small."*/);
     for (int i = 0; i < R; i++)
@@ -44,7 +45,7 @@ inline Matrix<R, C>::Matrix(const Matrix<R, C>& matrix)
 
 // Matrix from float 2D array.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const float matrix[R][C])
+Matrix<R, C>::Matrix(const float matrix[R][C])
 {
     assert(R > 2 && C > 2/*, "Matrix size is too small."*/);
     for (int i = 0; i < R; i++)
@@ -52,9 +53,33 @@ inline Matrix<R, C>::Matrix(const float matrix[R][C])
             m[i][j] = matrix[i][j];
 }
 
+// Matrix from euler angles.
+template <int R, int C>
+Matrix<R, C>::Matrix(const Vector3& eulerAngles)
+{
+    assert(R == 4 && C == 4);
+    *this = Quaternion::FromEuler(eulerAngles).ToMatrix();
+}
+
+// Matrix from angle-axis.
+template <int R, int C>
+Matrix<R, C>::Matrix(const AngleAxis& angleAxis)
+{
+    assert(R == 4 && C == 4);
+    *this = angleAxis.ToMatrix();
+}
+
+// Matrix from quaternion.
+template <int R, int C>
+Matrix<R, C>::Matrix(const Quaternion& quaternion)
+{
+    assert(R == 4 && C == 4);
+    *this = quaternion.ToMatrix();
+}
+
 // Matrix 2x2 constructor.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m10, const float& m11)
+Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m10, const float& m11)
 {
     assert(R == 2 && C == 2/*, "Matrix size doesn't correspond to the number of initializers."*/);
     m[0][0] = m00; m[0][1] = m01;
@@ -63,7 +88,7 @@ inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m10
 
 // Matrix 3x3 constructor.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02, 
+Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02, 
                             const float& m10, const float& m11, const float& m12, 
                             const float& m20, const float& m21, const float& m22)
 {
@@ -75,7 +100,7 @@ inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02
 
 // Matrix 4x4 constructor.
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02, const float& m03, 
+Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02, const float& m03, 
                             const float& m10, const float& m11, const float& m12, const float& m13, 
                             const float& m20, const float& m21, const float& m22, const float& m23, 
                             const float& m30, const float& m31, const float& m32, const float& m33)
@@ -89,7 +114,7 @@ inline Matrix<R, C>::Matrix(const float& m00, const float& m01, const float& m02
 
 // Matrix 4x4 constructor (from 2x2 matrices).
 template<int R, int C>
-inline Matrix<R, C>::Matrix(const Mat2& a, const Mat2& b, const Mat2& c, const Mat2& d)
+Matrix<R, C>::Matrix(const Mat2& a, const Mat2& b, const Mat2& c, const Mat2& d)
 {
     assert(R == 4 && C == 4/*, "Matrix size doesn't correspond to the number of initializers."*/);
     m[0][0] = a[0][0]; m[0][1] = a[0][1]; m[0][2] = b[0][0]; m[0][3] = b[0][1];
@@ -99,11 +124,58 @@ inline Matrix<R, C>::Matrix(const Mat2& a, const Mat2& b, const Mat2& c, const M
 }
 
 
+// ----- Static constructors ----- //
+
+// Translation matrix.
+template <int R, int C>
+Matrix<R, C> Matrix<R, C>::FromTranslation(const Vector3& translation)
+{
+    return Mat4(1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                translation.x, translation.y, translation.z, 1);
+}
+
+// Rotation matrices.
+template <int R, int C> Matrix<R, C> Matrix<R, C>::FromPitch     (const float&      angle     ) { return AngleAxis(angle, { 1, 0, 0 }).ToMatrix(); }
+template <int R, int C> Matrix<R, C> Matrix<R, C>::FromRoll      (const float&      angle     ) { return AngleAxis(angle, { 0, 1, 0 }).ToMatrix(); }
+template <int R, int C> Matrix<R, C> Matrix<R, C>::FromYaw       (const float&      angle     ) { return AngleAxis(angle, { 0, 0, 1 }).ToMatrix(); }
+template <int R, int C> Matrix<R, C> Matrix<R, C>::FromEuler     (const Vector3&    angles    ) { return Quaternion::FromEuler(angles).ToMatrix(); }
+template <int R, int C> Matrix<R, C> Matrix<R, C>::FromAngleAxis (const AngleAxis&  angleAxis ) { return angleAxis.ToMatrix(); }
+template <int R, int C> Matrix<R, C> Matrix<R, C>::FromQuaternion(const Quaternion& quaternion) { return quaternion.ToMatrix(); }
+
+// Scale matrix.
+template <int R, int C>
+Matrix<R, C> Matrix<R, C>::FromScale(const Vector3& scale)
+{
+    return Mat4(scale.x, 0, 0, 0,
+                0, scale.y, 0, 0,
+                0, 0, scale.z, 0,
+                0, 0, 0, 1);
+}
+
+// Transform matrix.
+template <int R, int C>
+Matrix<R, C> Matrix<R, C>::FromTransform(const Vector3& pos, const Quaternion& rot, const Vector3& scale, const bool& reverse)
+{
+    if (reverse)
+    {
+        // TODO: Untested.
+        return FromTranslation(pos)        *
+               rot.GetInverse().ToMatrix() *
+               FromScale(scale);
+    }
+    return FromScale(scale) *
+           rot.ToMatrix()   * 
+           FromTranslation(pos);
+}
+
+
 // ---------- MATRIX OPERATORS ---------- //
 
 // Matrix copy.
 template<int R, int C>
-inline Matrix<R, C>& Matrix<R, C>::operator=(const Matrix<R, C>& matrix)
+Matrix<R, C>& Matrix<R, C>::operator=(const Matrix<R, C>& matrix)
 {
     if (&matrix == this) return *this;
 
@@ -116,7 +188,7 @@ inline Matrix<R, C>& Matrix<R, C>::operator=(const Matrix<R, C>& matrix)
 }
 
 template<int R, int C>
-inline Matrix<R, C>& Matrix<R, C>::operator=(float** matrix)
+Matrix<R, C>& Matrix<R, C>::operator=(float** matrix)
 {
     assert(sizeof(matrix) / sizeof(float) == R * C/*, "The given matrix is of the wrong size."*/);
 
@@ -129,7 +201,7 @@ inline Matrix<R, C>& Matrix<R, C>::operator=(float** matrix)
 
 // Matrix addition.
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator+(const float& val) const
+Matrix<R, C> Matrix<R, C>::operator+(const float& val) const
 {
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
@@ -139,7 +211,7 @@ inline Matrix<R, C> Matrix<R, C>::operator+(const float& val) const
 }
 
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator+(const Matrix<R, C>& matrix) const
+Matrix<R, C> Matrix<R, C>::operator+(const Matrix<R, C>& matrix) const
 {
     Matrix<_R, _C> tmp;
     for (int i = 0; i < R; i++)
@@ -150,7 +222,7 @@ inline Matrix<R, C> Matrix<R, C>::operator+(const Matrix<R, C>& matrix) const
 
 // Matrix subtraction and inversion.
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator-() const
+Matrix<R, C> Matrix<R, C>::operator-() const
 {
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
@@ -160,7 +232,7 @@ inline Matrix<R, C> Matrix<R, C>::operator-() const
 }
 
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator-(const float& val) const
+Matrix<R, C> Matrix<R, C>::operator-(const float& val) const
 {
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
@@ -170,7 +242,7 @@ inline Matrix<R, C> Matrix<R, C>::operator-(const float& val) const
 }
 
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator-(const Matrix<R, C>& matrix) const
+Matrix<R, C> Matrix<R, C>::operator-(const Matrix<R, C>& matrix) const
 {
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
@@ -181,7 +253,7 @@ inline Matrix<R, C> Matrix<R, C>::operator-(const Matrix<R, C>& matrix) const
 
 // Matrix multiplication.
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator*(const float& val) const
+Matrix<R, C> Matrix<R, C>::operator*(const float& val) const
 {
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
@@ -191,7 +263,7 @@ inline Matrix<R, C> Matrix<R, C>::operator*(const float& val) const
 }
 
 template<int R, int C> template<int R2, int C2>
-inline Matrix<(R > R2 ? R : R2), (C > C2 ? C : C2)> Matrix<R, C>::operator*(const Matrix<R2, C2>& matrix) const
+Matrix<(R > R2 ? R : R2), (C > C2 ? C : C2)> Matrix<R, C>::operator*(const Matrix<R2, C2>& matrix) const
 {
     assert(C == R2/*, "Given matrices cannot be multiplied."*/);
 
@@ -210,7 +282,7 @@ inline Matrix<(R > R2 ? R : R2), (C > C2 ? C : C2)> Matrix<R, C>::operator*(cons
 
 // Matrix division by a scalar.
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator/(const float& val) const
+Matrix<R, C> Matrix<R, C>::operator/(const float& val) const
 {
     Matrix<R, C> tmp;
     for (int i = 0; i < R; i++)
@@ -221,7 +293,7 @@ inline Matrix<R, C> Matrix<R, C>::operator/(const float& val) const
 
 // Matrix addition assignment.
 template<int R, int C>
-inline void Matrix<R, C>::operator+=(const float& val)
+void Matrix<R, C>::operator+=(const float& val)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
@@ -229,7 +301,7 @@ inline void Matrix<R, C>::operator+=(const float& val)
 }
 
 template<int R, int C>
-inline void Matrix<R, C>::operator+=(const Matrix<R, C>& matrix)
+void Matrix<R, C>::operator+=(const Matrix<R, C>& matrix)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
@@ -238,7 +310,7 @@ inline void Matrix<R, C>::operator+=(const Matrix<R, C>& matrix)
 
 // Matrix subtraction assignment.
 template<int R, int C>
-inline void Matrix<R, C>::operator-=(const float& val)
+void Matrix<R, C>::operator-=(const float& val)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
@@ -246,7 +318,7 @@ inline void Matrix<R, C>::operator-=(const float& val)
 }
 
 template<int R, int C>
-inline void Matrix<R, C>::operator-=(const Matrix<R, C>& matrix)
+void Matrix<R, C>::operator-=(const Matrix<R, C>& matrix)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
@@ -255,7 +327,7 @@ inline void Matrix<R, C>::operator-=(const Matrix<R, C>& matrix)
 
 // Matrix multiplication assignment.
 template<int R, int C>
-inline void Matrix<R, C>::operator*=(const float& val)
+void Matrix<R, C>::operator*=(const float& val)
 {
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
@@ -271,7 +343,7 @@ void Matrix<R, C>::operator*=(const Matrix<R2, C2>& matrix)
 
 // Matrix power.
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::operator^(const float& n) const
+Matrix<R, C> Matrix<R, C>::operator^(const float& n) const
 {
     Matrix<R, C> tmp;
     for (int n0 = 0; n0 < n; n0++)
@@ -292,13 +364,13 @@ Matrix<R, C> Matrix<R, C>::Pow(const float& n) const
 
 // Getters.
 template<int R, int C>
-inline float* Matrix<R, C>::AsPtr()
+float* Matrix<R, C>::AsPtr()
 {
     return &m[0][0];
 }
 
 template<int R, int C>
-inline bool Matrix<R, C>::IsIdentity() const
+bool Matrix<R, C>::IsIdentity() const
 {
     for (int i = 0; i < R; i++) {
         for (int j = 0; j < C; j++) {
@@ -323,13 +395,13 @@ bool Matrix<R, C>::IsSymmetrical() const
 
 // Determinants.
 template<int R, int C>
-inline float Matrix<R, C>::Det2() const
+float Matrix<R, C>::Det2() const
 {
     return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
 }
 
 template<int R, int C>
-inline float Matrix<R, C>::Det3() const
+float Matrix<R, C>::Det3() const
 {
     return m[0][0] * Mat2 { m[1][1], m[1][2], m[2][1], m[2][2] }.Det2() -
            m[0][1] * Mat2 { m[1][0], m[1][2], m[2][0], m[2][2] }.Det2() +
@@ -337,7 +409,7 @@ inline float Matrix<R, C>::Det3() const
 }
 
 template<int R, int C>
-inline float Matrix<R, C>::Det4() const
+float Matrix<R, C>::Det4() const
 {
     Mat3 a(m[1][1], m[1][2], m[1][3], m[2][1], m[2][2], m[2][3], m[3][1], m[3][2], m[3][3]);
     Mat3 b(m[1][0], m[1][2], m[1][3], m[2][0], m[2][2], m[2][3], m[3][0], m[3][2], m[3][3]);
@@ -349,14 +421,14 @@ inline float Matrix<R, C>::Det4() const
 
 // Inverses.
 template<int R, int C>
-inline Mat2 Matrix<R, C>::Inv2() const
+Mat2 Matrix<R, C>::Inv2() const
 {
     Mat2 val(m[1][1], -m[0][1], -m[1][0], m[0][0]);
     return val / val.Det2();
 }
 
 template<int R, int C>
-inline Mat3 Matrix<R, C>::Inv3() const
+Mat3 Matrix<R, C>::Inv3() const
 {
     Mat4 val(m[0][0], m[0][1], m[0][2], 0,
              m[1][0], m[1][1], m[1][2], 0,
@@ -373,7 +445,7 @@ inline Mat3 Matrix<R, C>::Inv3() const
 }
 
 template<int R, int C>
-inline Mat4 Matrix<R, C>::Inv4() const
+Mat4 Matrix<R, C>::Inv4() const
 {
     const Mat2 a(m[0][0], m[0][1], m[1][0], m[1][1]);
     const Mat2 b(m[0][2], m[0][3], m[1][2], m[1][3]);
@@ -397,7 +469,7 @@ void Matrix<R, C>::Transpose()
 }
 
 template<int R, int C>
-inline Matrix<R, C> Matrix<R, C>::GetTransposed() const
+Matrix<R, C> Matrix<R, C>::GetTransposed() const
 {
     Matrix<C, R> result;
     for (int i = 0; i < R; i++)
@@ -409,7 +481,7 @@ inline Matrix<R, C> Matrix<R, C>::GetTransposed() const
 
 // Conversions.
 template<int R, int C>
-inline AngleAxis Matrix<R, C>::ToAngleAxis() const
+AngleAxis Matrix<R, C>::ToAngleAxis() const
 {
     assert(R == C && (R == 3 || R == 4));
     const float angle = acos((m[0][0] + m[1][1] + m[2][2] - 1) / 2);
@@ -422,13 +494,18 @@ inline AngleAxis Matrix<R, C>::ToAngleAxis() const
 }
 
 template<int R, int C>
-inline Quaternion Matrix<R, C>::ToQuaternion() const
+Quaternion Matrix<R, C>::ToQuaternion() const
 {
-    return ToAngleAxis().ToQuaternion();
+    // return ToAngleAxis().ToQuaternion();
+    const float w = -1 * sqrtf(1 + m[0][0] + m[1][1] + m[2][2]) / 2.f;
+    return Quaternion(w,
+                      (m[1][2] - m[2][1]) / (w * 4.f),
+                      (m[2][0] - m[0][2]) / (w * 4.f),
+                      (m[0][1] - m[1][0]) / (w * 4.f));
 }
 
 template<int R, int C>
-inline std::string Matrix<R, C>::ToString(const int& precision) const
+std::string Matrix<R, C>::ToString(const int& precision) const
 {
     std::ostringstream output;
 
