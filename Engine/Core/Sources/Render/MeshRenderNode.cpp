@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Render/MeshRenderNode.h"
 #include "Render/RenderPipeline.h"
 #include "Application.h"

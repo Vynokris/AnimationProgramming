@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "LogSystem/LogSystem.h"
 #include "Render/Renderer.h"
 #include "GlobalVariables.h"
@@ -14,18 +14,21 @@ extern "C"
 {
 	void WbLog( const char* channel, const char* format, ... )
 	{
-		char message[1024];
-
 		va_list arglist;
 		va_start(arglist, format);
-#if defined(_WIN32) || defined(_WIN64)
-		vsprintf_s(message, 1024, format, arglist);
-#else
-		vsprintf(message, format, arglist);
-#endif
+		va_list args2;
+		va_copy(args2, arglist);
+		int size = 1 + vsnprintf(nullptr, 0, format, arglist);
+		char* message = new char[size];
 		va_end(arglist);
-
+#if defined(_WIN32) || defined(_WIN64)
+		vsprintf_s(message, size, format, args2);
+#else
+		vsprintf(message, format, args2);
+#endif
+		va_end(args2);
 		gVars->pLogSystem->Log( channel, message  );
+		delete[] message;
 	}
 }
 

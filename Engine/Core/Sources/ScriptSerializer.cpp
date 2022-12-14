@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "ScriptSerializer.h"
 
 WHITEBOX_BEGIN

@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Animation/SkeletonSerializer.h"
 
 #include "DataStream.h"

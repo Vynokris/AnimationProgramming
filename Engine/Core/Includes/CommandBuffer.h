@@ -3,6 +3,7 @@
 
 #include "Command.h"
 
+
 WHITEBOX_BEGIN
 
 class CCommandBuffer

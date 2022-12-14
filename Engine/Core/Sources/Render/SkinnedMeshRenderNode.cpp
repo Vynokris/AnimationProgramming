@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Render/SkinnedMeshRenderNode.h"
 #include "Render/Renderer.h"
 #include "GlobalVariables.h"

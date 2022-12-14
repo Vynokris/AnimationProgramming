@@ -18,16 +18,18 @@ public:
 class CSimulation : public ISimulation
 {
 public:
-	Skeleton skeleton;
-	Vector3  skeletonDrawOffset = { 100, 0, 0 };
-
+	Skeleton walkSkeleton;
+	Skeleton runSkeleton;
+	
 	Quaternion lerpStart;
 	Quaternion lerpDest;
 
 	void Initialize() override;
 	void Update(float deltaTime) override;
 	static void DrawGizmo(const int& x, const int& y, const int& z);
-	void DrawSkeleton();
+	
+	void DrawSkeleton(Skeleton& skeleton);
+	void SetupSkeleton(Skeleton& skeleton, const char* animation, const Vector3& offset);
 };
 
 #endif

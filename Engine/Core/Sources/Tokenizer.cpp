@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Tokenizer.h"
 
 WHITEBOX_BEGIN
@@ -44,7 +44,7 @@ bool	CTokenizer::ReadToken()
 	}
 
 	m_tokenType = -1;
-	WbLog( "Tokenizer", "Invalid token" );
+	WbLog( "Tokenizer", "Invalid token %s", m_dataStream.GetCursorData());
 
 	return false;
 }

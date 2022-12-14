@@ -45,6 +45,8 @@ enum class Key : unsigned int
 	Q,
 	S,
 	D,
+	A,
+	E,
 
 	Count,
 };
