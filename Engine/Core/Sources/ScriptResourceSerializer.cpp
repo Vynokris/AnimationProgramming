@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "ScriptResourceSerializer.h"
 
 #include "ScriptSerializer.h"

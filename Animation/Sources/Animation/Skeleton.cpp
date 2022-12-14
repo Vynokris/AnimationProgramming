@@ -54,6 +54,16 @@ std::vector<Bone*> Skeleton::GetBones()
 	return bones;
 }
 
+Vector3 Skeleton::GetOffset() const
+{
+	return drawOffset;
+}
+
+void Skeleton::SetOffset(const Vector3& offset)
+{
+	drawOffset = offset;
+}
+
 bool Skeleton::DoesBoneExist(const Bone* bone)
 {
 	return std::find(bones.begin(), bones.end(), bone) != bones.end();

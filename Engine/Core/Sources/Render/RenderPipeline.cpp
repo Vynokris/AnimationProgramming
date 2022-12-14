@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 
 #include "Render/RenderPipeline.h"
 #include "Render/ShaderProgram.h"
@@ -105,6 +105,8 @@ void	CRenderPipeline::RenderQueue( TRenderProxies& renderProxies, IRenderTargetP
 	//	renderProxy.uniformValues.SetUniformValue< void* >(renderProxy.pShaderProgram, "SkinningMatrices", skinMatId);
 
 		renderProxy.uniformValues.SetUniformValue< Vec3 >(renderProxy.pShaderProgram, "lightDirection", lightDir);
+
+		renderProxy.uniformValues.SetUniformValue< Vec3 >(renderProxy.pShaderProgram, "cameraPosition", mainCamera.transform.position);
  		
  		renderProxy.uniformValues.ApplyValues( renderProxy.pShaderProgram );
 

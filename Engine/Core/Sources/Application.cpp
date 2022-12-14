@@ -1,4 +1,4 @@
-﻿#include "Dll/stdafx.h"
+﻿#include "stdafx.h"
 
 #ifndef COOK
 
@@ -413,7 +413,7 @@ void CApplication::FrameUpdate()
 //		}
 //	}
 
-	bool bMovingCamera = gVars->pOperatingSystem->GetMouseButton(0);
+	bool bMovingCamera = gVars->pOperatingSystem->GetMouseButton(2);
 
 	Vec2 mousePos = gVars->pOperatingSystem->GetMousePos();
 	if (m_bMovingCamera != bMovingCamera)
@@ -424,7 +424,7 @@ void CApplication::FrameUpdate()
 
 	if (m_bMovingCamera)
 	{
-		float k = 3;
+		float k = 0.3f;
 		m_camYaw -= k * (mousePos.x - m_prevMousePos.x) * frameTime;
 		m_camPitch -= k * (mousePos.y - m_prevMousePos.y) * frameTime;
 		m_prevMousePos = mousePos;
@@ -447,6 +447,15 @@ void CApplication::FrameUpdate()
 	if ( gVars->pOperatingSystem->IsPressingKey( Key::S ) )
 	{
 		m_pRenderPipeline->mainCamera.transform.position += m_pRenderPipeline->mainCamera.transform.rotation * Vec3::Backward * 500.0f * frameTime;
+	}
+
+	if (gVars->pOperatingSystem->IsPressingKey(Key::E))
+	{
+		m_pRenderPipeline->mainCamera.transform.position += m_pRenderPipeline->mainCamera.transform.rotation * Vec3::Up * 500.0f * frameTime;
+	}
+	if (gVars->pOperatingSystem->IsPressingKey(Key::A))
+	{
+		m_pRenderPipeline->mainCamera.transform.position += m_pRenderPipeline->mainCamera.transform.rotation * Vec3::Down * 500.0f * frameTime;
 	}
 
 

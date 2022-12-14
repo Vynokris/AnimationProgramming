@@ -30,5 +30,7 @@ ENGINE_API void	GetAnimLocalBoneTransform(const char* animName, int boneIndex, i
 
 ENGINE_API void	DrawLine(float x0, float y0, float z0, float x1, float y1, float z1, float r, float g, float b);
 
+ENGINE_API void* GetImGUIContext();
+
 
 #endif

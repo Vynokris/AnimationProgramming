@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Render/Shader.h"
 
 #include "GlobalVariables.h"

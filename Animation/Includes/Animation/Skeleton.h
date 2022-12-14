@@ -9,6 +9,8 @@ private:
 	Bone*              rootBone;
 	std::vector<Bone*> bones;
 
+	Vector3 drawOffset;
+
 public:
 	Skeleton();
 	~Skeleton();
@@ -23,4 +25,7 @@ public:
 
 	Bone* GetBone(const int& id) const;
 	std::vector<Bone*> GetBones();
+
+	Vector3 GetOffset() const;
+	void SetOffset(const Vector3& offset);
 };

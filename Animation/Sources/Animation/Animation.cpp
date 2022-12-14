@@ -8,7 +8,7 @@ void Animation::SetCurrentAnimation(const char* animName)
     Vector3 position; Quaternion rotation;
 
     // Set the previous pose to the last keyframe.
-    GetAnimLocalBoneTransform(animName, boneIndex, (int)(GetAnimKeyCount(animName))-2, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+    GetAnimLocalBoneTransform(animName, boneIndex, (int)(GetAnimKeyCount(animName))-1, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
     prevPoseTransform.SetPosition(position); prevPoseTransform.SetRotation(rotation);
 
     // Set the current pose to the first keyframe.
@@ -30,7 +30,7 @@ void Animation::UpdatePoseTransform()
     if (keyFrameTimer < KEYFRAME_DURATION) return;
     
     keyFrameTimer = 0;
-    curKeyFrame   = (curKeyFrame + 1) % ((int)GetAnimKeyCount(curAnimName)-1);
+    curKeyFrame   = (curKeyFrame + 1) % (int)GetAnimKeyCount(curAnimName);
     
     Vector3 position; Quaternion rotation;
     GetAnimLocalBoneTransform(curAnimName, boneIndex, curKeyFrame, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
