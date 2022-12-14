@@ -1,11 +1,11 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 
 #include "Engine.h"
 #include "Simulation.h"
-#include "GlobalVariables.h"
-#include "System\OperatingSystem.h"
-#include "Application.h"
-#include "Animation\Animation.h"
+ #include "GlobalVariables.h"
+ #include "System\OperatingSystem.h"
+ #include "Application.h"
+ #include "Animation\Animation.h"
 #include "Render\RenderPipeline.h"
 
 using namespace WhiteBox;
@@ -88,6 +88,11 @@ void	GetAnimLocalBoneTransform(const char* animName, int boneIndex, int keyFrame
 void	DrawLine(float x0, float y0, float z0, float x1, float y1, float z1, float r, float g, float b)
 {
 	gVars->pApplication->m_pRenderPipeline->DrawLine(Vec3(x0, y0, z0), Vec3(x1, y1, z1), Color(r, g, b));
+}
+
+ENGINE_API void* GetImGUIContext()
+{
+	return gVars->pOperatingSystem->GetImGUIContext();
 }
 
 

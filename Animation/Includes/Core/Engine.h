@@ -17,5 +17,6 @@ ENGINE_API void	       GetSkeletonBoneLocalBindTransform(int boneIndex, float& p
 ENGINE_API size_t      GetAnimKeyCount(const char* animName);
 ENGINE_API void	       GetAnimLocalBoneTransform(const char* animName, int boneIndex, int keyFrameIndex, float& posX, float& posY, float& posZ, float& quatW, float& quatX, float& quatY, float& quatZ);
 ENGINE_API void	       DrawLine(float x0, float y0, float z0, float x1, float y1, float z1, float r, float g, float b);
+ENGINE_API void*       GetImGUIContext();
 
 #endif

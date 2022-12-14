@@ -1,8 +1,6 @@
 #ifndef __INPUTMANAGER_H__
 #define __INPUTMANAGER_H__
 
-#include "BaseTypes.h"
-
 WHITEBOX_BEGIN
 
 template< size_t BitCount >

@@ -1,4 +1,4 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Render/Material.h"
 
 WHITEBOX_BEGIN

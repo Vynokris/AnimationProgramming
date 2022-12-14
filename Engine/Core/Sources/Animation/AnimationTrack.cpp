@@ -1,7 +1,10 @@
-#include "Dll/stdafx.h"
+#include "stdafx.h"
 #include "Animation/AnimationTrack.h"
 
 WHITEBOX_BEGIN
+
+
+
 
 CAnimationTrack::CAnimationTrack( EKeyFrameFormat keyFrameFormat, void* keyFrames, size_t keyFrameCount )
 	: m_keyFrameFormat(keyFrameFormat)

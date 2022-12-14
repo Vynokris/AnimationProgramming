@@ -61,9 +61,12 @@ public:
 
 	void	GetDataStream( const String& path, CDataStream& dataStream, size_t size = 0 );
 
+	void* GetImGUIContext() const;
+
 	EShaderPlatform	GetShaderPlatform() const;
 
 private:
+	void* ImguiContext = nullptr;
 #ifndef __GEAR_VR
 	void*	m_pSpecificData;
 	CTimer	m_frameTimer;
