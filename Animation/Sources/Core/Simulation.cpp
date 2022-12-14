@@ -3,11 +3,17 @@
 
 #include "Core/Engine.h"
 #include "Core/Simulation.h"
-#include "Maths/Maths.h"
+
+#include "../Externals/imgui/imgui.h"
+#include "../Externals/imgui/imconfig.h"
+#include "../Externals/imgui/imgui_internal.h"
+
 using namespace Maths;
 
 void CSimulation::Initialize()
 {
+	ImGui::SetCurrentContext((ImGuiContext*)GetImGUIContext());
+	
 	for (size_t i = 0; i < GetSkeletonBoneCount(); i++)
 	{
 		// Get the bone's name and index.
