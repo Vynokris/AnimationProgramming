@@ -1,52 +1,31 @@
 #include "Animation/BoneAnim.h"
 
+#include "Animation/Animator.h"
 #include "Core/Engine.h"
 
-void BoneAnim::SetCurrentAnimation(const char* animName)
-{
-    curAnimName = animName;
-    Vector3 position; Quaternion rotation;
-
-    // Set the previous pose to the last keyframe.
-    GetAnimLocalBoneTransform(animName, boneIndex, 0, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
-    prevPoseTransform.SetPosRot(position, rotation);
-
-    // Set the current pose to the first keyframe.
-    GetAnimLocalBoneTransform(animName, boneIndex, 1, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
-    poseTransform.SetPosRot(position, rotation);
-
-    // Initialize the keyframe count, the current keyframe and the keyframe timer.
-    keyFrameCount = (int)GetAnimKeyCount(curAnimName);
-    curKeyFrame   = 1;
-    keyFrameTimer = 0;
-}
-
-void BoneAnim::UpdateTimer(const float& deltaTime)
-{
-    keyFrameTimer += deltaTime;
-}
 
 void BoneAnim::UpdatePoseTransform()
 {
-    if (keyFrameTimer < KEYFRAME_DURATION) return;
+    const Animation* curAnim = animator.GetCurrentAnimation();
+    if (!curAnim || curKeyframe == curAnim->curKeyframe) return;
 
     // Advance to the next keyframe.
-    keyFrameTimer = 0;
-    curKeyFrame   = (curKeyFrame + 1) % keyFrameCount;
-    if (curKeyFrame == 0) curKeyFrame++;
+    curKeyframe = curAnim->curKeyframe;
 
     // Get the new keyframe transform.
     Vector3 position; Quaternion rotation;
-    GetAnimLocalBoneTransform(curAnimName, boneIndex, curKeyFrame, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+    GetAnimLocalBoneTransform(curAnim->name.c_str(), boneIndex, curKeyframe, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
     prevPoseTransform = poseTransform;
     poseTransform.SetPosRot(position, rotation);
 }
 
 Mat4 BoneAnim::GetPoseLocalMat() const
 {
-    const float lerpVal = keyFrameTimer / KEYFRAME_DURATION;
-
+    const Animation* curAnim = animator.GetCurrentAnimation();
+    if (!curAnim) return Mat4();
+    
     // Interpolate between the previous transform and the next.
+    const float lerpVal = curAnim->keyframeTimer / curAnim->keyframeDuration;
     const Transform smoothTransform =
     {
         Point3Lerp       (prevPoseTransform.GetPosition(), poseTransform.GetPosition(), lerpVal),

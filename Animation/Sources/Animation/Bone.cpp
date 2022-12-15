@@ -1,8 +1,8 @@
 #include "Animation/Bone.h"
 #include <Core/Engine.h>
 
-Bone::Bone(const int& _index, const std::string& _name, const Transform& _defaultTransform)
-	: index(_index), name(_name), defaultTransform(_defaultTransform), animation(index) {}
+Bone::Bone(const int& boneIndex, const std::string& boneName, Animator& skeletonAnimator)
+	: index(boneIndex), name(boneName), boneAnim(index, skeletonAnimator) {}
 
 void Bone::SetChildrenDefaultTransform(const Mat4 & parentMat)
 {
@@ -20,13 +20,12 @@ void Bone::SetChildrenDefaultTransform(const Mat4 & parentMat)
 
 void Bone::UpdateChildrenAnimation(const float& deltaTime, const Mat4& parentMat)
 {
-	animation.UpdateTimer(deltaTime);
-	animation.UpdatePoseTransform();
+	boneAnim.UpdatePoseTransform();
 
 	const Mat4 curMat = GetLocalMat() * parentMat;
 	for (Bone* child : children)
 	{
-		child->animation.SetParentMat(curMat);
+		child->boneAnim.SetParentMat(curMat);
 		child->UpdateChildrenAnimation(deltaTime, curMat);
 	}
 }
@@ -34,11 +33,11 @@ void Bone::UpdateChildrenAnimation(const float& deltaTime, const Mat4& parentMat
 Mat4 Bone::GetLocalMat() const
 {
 	// Apply the animation transform to the default transform.
-	return animation.GetPoseLocalMat() * defaultTransform.GetLocalMat();
+	return boneAnim.GetPoseLocalMat() * defaultTransform.GetLocalMat();
 }
 
 Mat4 Bone::GetWorldMat() const
 {
 	// Apply the parent transforms to the default transform.
-	return GetLocalMat() * animation.GetParentMat();
+	return GetLocalMat() * boneAnim.GetParentMat();
 }

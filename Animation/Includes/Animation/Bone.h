@@ -4,20 +4,21 @@
 #include <vector>
 
 #include "BoneAnim.h"
+class Animator;
 
 class Bone
 {
 public:
-	int index;
-	std::string name;
+	const int         index;
+	const std::string name;
 	Transform defaultTransform;
-	BoneAnim animation;
+	BoneAnim  boneAnim;
 	
 	Bone* parent = nullptr;
 	std::vector<Bone*> children;
 
 public:
-	Bone(const int& _index, const std::string& _name, const Transform& _defaultTransform);
+	Bone(const int& boneIndex, const std::string& boneName, Animator& skeletonAnimator);
 
 	void SetChildrenDefaultTransform(const Mat4& parentMat = Mat4(true));
 	void UpdateChildrenAnimation    (const float& deltaTime, const Mat4& parentMat = Mat4(true));

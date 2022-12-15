@@ -50,6 +50,7 @@ bool Skeleton::DoesBoneExist(const Bone* bone)
 
 void Skeleton::UpdateAnimation(const float& deltaTime)
 {
+	animator.UpdateCurrentAnimation(deltaTime);
 	GetRootBone()->UpdateChildrenAnimation(deltaTime);
 	UpdateBoneMatrices();
 	
@@ -75,6 +76,11 @@ void Skeleton::Draw(const Vector3& offset) const
 	}
 }
 
+Animator& Skeleton::GetAnimator()
+{
+	return animator;
+}
+
 Bone* Skeleton::GetBone(const int& id) const
 {
 	for (Bone* bone : bones)
@@ -97,7 +103,7 @@ void Skeleton::UpdateBoneMatrices()
 	for (const Bone* bone : bones)
 	{
 		// Matrix that transforms a position in the following way: global in default pose -> local to bone in default pose -> local to bone in animated pose -> global in animated pose.
-		boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4() * bone->animation.GetPoseLocalMat() * bone->defaultTransform.GetLocalMat() * bone->animation.GetParentMat());
+		boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4() * bone->boneAnim.GetPoseLocalMat() * bone->defaultTransform.GetLocalMat() * bone->boneAnim.GetParentMat());
 	}
 }
 
