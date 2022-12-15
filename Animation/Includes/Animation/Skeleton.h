@@ -1,11 +1,14 @@
 #pragma once
 
 #include "Bone.h"
+#include "Animator.h"
 #include <vector>
+
 
 class Skeleton
 {
 private:
+	Animator           animator;
 	Bone*              rootBone;
 	std::vector<Bone*> bones;
 	std::vector<Mat4>  boneMatrices;
@@ -23,8 +26,9 @@ public:
 
 	void UpdateAnimation(const float& deltaTime);
 	void Draw           (const Vector3& offset) const;
-	
-	Bone* GetBone(const int& id) const;
+
+	Animator& GetAnimator();
+	Bone*     GetBone(const int& id) const;
 	std::vector<Bone*>& GetBones();
 	
 	void UpdateBoneMatrices();
