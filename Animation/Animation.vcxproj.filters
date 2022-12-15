@@ -89,6 +89,9 @@
     <ClInclude Include="Includes\Animation\BoneAnim.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\Animation\Animator.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\main.cpp">
@@ -144,6 +147,9 @@
     </ClCompile>
     <ClCompile Include="Externals\Sources\imgui\imgui_draw.cpp">
       <Filter>Sources\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Animation\Animator.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

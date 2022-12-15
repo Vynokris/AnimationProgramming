@@ -8,30 +8,31 @@
 // ----- Animation ----- //
 
 Animation::Animation(const std::string& animName)
-    : name(animName), keyframeCount((int)GetAnimKeyCount(name.c_str())-1) { }
+    : name(animName),
+      nameNoExtension(animName.substr(0, animName.size()-5)),
+      keyframeCount((int)GetAnimKeyCount(name.c_str())-1)
+{ }
 
 void Animation::Update(const float& deltaTime)
 {
     if (paused) return;
     keyframeTimer += deltaTime;
 
+    // Note: All animations skip keyframe 0 when looping 
+    //       because it is assumed to be the same as the last keyframe.
+
+    // Change keyframe when the keyframe timer is finished.
     if (keyframeTimer >= keyframeDuration)
     {
         keyframeTimer = 0;
-        
-        // Advance to the next keyframe when the current one is finished.
-        if (!reverse)
-        {
+        if (!reverse) {
             curKeyframe++;
-            if (curKeyframe == keyframeCount)
-                curKeyframe = 0;
+            if (curKeyframe > keyframeCount)
+                curKeyframe = 1;
         }
-        
-        // If the animation is reversed, go back to the previous keyframe if the current one is finished.
-        else
-        {
+        else {
             curKeyframe--;
-            if (curKeyframe < 0)
+            if (curKeyframe <= 0)
                 curKeyframe = keyframeCount-1;
         }
     }
@@ -73,12 +74,13 @@ void Animator::SetCurrentAnimation(const std::string& name)
         {
             curAnim->curKeyframe   = 0;
             curAnim->keyframeTimer = 0;
+            Log("Animator", "Switched to anim %s", curAnim->nameNoExtension.c_str());
         }
         currentAnimation = name;
     }
     else
     {
-        std::cout << "Unable to set " << name << " as current animation because it isn't in this animator.";
+        Log("Animator", "WARNING Unable to set %s as current animation because it isn't in this animator.", name.c_str());
     }
 }
 

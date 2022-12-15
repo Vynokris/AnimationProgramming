@@ -235,9 +235,9 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <PostBuildEvent>
-      <Command>echo n | copy /-y "$(SolutionDir)Externals\Libs\Engine.dll" "$(TargetDir)"
-echo n | copy /-y  "$(SolutionDir)Externals\Libs\glew32.dll" "$(TargetDir)"
-echo n | copy /-y  "$(SolutionDir)Externals\Libs\SDL2.dll" "$(TargetDir)"</Command>
+      <Command>copy /y "$(SolutionDir)Externals\Libs\Engine.dll" "$(TargetDir)"
+copy /y  "$(SolutionDir)Externals\Libs\glew32.dll" "$(TargetDir)"
+copy /y  "$(SolutionDir)Externals\Libs\SDL2.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
