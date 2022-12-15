@@ -28,7 +28,7 @@ void Skeleton::AddBone(Bone* bone)
 	if (!DoesBoneExist(bone))
 	{
 		bones.push_back(bone);
-		std::cout << "AddBone: " << bone->name << " with id: " << bone->index << std::endl;
+		Log("Skeleton", "Added bone %s (id: %d)", bone->name.c_str(), bone->index);
 	}
 }
 
@@ -37,7 +37,7 @@ void Skeleton::RemoveBone(const int& id)
 	Bone* bone = GetBone(id);
 	if (!DoesBoneExist(bone)) return;
 
-	std::cout << "RemoveBone: " << bone->name << std::endl;
+	Log("Skeleton", "Removed bone %s (id: %d)", bone->name.c_str(), bone->index);
 	bones.erase(std::remove(bones.begin(), bones.end(), bone), bones.end());
 
 	delete bone;

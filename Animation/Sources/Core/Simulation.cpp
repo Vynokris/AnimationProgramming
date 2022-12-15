@@ -16,7 +16,7 @@ using namespace Maths;
 
 void CSimulation::Initialize()
 {
-	ImGui::SetCurrentContext((ImGuiContext*)GetImGUIContext());
+	ImGui::SetCurrentContext((ImGuiContext*)GetImGuiContext());
 
 	// Load animations.
 	Animator& animator = skeleton.GetAnimator();
@@ -99,15 +99,16 @@ void CSimulation::ShowImGui(const float& deltaTime)
 		const Animation* curAnim = animator.GetCurrentAnimation();
 		std::unordered_map<std::string, Animation*>& animations = animator.GetAllAnimations();
 
-		// Current animation.
+		// Current animation dropdown menu selection.
 		ImGui::Text("Current animation:");
-		if (ImGui::BeginCombo("##curAnimInput", curAnim->name.c_str()))
+		if (ImGui::BeginCombo("##curAnimInput", curAnim->nameNoExtension.c_str()))
 		{
 			for (auto& [name, anim] : animations)
 			{
 				const bool isSelected = name == curAnim->name;
-				if (ImGui::Selectable(name.c_str(), isSelected))
+				if (ImGui::Selectable(anim->nameNoExtension.c_str(), isSelected)) {
 					animator.SetCurrentAnimation(name);
+				}
 
 				if (isSelected)
                     ImGui::SetItemDefaultFocus();
@@ -118,14 +119,15 @@ void CSimulation::ShowImGui(const float& deltaTime)
 		
 		for (auto& [name, anim] : animations)
 		{
-			if (ImGui::CollapsingHeader(name.c_str()))
+			ImGui::PushID(name.c_str());
+			if (ImGui::CollapsingHeader(anim->nameNoExtension.c_str()))
 			{
 				// Current key frame.
 				ImGui::AlignTextToFramePadding();
 				ImGui::Text("Current keyframe:");
 				ImGui::SameLine();
 				ImGui::SetNextItemWidth(19);
-				if (ImGui::DragInt("##currentKeyframeInput", &anim->curKeyframe, 0.1f, 0, anim->keyframeCount-1))
+				if (ImGui::DragInt("##keyframeInput", &anim->curKeyframe, 0.1f, 0, anim->keyframeCount-1))
 					anim->curKeyframe = std::clamp(anim->curKeyframe, 0, anim->keyframeCount-1);
 				ImGui::SameLine();
 				ImGui::Text("/%d", anim->keyframeCount);
@@ -143,6 +145,7 @@ void CSimulation::ShowImGui(const float& deltaTime)
 					anim->keyframeDuration = 1 / clamp(animSpeed, 0.5f, 99.f);
 				}
 			}
+			ImGui::PopID();
 		}
 	}
 	ImGui::End();

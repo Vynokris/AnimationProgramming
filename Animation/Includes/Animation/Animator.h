@@ -2,9 +2,11 @@
 #include <string>
 #include <unordered_map>
 
-struct Animation
+class Animation
 {
+public:
     const std::string name;
+    const std::string nameNoExtension;
     const int         keyframeCount;
     
     float keyframeDuration = 1/30.f;
@@ -12,7 +14,7 @@ struct Animation
     float keyframeTimer    = 0;
     bool  reverse          = false;
     bool  paused           = false;
-
+    
     Animation(const std::string& animName);
     void Update(const float& deltaTime);
 };

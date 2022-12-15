@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{90E93B2B-74B6-403C-A890-1411A55AD55A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Engine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\..\Core\Libs;..\..\..\..\Core\Libs\SDL\include;..\..\..\..\Core\Inc;..\..\..\..\Core\Libs\Glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\..\..\Core\Data;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /y "$(TargetDir)Engine.lib" "$(SolutionDir)..\..\..\..\Animation\Externals\Libs"
+copy /y "$(TargetDir)Engine.dll" "$(SolutionDir)..\..\..\..\Animation\Externals\Libs"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\..\Core\Inc; ..\..\..\..\Core\Libs\SDL\include; ..\..\..\..\Core\Libs\Glew\include;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\..\..\Core\Data;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;glew32.dll;SDL2.dll;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\GitHub\WhiteBoxEngine - Copie\Core\Inc;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\SDL\include;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\Glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\Glew\lib\Release\Win32;D:\GitHub\WhiteBoxEngine - Copie\Core\Libs\SDL\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Core\Inc\Animation\Animation.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Animation\AnimationSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Animation\AnimationTrack.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Animation\Skeleton.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Animation\SkeletonSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Application.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\BaseTypes.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Behavior.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\BehaviorComponent.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\BehaviorManager.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Command.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\CommandBuffer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\DataStream.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Engine.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Event.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\FileSystem.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\FontSystem.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\GlobalVariables.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Handle.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\InputManager.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\LogSystem\LogSystem.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\maths.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\MeshRenderComponent.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Object.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ObjectManager.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\PhysicsAPI.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Physics\BulletPhysicsSystem.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Physics\ColliderNode.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Physics\PhysicsSystem.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Png\lodepng.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\RenderAPI.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\RenderTypes.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Camera.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Font.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\FontSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\IndexBuffer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Material.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\MaterialHelper.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\MaterialSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Mesh.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\MeshHelper.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\MeshRenderNode.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\MeshSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Picture.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Renderer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\RenderPipeline.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\RenderTarget.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\RenderWindow.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Shader.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\ShaderProgram.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\ShaderProgramSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\ShaderSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\SkinnedMeshRenderNode.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\TextMesh.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\Texture.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\TextureSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Render\VertexBuffer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Resource.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ResourceDescriptor.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ResourceManager.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\resourcepointer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ResourceSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ResourceSpecificManager.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ResourceType.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\RigidBodyComponent.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\SceneNode.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Script.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ScriptResourceSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ScriptSerializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\SerializableFactory.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Serializer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Simulation.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\SmartPointer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\System\GearVR\WhiteBoxGearLibrary.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\System\OperatingSystem.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\System\Thread.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Temp.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Text.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\ThreadDoubleBuffer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Tokenizer.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\TriMesh.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Types\Array.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Types\BitArray.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Types\HashMap.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\Types\SparseArray.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\WhiteBoxNameSpace.h" />
+    <ClInclude Include="..\..\..\..\Core\Inc\whiteboxstring.h" />
+    <ClInclude Include="..\..\..\..\Editor\Inc\AssetExporter.h" />
+    <ClInclude Include="..\..\..\..\Editor\Inc\AssetManager.h" />
+    <ClInclude Include="..\..\..\..\Editor\Inc\CopyExporter.h" />
+    <ClInclude Include="..\..\..\..\Editor\Inc\FbxExporter.h" />
+    <ClInclude Include="..\..\..\..\Editor\Inc\MtlExporter.h" />
+    <ClInclude Include="..\..\..\..\Editor\Inc\ObjExporter.h" />
+    <ClInclude Include="..\..\..\..\Editor\Inc\TextureExporter.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Core\Libs\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Libs\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Libs\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Libs\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Libs\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Animation\Animation.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Animation\AnimationSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Animation\AnimationTrack.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Animation\Skeleton.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Animation\SkeletonSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Application.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Behavior.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Camera.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\DataStream.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Engine.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\GlobalVariables.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\LogSystem\LogSystem.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Maths.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\IndexBuffer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\Material.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\MaterialHelper.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\MaterialSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\Mesh.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\MeshHelper.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\MeshRenderNode.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\MeshSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\Picture.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\Renderer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\RenderPipeline.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\RenderWindow.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\Shader.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\ShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\ShaderProgramSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\ShaderSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\SkinnedMeshRenderNode.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\Texture.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\TextureSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Render\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\ResourceDescriptor.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\ResourceManager.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\ResourcePointer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\ResourceSpecificManager.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\SceneNode.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Script.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\ScriptResourceSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\ScriptSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\System\FileSystem.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\System\OperatingSystem.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\System\Thread.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Tokenizer.cpp" />
+    <ClCompile Include="..\..\..\..\Core\Src\Types\WhiteBoxString.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="EngineMain.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
