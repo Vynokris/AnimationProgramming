@@ -13,6 +13,7 @@ public:
 	const size_t      index;
 	const std::string name;
 	Maths::Transform defaultTransform;
+	Maths::Transform animatedTransform;
 	
 	Bone* parent = nullptr;
 	std::vector<Bone*> children;
@@ -20,9 +21,6 @@ public:
 public:
 	Bone(const size_t& boneIndex, const std::string& boneName, Animator& skeletonAnimator);
 
-	void SetChildrenDefaultTransform(const Maths::Mat4& parentMat = Maths::Mat4(true));
-	void UpdateChildrenAnimation    (Animation* anim, const Maths::Mat4& parentMat = Maths::Mat4(true)) const;
-
-	// Mat4 GetLocalMat() const;
-	// Mat4 GetParentMat() const;
+	void SetChildrenDefaultTransform    (const Maths::Mat4& parentMat = Maths::Mat4(true));
+	void UpdateChildrenAnimatedTransform(const Maths::Mat4& parentMat = Maths::Mat4(true));
 };

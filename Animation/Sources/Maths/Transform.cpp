@@ -55,7 +55,6 @@ Transform Transform::Lerp(const Transform& start, const Transform& dest, const f
     const Quaternion lerpRot   = useSlerp ? Quaternion::SLerp(start.GetRotation(), dest.GetRotation(), val)
                                           : Quaternion::NLerp(start.GetRotation(), dest.GetRotation(), val);
     const Vector3    lerpScale = Vector3::Lerp(start.GetScale(), dest.GetScale(), val);
-
     return Transform(lerpPos, lerpRot, lerpScale);
 }
 

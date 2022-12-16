@@ -70,12 +70,26 @@ void CSimulation::Initialize()
 
 void CSimulation::Update(float deltaTime)
 {
-    skeleton.UpdateAnimation(deltaTime);
+    skeleton.GetAnimator().Update(deltaTime);
     
     DrawGizmo    ({  55,  0, 0 }, 50);
     skeleton.Draw({ -80, 0, 0 });
 
     ShowImGui(deltaTime);
+
+
+    // TEMP START: Periodically start transition to the other animation.
+    static float staticTimer = 5.f;
+    staticTimer += deltaTime;
+    if (staticTimer >= 10.f)
+    {
+        staticTimer = 0.f;
+        const std::string curAnimName = skeleton.GetAnimator().GetCurrentAnimationName();
+        std::string destAnimName = WALK_ANIMATION;
+        if (curAnimName == WALK_ANIMATION) destAnimName = RUN_ANIMATION;
+        skeleton.GetAnimator().StartTransition(destAnimName, 5.f);
+    }
+    // TEMP END
 }
 
 void CSimulation::DrawGizmo(const Vector3& offset, const float& size) const
@@ -143,9 +157,15 @@ void CSimulation::ShowImGui(const float& deltaTime)
                 ImGui::SetNextItemWidth(19);
                 int curKeyframe = (int)anim->curKeyframe;
                 if (ImGui::DragInt("##keyframeInput", &curKeyframe, 0.1f, 0, (int)anim->keyframeCount-1))
+                {
                     anim->curKeyframe = (size_t)std::clamp(curKeyframe, 0, (int)anim->keyframeCount-1);
+                    skeleton.GetAnimator().Update(0);
+                }
                 ImGui::SameLine();
                 ImGui::Text("/%d", anim->keyframeCount);
+
+                // Animation completion.
+                ImGui::Text("Completion: %d%%", roundInt(anim->GetCompletion() * 100));
                 
                 // Animation pause.
                 ImGui::Checkbox("Paused", &anim->paused);

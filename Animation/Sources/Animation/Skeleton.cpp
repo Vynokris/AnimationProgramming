@@ -48,13 +48,31 @@ bool Skeleton::DoesBoneExist(const Bone* bone)
 	return std::find(bones.begin(), bones.end(), bone) != bones.end();
 }
 
-void Skeleton::UpdateAnimation(const float& deltaTime)
+void Skeleton::UpdateBoneMatrices()
 {
-	animator.UpdateCurrentAnimation(deltaTime);
-	GetRootBone()->UpdateChildrenAnimation(animator.GetCurrentAnimation());
-	UpdateBoneMatrices();
-	
-	SetSkinningPose(GetBoneMatrices()[0].AsPtr(), GetBoneMatrices().size());
+	boneMatrices.clear();
+	if (boneMatrices.capacity() < bones.size())
+		boneMatrices.reserve(bones.size());
+
+	const bool isAnimating = animator.IsAnimating();
+	for (const Bone* bone : bones)
+	{
+		if (isAnimating)
+		{
+			Transform animatedTransform = GetBone(bone->index)->animatedTransform;
+			
+			// Matrix that transforms a position in the following way:
+			// Global in default pose -> local to bone in default pose -> local to bone in animated pose -> global in animated pose.
+			boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4()
+								 * animatedTransform.GetLocalMat()
+								 * bone->defaultTransform.GetLocalMat()
+								 * animatedTransform.GetParentMat());
+		}
+		else
+		{
+			boneMatrices.emplace_back();
+		}
+	}
 }
 
 void Skeleton::Draw(const Vector3& offset) const
@@ -87,32 +105,6 @@ Bone* Skeleton::GetBone(const size_t& id) const
 		if (bone->index == id) return bone;
 
 	return nullptr;
-}
-
-void Skeleton::UpdateBoneMatrices()
-{
-	boneMatrices.clear();
-	if (boneMatrices.capacity() < bones.size())
-		boneMatrices.reserve(bones.size());
-
-	const bool isAnimating = animator.IsAnimating();
-	for (const Bone* bone : bones)
-	{
-		if (isAnimating)
-		{
-			Transform& smoothTransform = animator.GetCurrentAnimation()->GetSmoothTransform(bone->index);
-			
-			// Matrix that transforms a position in the following way: global in default pose -> local to bone in default pose -> local to bone in animated pose -> global in animated pose.
-			boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4()
-								 * smoothTransform.GetLocalMat()
-								 * bone->defaultTransform.GetLocalMat()
-								 * smoothTransform.GetParentMat());
-		}
-		else
-		{
-			boneMatrices.emplace_back();
-		}
-	}
 }
 
 std::vector<Mat4>& Skeleton::GetBoneMatrices()

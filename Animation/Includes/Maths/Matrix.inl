@@ -495,7 +495,6 @@ Maths::AngleAxis Maths::Matrix<R, C>::ToAngleAxis() const
 template<int R, int C>
 Maths::Quaternion Maths::Matrix<R, C>::ToQuaternion() const
 {
-    // return ToAngleAxis().ToQuaternion();
     const float w = -1 * sqrtf(1 + m[0][0] + m[1][1] + m[2][2]) / 2.f;
     return Quaternion(w,
                       (m[1][2] - m[2][1]) / (w * 4.f),

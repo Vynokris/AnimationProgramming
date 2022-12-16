@@ -145,17 +145,6 @@ namespace Maths
         Quaternion  ToQuaternion() const;                     // Conversion to quaternion (matrix must be 3x3 or 4x4 rotation only).
         std::string ToString(const int& precision = 2) const; // Returns matrix contents as string.
     };
-
-    /*
-    Mat4 GetTranslationMatrix(const Vector3& translation);
-    Mat4 GetXRotationMatrix  (const float& angle);
-    Mat4 GetYRotationMatrix  (const float& angle);
-    Mat4 GetZRotationMatrix  (const float& angle);
-    Mat4 GetRotationMatrix   (const Vector3& rotation, const bool& reverse = false);
-    Mat4 GetScaleMatrix      (const Vector3& scale);
-    Mat4 GetTransformMatrix  (const Vector3& position, const Vector3&    rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
-    Mat4 GetTransformMatrix  (const Vector3& position, const Quaternion& rotation, const Vector3& scale, const bool& reverse = false, const bool& transformNormals = false);
-    */
 }
 
 #include "Matrix.inl"
