@@ -48,6 +48,17 @@ void Transform::SetIsCamera(const bool& _isCamera) { isCamera = _isCamera; Updat
 void Transform::SetPosRot(const Vector3& position, const Quaternion& rotation)                        { pos = position; rot = rotation; UpdateLocalMat(); }
 void Transform::SetValues(const Vector3& position, const Quaternion& rotation, const Vector3& _scale) { pos = position; rot = rotation; scale = _scale; UpdateLocalMat(); }
 
+// ----- Interpolation ----- //
+Transform Transform::Lerp(const Transform& start, const Transform& dest, const float& val, const bool& useSlerp)
+{
+    const Vector3    lerpPos   = Vector3::Lerp(start.GetPosition(), dest.GetPosition(), val);
+    const Quaternion lerpRot   = useSlerp ? Quaternion::SLerp(start.GetRotation(), dest.GetRotation(), val)
+                                          : Quaternion::NLerp(start.GetRotation(), dest.GetRotation(), val);
+    const Vector3    lerpScale = Vector3::Lerp(start.GetScale(), dest.GetScale(), val);
+
+    return Transform(lerpPos, lerpRot, lerpScale);
+}
+
 // ----- Matrices ----- //
 void Transform::UpdateLocalMat() 
 {

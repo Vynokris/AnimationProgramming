@@ -67,9 +67,9 @@ namespace Maths
         Vector3    RotateVec (const Vector3&    v) const; // Applies this quaternion's rotation to the given 3D vector.
 
 		// Interpolation.
-		static Quaternion Lerp (const Quaternion& start, const Quaternion& dest, const float& t);                                     // Interpolates between start and dest without normalizing the output.
-		static Quaternion NLerp(const Quaternion& start, const Quaternion& dest, const float& t);                                     // Normalized interpolation of start and dest.
-		static Quaternion SLerp(const Quaternion& start, const Quaternion& dest, const float& t, const bool& useShortestPath = true); // Spherical interpolation of start and dest.
+		static Quaternion Lerp (const Quaternion& start, const Quaternion& dest, const float& val);                                     // Interpolates between start and dest without normalizing the output.
+		static Quaternion NLerp(const Quaternion& start, const Quaternion& dest, const float& val);                                     // Normalized interpolation of start and dest.
+		static Quaternion SLerp(const Quaternion& start, const Quaternion& dest, const float& val, const bool& useShortestPath = true); // Spherical interpolation of start and dest.
 
 		// Conversion.
         AngleAxis   ToAngleAxis()                      const; // Returns the angle-axis rotation that corresponds to this quaternion.

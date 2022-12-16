@@ -22,10 +22,9 @@ namespace Maths
     template<int R, int C>
     class Matrix
     {
-    private:
+    public:
         float m[R][C];
         
-    public:
         // -- Constructors -- //
         
         Matrix(const bool& identity = true); // Default constructor.

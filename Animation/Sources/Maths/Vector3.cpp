@@ -85,6 +85,14 @@ Vector3 Vector3::GetRotated(const Vector3& angles) const
     return Vector3(Vector3(GetXAngle() + angles.x, GetYAngle() + angles.y, angles.z), GetLength());
 }
 
+// Interpolation.
+Vector3 Vector3::Lerp(const Vector3& start, const Vector3& dest, const float& val)
+{
+    return Vector3(lerp(start.x, dest.x, val),
+                   lerp(start.y, dest.y, val),
+                   lerp(start.z, dest.z, val));
+}
+
 // Creates a Vector4 from this vector.
 Vector4 Vector3::ToVector4() const { return Vector4(x, y, z, 1); }
 
@@ -97,14 +105,6 @@ std::string Vector3::ToString(const int& precision) const
     return string.str();
 }
 
-
-// Calculates linear interpolation for a value from a start point to an end point.
-Vector3 Maths::Point3Lerp(const Vector3& start, const Vector3& dest, const float& val)
-{
-    return Vector3(lerp(start.x, dest.x, val),
-                   lerp(start.y, dest.y, val),
-                   lerp(start.z, dest.z, val));
-}
 
 // Returns the coordinates of a point on a sphere of radius r, using the given angles.
 Vector3 Maths::GetSphericalCoords(const float& r, const float& pitch, const float& yaw)

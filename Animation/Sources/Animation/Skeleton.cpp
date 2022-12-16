@@ -1,7 +1,8 @@
 #include "Animation/Skeleton.h"
+#include "Animation/Animation.h"
 #include "Core/Engine.h"
-
 #include <algorithm>
+using namespace Maths;
 
 
 Skeleton::Skeleton() : animator(*this), rootBone(nullptr), bones({}) { }
@@ -50,7 +51,7 @@ bool Skeleton::DoesBoneExist(const Bone* bone)
 void Skeleton::UpdateAnimation(const float& deltaTime)
 {
 	animator.UpdateCurrentAnimation(deltaTime);
-	GetRootBone()->UpdateChildrenAnimation(deltaTime);
+	GetRootBone()->UpdateChildrenAnimation(animator.GetCurrentAnimation());
 	UpdateBoneMatrices();
 	
 	SetSkinningPose(GetBoneMatrices()[0].AsPtr(), GetBoneMatrices().size());
@@ -64,7 +65,7 @@ void Skeleton::Draw(const Vector3& offset) const
 		if (!bones[boneId]->parent || !bones[boneId]->parent->parent) continue;
 
 		// Get the bone parent's index.
-		const int parentId = bones[boneId]->parent->index;
+		const size_t parentId = bones[boneId]->parent->index;
 		
 		// Get the world positions of the bone and its parent.
 		const Vector3 pos  = bones[boneId  ]->defaultTransform.GetPosition() * bones[boneId  ]->defaultTransform.GetParentMat() * boneMatrices[boneId  ] + offset;
@@ -80,7 +81,7 @@ Animator& Skeleton::GetAnimator()
 	return animator;
 }
 
-Bone* Skeleton::GetBone(const int& id) const
+Bone* Skeleton::GetBone(const size_t& id) const
 {
 	for (Bone* bone : bones)
 		if (bone->index == id) return bone;
@@ -93,11 +94,24 @@ void Skeleton::UpdateBoneMatrices()
 	boneMatrices.clear();
 	if (boneMatrices.capacity() < bones.size())
 		boneMatrices.reserve(bones.size());
-	
+
+	const bool isAnimating = animator.IsAnimating();
 	for (const Bone* bone : bones)
 	{
-		// Matrix that transforms a position in the following way: global in default pose -> local to bone in default pose -> local to bone in animated pose -> global in animated pose.
-		boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4() * bone->GetLocalMat() * bone->GetParentMat());
+		if (isAnimating)
+		{
+			Transform& smoothTransform = animator.GetCurrentAnimation()->GetSmoothTransform(bone->index);
+			
+			// Matrix that transforms a position in the following way: global in default pose -> local to bone in default pose -> local to bone in animated pose -> global in animated pose.
+			boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4()
+								 * smoothTransform.GetLocalMat()
+								 * bone->defaultTransform.GetLocalMat()
+								 * smoothTransform.GetParentMat());
+		}
+		else
+		{
+			boneMatrices.emplace_back();
+		}
 	}
 }
 

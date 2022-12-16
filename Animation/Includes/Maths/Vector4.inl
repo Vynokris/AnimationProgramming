@@ -1,70 +1,31 @@
-#include "Matrix.h"
 #include "Vector4.h"
-using namespace Maths;
 
 // Vector4 equality.
 template <typename T>
-inline bool Vector4::operator==(const T& val) const
+bool Maths::Vector4::operator==(const T& val) const
 {
     return (x == val && y == val && z == val && w == val);
 }
 template<>
-inline bool Vector4::operator==<Vector4>(const Vector4& val) const
+inline bool Maths::Vector4::operator==<Maths::Vector4>(const Vector4& val) const
 {
     return (x == val.x && y == val.y && z == val.z && w == val.w);
 }
 
 // Vector4 inequality.
 template <typename T>
-inline bool Vector4::operator!=(const T& val) const
+bool Maths::Vector4::operator!=(const T& val) const
 {
     return (x != val || y != val || z != val || w != val);
 }
 template<>
-inline bool Vector4::operator!=<Vector4>(const Vector4& val) const
+inline bool Maths::Vector4::operator!=<Maths::Vector4>(const Vector4& val) const
 {
     return (x != val.x || y != val.y || z != val.z || w != val.z);
 }
 
-// Vector4 addition.
-template <typename T>
-inline Vector4 Vector4::operator+(const T& val) const
-{
-    return Vector4(x + val, y + val, z + val, w + val);
-}
-template<>
-inline Vector4 Vector4::operator+<Vector4>(const Vector4& val) const
-{
-    return Vector4(x + val.x, y + val.y, z + val.z, w + val.w);
-}
-
-// Vector4 substraction.
-template <typename T>
-inline Vector4 Vector4::operator-(const T& val) const
-{
-    return Vector4(x - val, y - val, z - val, w - val);
-}
-template <>
-inline Vector4 Vector4::operator-<Vector4>(const Vector4& val) const
-{
-    return Vector4(x - val.x, y - val.y, z - val.z, w - val.w);
-}
-
-// Vector4 multiplication.
-template <typename T>
-inline Vector4 Vector4::operator*(const T& val) const
-{
-    return Vector4(x * val, y * val, z * val, w * val);
-}
-
-template <>
-inline Vector4 Vector4::operator*<Vector4>(const Vector4& val) const
-{
-    return Vector4(x * val.x, y * val.y, z * val.z, w * val.w);
-}
-
-template <>
-inline Vector4 Vector4::operator*<Matrix<4,4>>(const Matrix<4,4>& val) const
+// Vector4 matrix multiplication.
+inline Maths::Vector4 Maths::Vector4::operator*(const Mat4& val) const
 {
     return Vector4
     (
@@ -75,87 +36,3 @@ inline Vector4 Vector4::operator*<Matrix<4,4>>(const Matrix<4,4>& val) const
     );
 }
 
-// Vector4 division.
-template <typename T>
-inline Vector4 Vector4::operator/(const T& val) const
-{
-    return Vector4(x / val, y / val, z / val, w / val);
-}
-template <>
-inline Vector4 Vector4::operator/<Vector4>(const Vector4& val) const
-{
-    return Vector4(x / val.x, y / val.y, z / val.z, w / val.w);
-}
-
-// Vector4 addition assignement.
-template <typename T>
-inline void Vector4::operator+=(const T& val)
-{
-    x += val;
-    y += val;
-    z += val;
-    w += val;
-}
-template <>
-inline void Vector4::operator+=<Vector4>(const Vector4& val)
-{
-    x += val.x;
-    y += val.y;
-    z += val.z;
-    w += val.w;
-}
-
-// Vector4 substraction assignement.
-template <typename T>
-inline void Vector4::operator-=(const T& val)
-{
-    x -= val;
-    y -= val;
-    z -= val;
-    w -= val;
-}
-template <>
-inline void Vector4::operator-=<Vector4>(const Vector4& val)
-{
-    x -= val.x;
-    y -= val.y;
-    z -= val.z;
-    w -= val.w;
-}
-
-// Vector4 multiplication assignement.
-template <typename T>
-inline void Vector4::operator*=(const T& val)
-{
-    x *= val;
-    y *= val;
-    z *= val;
-    w *= val;
-}
-template <>
-inline void Vector4::operator*=<Vector4>(const Vector4& val)
-{
-    x *= val.x;
-    y *= val.y;
-    z *= val.z;
-    w *= val.w;
-}
-
-// Vector4 division assignement.
-template <typename T>
-inline void Vector4::operator/=(const T& val)
-{
-    x /= val;
-    y /= val;
-    z /= val;
-    w /= val;
-}
-
-template <>
-inline void Vector4::operator/=<Vector4>(const Vector4& val)
-{
-    x /= val.x;
-    y /= val.y;
-    z /= val.z;
-    w /= val.w;
-}

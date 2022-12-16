@@ -42,9 +42,11 @@ void Animator::SetCurrentAnimation(const std::string& name)
         {
             curAnim->curKeyframe   = 0;
             curAnim->keyframeTimer = 0;
-            Log("Animator", "Switched to anim %s", curAnim->nameNoExtension.c_str());
         }
+        
         currentAnimation = name;
+        if (const Animation* curAnim = GetCurrentAnimation()) Log("Animator", "Switched to anim %s", curAnim->nameNoExtension.c_str());
+        else                                                  Log("Animator", "Stopped animation");
     }
     else
     {

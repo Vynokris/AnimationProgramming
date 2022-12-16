@@ -1,63 +1,62 @@
 #include "Quaternion.h"
 #include "Arithmetic.h"
-using namespace Maths;
 
 // Quaternion equality.
 template <typename T>
-inline bool Quaternion::operator==(const T& val) const
+bool Maths::Quaternion::operator==(const T& val) const
 {
     return (w == val && x == val && y == val && z == val);
 }
 template<>
-inline bool Quaternion::operator==<Quaternion>(const Quaternion& val) const
+inline bool Maths::Quaternion::operator==<Maths::Quaternion>(const Quaternion& val) const
 {
     return (w == val.w && x == val.x && y == val.y && z == val.z);
 }
 
 // Quaternion inequality.
 template <typename T>
-inline bool Quaternion::operator!=(const T& val) const
+bool Maths::Quaternion::operator!=(const T& val) const
 {
     return (w != val || x != val || y != val || z != val);
 }
 template<>
-inline bool Quaternion::operator!=<Quaternion>(const Quaternion& val) const
+inline bool Maths::Quaternion::operator!=<Maths::Quaternion>(const Quaternion& val) const
 {
     return (w != val.w || x != val.x || y != val.y || z != val.z);
 }
 
 // Quaternion addition.
 template <typename T>
-inline Quaternion Quaternion::operator+(const T& val) const
+Maths::Quaternion Maths::Quaternion::operator+(const T& val) const
 {
     return Quaternion(w + val, x + val, y + val, z + val);
 }
 template<>
-inline Quaternion Quaternion::operator+<Quaternion>(const Quaternion& val) const
+inline Maths::Quaternion Maths::Quaternion::operator+<Maths::Quaternion>(const Quaternion& val) const
 {
     return Quaternion(w + val.w, x + val.x, y + val.y, z + val.z);
 }
 
-// Quaternion substraction.
+// Quaternion subtraction.
 template <typename T>
-inline Quaternion Quaternion::operator-(const T& val) const
+Maths::Quaternion Maths::Quaternion::operator-(const T& val) const
 {
     return Quaternion(w - val, x - val, y - val, z - val);
 }
 template <>
-inline Quaternion Quaternion::operator-<Quaternion>(const Quaternion& val) const
+inline Maths::Quaternion Maths::Quaternion::operator-<Maths::Quaternion>(const Quaternion& val) const
 {
     return Quaternion(w - val.w, x - val.x, y - val.y, z - val.z);
 }
 
 // Quaternion multiplication.
 template <typename T>
-inline Quaternion Quaternion::operator*(const T& val) const
+Maths::Quaternion Maths::Quaternion::operator*(const T& val) const
 {
     return Quaternion(w * val, x * val, y * val, z * val);
 }
 template <>
-inline Quaternion Quaternion::operator*<Quaternion>(const Quaternion& val) const
+inline Maths::Quaternion Maths::Quaternion::operator*<Maths::Quaternion>(const Quaternion& val) const
 {
     return Quaternion(
         w*val.w - x*val.x - y*val.y - z*val.z,
@@ -69,12 +68,12 @@ inline Quaternion Quaternion::operator*<Quaternion>(const Quaternion& val) const
 
 // Quaternion division.
 template <typename T>
-inline Quaternion Quaternion::operator/(const T& val) const
+Maths::Quaternion Maths::Quaternion::operator/(const T& val) const
 {
     return Quaternion(w / val, x / val, y / val, z / val);
 }
 template <>
-inline Quaternion Quaternion::operator/<Quaternion>(const Quaternion& val) const
+inline Maths::Quaternion Maths::Quaternion::operator/<Maths::Quaternion>(const Quaternion& val) const
 {
     const float sqAbs = sqpow(val.w) + sqpow(val.x) + sqpow(val.y) + sqpow(val.z);
     return Quaternion(
@@ -85,9 +84,9 @@ inline Quaternion Quaternion::operator/<Quaternion>(const Quaternion& val) const
     );
 }
 
-// Quaternion addition assignement.
+// Quaternion addition assignment.
 template <typename T>
-inline void Quaternion::operator+=(const T& val)
+void Maths::Quaternion::operator+=(const T& val)
 {
     w += val;
     x += val;
@@ -95,7 +94,7 @@ inline void Quaternion::operator+=(const T& val)
     z += val;
 }
 template <>
-inline void Quaternion::operator+=<Quaternion>(const Quaternion& val)
+inline void Maths::Quaternion::operator+=<Maths::Quaternion>(const Quaternion& val)
 {
     w += val.w;
     x += val.x;
@@ -103,9 +102,9 @@ inline void Quaternion::operator+=<Quaternion>(const Quaternion& val)
     z += val.z;
 }
 
-// Quaternion substraction assignement.
+// Quaternion subtraction assignment.
 template <typename T>
-inline void Quaternion::operator-=(const T& val)
+void Maths::Quaternion::operator-=(const T& val)
 {
     w -= val;
     x -= val;
@@ -113,7 +112,7 @@ inline void Quaternion::operator-=(const T& val)
     z -= val;
 }
 template <>
-inline void Quaternion::operator-=<Quaternion>(const Quaternion& val)
+inline void Maths::Quaternion::operator-=<Maths::Quaternion>(const Quaternion& val)
 {
     w -= val.w;
     x -= val.x;
@@ -121,9 +120,9 @@ inline void Quaternion::operator-=<Quaternion>(const Quaternion& val)
     z -= val.z;
 }
 
-// Quaternion multiplication assignement.
+// Quaternion multiplication assignment.
 template <typename T>
-inline void Quaternion::operator*=(const T& val)
+void Maths::Quaternion::operator*=(const T& val)
 {
     w *= val;
     x *= val;
@@ -131,7 +130,7 @@ inline void Quaternion::operator*=(const T& val)
     z *= val;
 }
 template <>
-inline void Quaternion::operator*=<Quaternion>(const Quaternion& val)
+inline void Maths::Quaternion::operator*=<Maths::Quaternion>(const Quaternion& val)
 {
     const float _w = w, _x = x, _y = y, _z = z;
     w = _w*val.w - _x*val.x - _y*val.y - _z*val.z;
@@ -140,9 +139,9 @@ inline void Quaternion::operator*=<Quaternion>(const Quaternion& val)
     z = _w*val.z + _x*val.y - _y*val.x + _z*val.w;
 }
 
-// Quaternion division assignement.
+// Quaternion division assignment.
 template <typename T>
-inline void Quaternion::operator/=(const T& val)
+void Maths::Quaternion::operator/=(const T& val)
 {
     w /= val;
     x /= val;
@@ -150,7 +149,7 @@ inline void Quaternion::operator/=(const T& val)
     z /= val;
 }
 template <>
-inline void Quaternion::operator/=<Quaternion>(const Quaternion& val)
+inline void Maths::Quaternion::operator/=<Maths::Quaternion>(const Quaternion& val)
 {
     const float sqAbs = sqpow(val.w) + sqpow(val.x) + sqpow(val.y) + sqpow(val.z);
     const float _w = w, _x = x, _y = y, _z = z;

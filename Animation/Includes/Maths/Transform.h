@@ -55,6 +55,9 @@ namespace Maths
     	Mat4 GetWorldMat () const { return localMat * parentMat; } // Returns the transform's world matrix (local * parent).
 		void SetParentMat(const Mat4& mat) { parentMat = mat; }    // Modifies the transform's parent matrix.
 
+    	// Interpolation.
+    	static Transform Lerp(const Transform& start, const Transform& dest, const float& val, const bool& useSlerp = true); // Linearly interpolates between start and dest.
+
 	private:
 		void UpdateLocalMat();
     };

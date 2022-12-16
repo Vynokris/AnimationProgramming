@@ -23,8 +23,8 @@ void CSimulation::Initialize()
     for (size_t i = 0; i < GetSkeletonBoneCount(); i++)
     {
         // Get the bone's name and index.
-        const int   boneIndex = (int)i;
-        const char* boneName  = GetSkeletonBoneName(boneIndex);
+        const size_t boneIndex = i;
+        const char*  boneName  = GetSkeletonBoneName(boneIndex);
 
         // Create the bone.
         Bone* bone = new Bone(boneIndex, boneName, animator);

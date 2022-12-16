@@ -1,6 +1,7 @@
 ﻿#include "Animation/Animation.h"
 #include "Animation/Skeleton.h"
 #include "Core/Engine.h"
+using namespace Maths;
 
 
 Animation::Animation(const std::string& animName, const Skeleton& skeleton)
@@ -8,9 +9,11 @@ Animation::Animation(const std::string& animName, const Skeleton& skeleton)
       nameNoExtension(animName.substr(0, animName.size()-5)),
       keyframeCount(GetAnimKeyCount(name.c_str()))
 {
-    localBoneTransforms.resize(skeleton.GetBoneCount());
+    const size_t boneCount = skeleton.GetBoneCount();
+    localBoneTransforms.resize(boneCount);
+    smoothTransforms   .resize(boneCount);
 
-    for (size_t boneId = 0; boneId < skeleton.GetBoneCount(); ++boneId)
+    for (size_t boneId = 0; boneId < boneCount; ++boneId)
     {
         localBoneTransforms[boneId].resize(keyframeCount);
 
@@ -53,4 +56,10 @@ const Transform& Animation::GetLocalBoneTransform(const size_t& boneId, const si
 {
     assert(boneId < localBoneTransforms.size() && keyframe < localBoneTransforms[boneId].size());
     return localBoneTransforms[boneId][keyframe];
+}
+
+Transform& Animation::GetSmoothTransform(const size_t& boneId)
+{
+    assert(boneId < smoothTransforms.size());
+    return smoothTransforms[boneId];
 }
