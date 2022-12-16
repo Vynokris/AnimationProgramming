@@ -25,7 +25,7 @@ public:
 	
 	void Update(float deltaTime) override;
 	
-	void DrawGizmo(const Vector3& offset, const float& size) const;
+	void DrawGizmo(const Maths::Vector3& offset, const float& size) const;
 	void ShowImGui(const float& deltaTime);
 };
 

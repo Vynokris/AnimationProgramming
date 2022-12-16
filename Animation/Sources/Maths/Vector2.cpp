@@ -78,6 +78,14 @@ void Vector2::RotateAsPoint(const Vector2& pivot, const float& angle)
     y = yNew + pivot.y;
 }
 
+// Calculates linear interpolation for a value from a start point to an end point.
+Vector2 Vector2::Lerp(const Vector2& start, const Vector2& dest, const float& val)
+{
+    return Vector2(lerp(start.x, dest.x, val),
+                   lerp(start.y, dest.y, val));
+}
+
+
 // Returns the vector's contents as a string.
 std::string Vector2::ToString(const int& precision) const
 {
@@ -85,12 +93,4 @@ std::string Vector2::ToString(const int& precision) const
     string.precision(precision);
     string << std::fixed << x << ", " << std::fixed << y;
     return string.str();
-}
-
-
-// Calculates linear interpolation for a value from a start point to an end point.
-Vector2 Maths::Point2Lerp(const Vector2& start, const Vector2& dest, const float& val)
-{
-    return Vector2(lerp(start.x, dest.x, val),
-                   lerp(start.y, dest.y, val));
 }

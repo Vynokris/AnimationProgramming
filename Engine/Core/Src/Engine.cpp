@@ -11,7 +11,7 @@
 using namespace WhiteBox;
 
 
-void Run( ISimulation* pSimulation, unsigned int width, unsigned int height )
+void Run(ISimulation* pSimulation, unsigned int width, unsigned int height)
 {
     WhiteBox::SGlobalVariables::Init();
     WhiteBox::gVars->pSimulation = pSimulation;
@@ -60,7 +60,6 @@ void GetSkeletonBoneLocalBindTransform(size_t boneIndex, float& posX, float& pos
 
 size_t GetAnimKeyCount(const char* animName)
 {
-
     CAnimationPtr pAnim = String(animName);
 
     return pAnim->m_animationTracks[1]->m_keyFrameCount;
@@ -115,7 +114,7 @@ COperatingSystem* GetOperatingSystem()
     return gVars->pOperatingSystem;
 }
 
-WhiteBox::CResourceManager* GetResourceManager()
+CResourceManager* GetResourceManager()
 {
     return gVars->pResourceManager;
 }

@@ -11,7 +11,11 @@ private:
     // Stores the local transforms for each keyframe of each bone.
     // Rows: boneIDs
     // Columns: keyframes
-    std::vector<std::vector<Transform>> localBoneTransforms;
+    std::vector<std::vector<Maths::Transform>> localBoneTransforms;
+
+    // Stores interpolated transform for each bone.
+    // Updated by skeleton.UpdateAnimation();
+    std::vector<Maths::Transform> smoothTransforms;
     
 public:
     const std::string name;
@@ -28,6 +32,7 @@ public:
     Animation(const std::string& animName, const Skeleton& skeleton);
     void Update(const float& deltaTime);
 
-    const Transform& GetLocalBoneTransform(const size_t& boneId, const size_t& keyframe) const;
+    const Maths::Transform& GetLocalBoneTransform(const size_t& boneId, const size_t& keyframe) const;
+    Maths::Transform& GetSmoothTransform(const size_t& boneId);
 };
 

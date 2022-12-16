@@ -1,87 +1,86 @@
 #include "Vector2.h"
-using namespace Maths;
 
 // Vector2 equality.
 template <typename T>
-inline bool Vector2::operator==(const T& val) const
+bool Maths::Vector2::operator==(const T& val) const
 {
     return (x == val && y == val);
 }
 template<>
-inline bool Vector2::operator==<Vector2>(const Vector2& val) const
+inline bool Maths::Vector2::operator==<Maths::Vector2>(const Vector2& val) const
 {
     return (x == val.x && y == val.y);
 }
 
 // Vector2 inequality.
 template <typename T>
-inline bool Vector2::operator!=(const T& val) const
+bool Maths::Vector2::operator!=(const T& val) const
 {
     return (x != val || y != val);
 }
 template<>
-inline bool Vector2::operator!=<Vector2>(const Vector2& val) const
+inline bool Maths::Vector2::operator!=<Maths::Vector2>(const Vector2& val) const
 {
     return (x != val.x || y != val.y);
 }
 
 // Vector2 addition.
 template <typename T>
-inline Vector2 Vector2::operator+(const T& val) const
+Maths::Vector2 Maths::Vector2::operator+(const T& val) const
 {
     return Vector2(x + val, y + val);
 }
 template<>
-inline Vector2 Vector2::operator+<Vector2>(const Vector2& val) const
+inline Maths::Vector2 Maths::Vector2::operator+<Maths::Vector2>(const Vector2& val) const
 {
     return Vector2(x + val.x, y + val.y);
 }
 
 // Vector2 subtraction.
 template <typename T>
-inline Vector2 Vector2::operator-(const T& val) const
+Maths::Vector2 Maths::Vector2::operator-(const T& val) const
 {
     return Vector2(x - val, y - val);
 }
 template <>
-inline Vector2 Vector2::operator-<Vector2>(const Vector2& val) const
+inline Maths::Vector2 Maths::Vector2::operator-<Maths::Vector2>(const Vector2& val) const
 {
     return Vector2(x - val.x, y - val.y);
 }
 
 // Vector2 multiplication.
 template <typename T>
-inline Vector2 Vector2::operator*(const T& val) const
+Maths::Vector2 Maths::Vector2::operator*(const T& val) const
 {
     return Vector2(x * val, y * val);
 }
 template <>
-inline Vector2 Vector2::operator*<Vector2>(const Vector2& val) const
+inline Maths::Vector2 Maths::Vector2::operator*<Maths::Vector2>(const Vector2& val) const
 {
     return Vector2(x * val.x, y * val.y);
 }
 
 // Vector2 division.
 template <typename T>
-inline Vector2 Vector2::operator/(const T& val) const
+Maths::Vector2 Maths::Vector2::operator/(const T& val) const
 {
     return Vector2(x / val, y / val);
 }
 template <>
-inline Vector2 Vector2::operator/<Vector2>(const Vector2& val) const
+inline Maths::Vector2 Maths::Vector2::operator/<Maths::Vector2>(const Vector2& val) const
 {
     return Vector2(x / val.x, y / val.y);
 }
 
 // Vector2 addition assignment.
 template <typename T>
-inline void Vector2::operator+=(const T& val)
+void Maths::Vector2::operator+=(const T& val)
 {
     x += val;
     y += val;
 }
 template <>
-inline void Vector2::operator+=<Vector2>(const Vector2& val)
+inline void Maths::Vector2::operator+=<Maths::Vector2>(const Vector2& val)
 {
     x += val.x;
     y += val.y;
@@ -89,13 +88,13 @@ inline void Vector2::operator+=<Vector2>(const Vector2& val)
 
 // Vector2 subtraction assignment.
 template <typename T>
-inline void Vector2::operator-=(const T& val)
+void Maths::Vector2::operator-=(const T& val)
 {
     x -= val;
     y -= val;
 }
 template <>
-inline void Vector2::operator-=<Vector2>(const Vector2& val)
+inline void Maths::Vector2::operator-=<Maths::Vector2>(const Vector2& val)
 {
     x -= val.x;
     y -= val.y;
@@ -103,13 +102,13 @@ inline void Vector2::operator-=<Vector2>(const Vector2& val)
 
 // Vector2 multiplication assignment.
 template <typename T>
-inline void Vector2::operator*=(const T& val)
+void Maths::Vector2::operator*=(const T& val)
 {
     x *= val;
     y *= val;
 }
 template <>
-inline void Vector2::operator*=<Vector2>(const Vector2& val)
+inline void Maths::Vector2::operator*=<Maths::Vector2>(const Vector2& val)
 {
     x *= val.x;
     y *= val.y;
@@ -117,13 +116,13 @@ inline void Vector2::operator*=<Vector2>(const Vector2& val)
 
 // Vector2 division assignment.
 template <typename T>
-inline void Vector2::operator/=(const T& val)
+void Maths::Vector2::operator/=(const T& val)
 {
     x /= val;
     y /= val;
 }
 template <>
-inline void Vector2::operator/=<Vector2>(const Vector2& val)
+inline void Maths::Vector2::operator/=<Maths::Vector2>(const Vector2& val)
 {
     x /= val.x;
     y /= val.y;

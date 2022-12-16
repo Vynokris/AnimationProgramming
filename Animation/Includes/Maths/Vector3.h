@@ -64,14 +64,15 @@ namespace Maths
         // Rotation.
         void    Rotate    (const Vector3& angles);       // Rotates the vector by the given angle.
         Vector3 GetRotated(const Vector3& angles) const; // Returns a copy of the vector rotated by the given angle.
+        
+        // Linearly interpolates from start to dest.
+        static Vector3 Lerp(const Vector3& start, const Vector3& dest, const float& val);
 
         // Conversions.
         Vector4     ToVector4() const;                        // Creates a Vector4 from this vector.
         std::string ToString(const int& precision = 2) const; // Returns the vector's contents as a string.
     };
 
-    // Calculates linear interpolation for a value from a start point to an end point.
-    Vector3 Point3Lerp(const Vector3& start, const Vector3& dest, const float& val);
 
     // Returns the coordinates of a point on a sphere of radius r, using the given angles.
     Vector3 GetSphericalCoords(const float& r, const float& pitch, const float& yaw);

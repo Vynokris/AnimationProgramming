@@ -3,26 +3,26 @@
 #include "Maths/Transform.h"
 #include <vector>
 class Animator;
+class Animation;
 
 
 class Bone
 {
 public:
 	Animator&         animator;
-	const int         index;
+	const size_t      index;
 	const std::string name;
-	Transform defaultTransform;
-	Transform animTransform;
+	Maths::Transform defaultTransform;
 	
 	Bone* parent = nullptr;
 	std::vector<Bone*> children;
 
 public:
-	Bone(const int& boneIndex, const std::string& boneName, Animator& skeletonAnimator);
+	Bone(const size_t& boneIndex, const std::string& boneName, Animator& skeletonAnimator);
 
-	void SetChildrenDefaultTransform(const Mat4& parentMat = Mat4(true));
-	void UpdateChildrenAnimation    (const float& deltaTime, const Mat4& parentMat = Mat4(true));
+	void SetChildrenDefaultTransform(const Maths::Mat4& parentMat = Maths::Mat4(true));
+	void UpdateChildrenAnimation    (Animation* anim, const Maths::Mat4& parentMat = Maths::Mat4(true)) const;
 
-	Mat4 GetLocalMat() const;
-	Mat4 GetParentMat() const;
+	// Mat4 GetLocalMat() const;
+	// Mat4 GetParentMat() const;
 };

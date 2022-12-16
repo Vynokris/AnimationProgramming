@@ -91,20 +91,20 @@ Vector3 Quaternion::RotateVec(const Vector3& v) const
 }
 
 // Interpolation.
-Quaternion Quaternion::Lerp(const Quaternion& start, const Quaternion& dest, const float& t)
+Quaternion Quaternion::Lerp(const Quaternion& start, const Quaternion& dest, const float& val)
 {
-    return Quaternion(lerp(start.w, dest.w, t),
-                      lerp(start.x, dest.x, t),
-                      lerp(start.y, dest.y, t),
-                      lerp(start.z, dest.z, t));
+    return Quaternion(lerp(start.w, dest.w, val),
+                      lerp(start.x, dest.x, val),
+                      lerp(start.y, dest.y, val),
+                      lerp(start.z, dest.z, val));
 }
 
-Quaternion Quaternion::NLerp(const Quaternion& start, const Quaternion& dest, const float& t)
+Quaternion Quaternion::NLerp(const Quaternion& start, const Quaternion& dest, const float& val)
 {
-    return Lerp(start, dest, t).GetNormalized();
+    return Lerp(start, dest, val).GetNormalized();
 }
 
-Quaternion Quaternion::SLerp(const Quaternion& start, const Quaternion& dest, const float& t, const bool& useShortestPath)
+Quaternion Quaternion::SLerp(const Quaternion& start, const Quaternion& dest, const float& val, const bool& useShortestPath)
 {
     const float cosAngle    = start.Dot(dest);
     const float cosAngleAbs = abs(cosAngle);
@@ -113,16 +113,16 @@ Quaternion Quaternion::SLerp(const Quaternion& start, const Quaternion& dest, co
     if (1-cosAngleAbs < 0.01f)
     {
         // Linear interpolation for close orientations.
-        coeff1 = 1-t;
-        coeff2 = t;
+        coeff1 = 1-val;
+        coeff2 = val;
     }
     else
     {
         // Spherical interpolation.
         const float angle    = acos(cosAngleAbs);
         const float sinAngle = sin(angle);
-        coeff1 = sin(angle * (1-t)) / sinAngle;
-        coeff2 = sin(angle * t)     / sinAngle;
+        coeff1 = sin(angle * (1-val)) / sinAngle;
+        coeff2 = sin(angle * val)     / sinAngle;
     }
 
     // Use the shortest path.

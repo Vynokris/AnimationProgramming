@@ -63,12 +63,12 @@ namespace Maths
         void Rotate       (const float& angle);                       // Rotates the vector by the given angle (in rad).
         void RotateAsPoint(const Vector2& pivot, const float& angle); // Rotates the point around the given pivot point by the given angle (in rad).
 
+        // Calculates linear interpolation for a value from a start point to an end point.
+        static Vector2 Lerp(const Vector2& start, const Vector2& dest, const float& val);
+
         // Returns the vector's contents as a string.
         std::string ToString(const int& precision = 2) const;
     };
-
-    // Calculates linear interpolation for a value from a start point to an end point.
-    Vector2 Point2Lerp(const Vector2& start, const Vector2& dest, const float& val);
 }
 
 #include "Vector2.inl"

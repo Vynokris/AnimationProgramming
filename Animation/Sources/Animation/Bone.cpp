@@ -1,10 +1,10 @@
 #include "Animation/Bone.h"
-#include <Core/Engine.h>
-
 #include "Animation/Animation.h"
 #include "Animation/Animator.h"
+#include "Core/Engine.h"
+using namespace Maths;
 
-Bone::Bone(const int& boneIndex, const std::string& boneName, Animator& skeletonAnimator)
+Bone::Bone(const size_t& boneIndex, const std::string& boneName, Animator& skeletonAnimator)
 	: animator(skeletonAnimator), index(boneIndex), name(boneName) {}
 
 void Bone::SetChildrenDefaultTransform(const Mat4 & parentMat)
@@ -23,28 +23,30 @@ void Bone::SetChildrenDefaultTransform(const Mat4 & parentMat)
 	}
 }
 
-void Bone::UpdateChildrenAnimation(const float& deltaTime, const Mat4& parentMat)
+void Bone::UpdateChildrenAnimation(Animation* anim, const Mat4& parentMat) const
 {
+	if (!anim) return;
+	
 	// Get current and previous pose local transforms.
-	const Animation* curAnim = animator.GetCurrentAnimation(); if (!curAnim) return;
-	const Transform& curPoseTransform  = curAnim->GetLocalBoneTransform(index, curAnim->curKeyframe);
-	const Transform& prevPoseTransform = curAnim->GetLocalBoneTransform(index, curAnim->prevKeyframe);
+	const Transform& curPoseTransform  = anim->GetLocalBoneTransform(index, anim->curKeyframe);
+	const Transform& prevPoseTransform = anim->GetLocalBoneTransform(index, anim->prevKeyframe);
 
 	// Interpolate between the current and previous transform.
-    const float      lerpVal      = curAnim->keyframeTimer / curAnim->keyframeDuration;
-	const Vector3    animPosition = Point3Lerp       (prevPoseTransform.GetPosition(), curPoseTransform.GetPosition(), lerpVal);
+    const float      lerpVal      = anim->keyframeTimer / anim->keyframeDuration;
+	const Vector3    animPosition = Vector3   ::Lerp (prevPoseTransform.GetPosition(), curPoseTransform.GetPosition(), lerpVal);
 	const Quaternion animRotation = Quaternion::SLerp(prevPoseTransform.GetRotation(), curPoseTransform.GetRotation(), lerpVal);
-	animTransform.SetPosRot(animPosition, animRotation);
+	anim->GetSmoothTransform(index).SetPosRot(animPosition, animRotation);
 
 	// Get the world matrix and update children.
-	const Mat4 curMat = GetLocalMat() * parentMat;
-	for (Bone* child : children)
+	const Mat4 curMat = anim->GetSmoothTransform(index).GetLocalMat() * defaultTransform.GetLocalMat() * parentMat;
+	for (const Bone* child : children)
 	{
-		child->animTransform.SetParentMat(curMat);
-		child->UpdateChildrenAnimation(deltaTime, curMat);
+		anim->GetSmoothTransform(child->index).SetParentMat(curMat);
+		child->UpdateChildrenAnimation(anim, curMat);
 	}
 }
 
+/*
 Mat4 Bone::GetLocalMat() const
 {
 	if (!animator.IsAnimating())
@@ -58,3 +60,4 @@ Mat4 Bone::GetParentMat() const
 {
 	return animator.IsAnimating() ? animTransform.GetParentMat() : defaultTransform.GetParentMat();
 }
+*/
