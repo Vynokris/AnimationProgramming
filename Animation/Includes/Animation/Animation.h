@@ -4,7 +4,7 @@
 #include <vector>
 class Skeleton;
 
-constexpr float DEFAULT_KEYFRAME_DURATION = 1; // 1/30.f;
+constexpr float DEFAULT_KEYFRAME_DURATION = 1/30.f;
 
 
 class Animation

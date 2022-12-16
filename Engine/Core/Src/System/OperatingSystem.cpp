@@ -186,7 +186,7 @@ void	COperatingSystem::Init(uint width, uint height)
 	}
 
 	SDL_GLContext context = SDL_GL_CreateContext(window);
-	SDL_GL_SetSwapInterval(1); // No need to run at 10e34 fps per seconds
+	SDL_GL_SetSwapInterval(0); // No need to run at 10e34 fps per seconds
 
 	if (GLEW_OK != glewInit())
 	{

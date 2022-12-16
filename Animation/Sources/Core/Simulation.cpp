@@ -76,20 +76,6 @@ void CSimulation::Update(float deltaTime)
     skeleton.Draw({ -80, 0, 0 });
 
     ShowImGui(deltaTime);
-
-
-    // TEMP START: Periodically start transition to the other animation.
-    static float staticTimer = 5.f;
-    staticTimer += deltaTime;
-    if (staticTimer >= 10.f)
-    {
-        staticTimer = 0.f;
-        const std::string curAnimName = skeleton.GetAnimator().GetCurrentAnimationName();
-        std::string destAnimName = WALK_ANIMATION;
-        if (curAnimName == WALK_ANIMATION) destAnimName = RUN_ANIMATION;
-        skeleton.GetAnimator().StartTransition(destAnimName, 5.f);
-    }
-    // TEMP END
 }
 
 void CSimulation::DrawGizmo(const Vector3& offset, const float& size) const
@@ -144,19 +130,35 @@ void CSimulation::ShowImGui(const float& deltaTime)
             ImGui::EndCombo();
         }
         ImGui::NewLine();
+
+        // Start transition button.
+        static float transitionDuration = 2.f;
+        if (ImGui::Button("Start transition") && animator.IsAnimating() && !animator.IsTransitioning())
+        {
+            const std::string curAnimName = skeleton.GetAnimator().GetCurrentAnimationName();
+            std::string destAnimName = WALK_ANIMATION;
+            if (curAnimName == WALK_ANIMATION) destAnimName = RUN_ANIMATION;
+            skeleton.GetAnimator().StartTransition(destAnimName, transitionDuration);
+        }
+        ImGui::SameLine(); ImGui::SetNextItemWidth(29);
+        if (ImGui::DragFloat("Duration", &transitionDuration, 0.01f, 0.5f, 9.9f, "%.1f")) {
+            transitionDuration = clamp(transitionDuration, 0.1f, 9.9f);
+        }
         
+        // Animation collapsing headers.
         for (auto& [name, anim] : animations)
         {
             ImGui::PushID(name.c_str());
             if (ImGui::CollapsingHeader(anim->nameNoExtension.c_str()))
             {
+            
                 // Current key frame.
                 ImGui::AlignTextToFramePadding();
                 ImGui::Text("Current keyframe:");
                 ImGui::SameLine();
                 ImGui::SetNextItemWidth(19);
                 int curKeyframe = (int)anim->curKeyframe;
-                if (ImGui::DragInt("##keyframeInput", &curKeyframe, 0.1f, 0, (int)anim->keyframeCount-1))
+                if (ImGui::DragInt("##keyframeInput", &curKeyframe, 0.1f, 0, (int)anim->keyframeCount-1) && anim->paused)
                 {
                     anim->curKeyframe = (size_t)std::clamp(curKeyframe, 0, (int)anim->keyframeCount-1);
                     skeleton.GetAnimator().Update(0);
@@ -166,17 +168,17 @@ void CSimulation::ShowImGui(const float& deltaTime)
 
                 // Animation completion.
                 ImGui::Text("Completion: %d%%", roundInt(anim->GetCompletion() * 100));
-                
+            
                 // Animation pause.
                 ImGui::Checkbox("Paused", &anim->paused);
-                
+            
                 // Animation reverse.
                 ImGui::Checkbox("Reverse", &anim->reverse);
 
                 // Animation speed.
                 float animSpeed = 1 / anim->keyframeDuration;
                 ImGui::SetNextItemWidth(19);
-                if (ImGui::DragFloat("Speed", &animSpeed, 0.1f, 0.5f, 99.f, "%.0f")) {
+                if (ImGui::DragFloat("Speed", &animSpeed, 0.1f, 0.5f, 99.f, "%.0f") && !animator.IsTransitioning()) {
                     anim->keyframeDuration = 1 / clamp(animSpeed, 0.5f, 99.f);
                 }
             }

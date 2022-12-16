@@ -39,7 +39,7 @@ public:
     float       GetTransitionCompletion   () const;
     Animation*  GetTransitionAnimation    ();
     std::string GetTransitionAnimationName();
-    void        StartTransition(const std::string& destAnim, const float& duration = 1.f);
+    void        StartTransition(const std::string& destAnimName, const float& duration = 1.f);
     
     void Update(const float& deltaTime);
 };
