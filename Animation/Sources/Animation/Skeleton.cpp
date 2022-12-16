@@ -1,11 +1,10 @@
 #include "Animation/Skeleton.h"
-
-#include <iostream>
-#include <algorithm>
-
 #include "Core/Engine.h"
 
-Skeleton:: Skeleton() : rootBone(nullptr), bones({}) { }
+#include <algorithm>
+
+
+Skeleton::Skeleton() : animator(*this), rootBone(nullptr), bones({}) { }
 Skeleton::~Skeleton()
 {
 	for (const Bone* bone : bones)
@@ -89,11 +88,6 @@ Bone* Skeleton::GetBone(const int& id) const
 	return nullptr;
 }
 
-std::vector<Bone*>& Skeleton::GetBones()
-{
-	return bones;
-}
-
 void Skeleton::UpdateBoneMatrices()
 {
 	boneMatrices.clear();
@@ -103,7 +97,7 @@ void Skeleton::UpdateBoneMatrices()
 	for (const Bone* bone : bones)
 	{
 		// Matrix that transforms a position in the following way: global in default pose -> local to bone in default pose -> local to bone in animated pose -> global in animated pose.
-		boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4() * bone->boneAnim.GetPoseLocalMat() * bone->defaultTransform.GetLocalMat() * bone->boneAnim.GetParentMat());
+		boneMatrices.push_back(bone->defaultTransform.GetWorldMat().Inv4() * bone->GetLocalMat() * bone->GetParentMat());
 	}
 }
 

@@ -83,14 +83,17 @@
     <ClInclude Include="Includes\Animation\Skeleton.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\Maths\MathConstants.h">
-      <Filter>Includes</Filter>
-    </ClInclude>
     <ClInclude Include="Includes\Animation\BoneAnim.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Includes\Animation\Animator.h">
-      <Filter>Includes</Filter>
+      <Filter>Includes\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Maths\MathConstants.h">
+      <Filter>Includes\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Animation\Animation.h">
+      <Filter>Includes\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,7 +152,10 @@
       <Filter>Sources\Externals</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Animation\Animator.cpp">
-      <Filter>Sources</Filter>
+      <Filter>Sources\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Animation\Animation.cpp">
+      <Filter>Sources\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

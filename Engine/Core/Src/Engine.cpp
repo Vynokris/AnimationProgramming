@@ -29,22 +29,22 @@ size_t GetSkeletonBoneCount()
     return gVars->pApplication->pCharacterSkel->GetBones().size();
 }
 
-const char* GetSkeletonBoneName(int boneIndex)
+const char* GetSkeletonBoneName(size_t boneIndex)
 {
     return (gVars->pApplication->pCharacterSkel->GetBones())[boneIndex].GetName().c_str();
 }
 
-int GetSkeletonBoneIndex(const char* name)
+size_t GetSkeletonBoneIndex(const char* name)
 {
     return (gVars->pApplication->pCharacterSkel->GetBoneNameToIndexMap())[String(name)];
 }
 
-int GetSkeletonBoneParentIndex(int boneIndex)
+size_t GetSkeletonBoneParentIndex(size_t boneIndex)
 {
     return (gVars->pApplication->pCharacterSkel->GetBones())[boneIndex].GetParentIndex();
 }
 
-void GetSkeletonBoneLocalBindTransform(int boneIndex, float& posX, float& posY, float& posZ, float& quatW, float& quatX, float& quatY, float& quatZ)
+void GetSkeletonBoneLocalBindTransform(size_t boneIndex, float& posX, float& posY, float& posZ, float& quatW, float& quatX, float& quatY, float& quatZ)
 {
     const Transform& t = gVars->pApplication->pCharacterSkel->m_localBindPose.m_boneTransforms[boneIndex];
     posX = t.position.x;
@@ -66,7 +66,7 @@ size_t GetAnimKeyCount(const char* animName)
     return pAnim->m_animationTracks[1]->m_keyFrameCount;
 }
 
-void GetAnimLocalBoneTransform(const char* animName, int boneIndex, int keyFrameIndex, float& posX, float& posY, float& posZ, float& quatW, float& quatX, float& quatY, float& quatZ)
+void GetAnimLocalBoneTransform(const char* animName, size_t boneIndex, size_t keyFrameIndex, float& posX, float& posY, float& posZ, float& quatW, float& quatX, float& quatY, float& quatZ)
 {
     CAnimationPtr pAnim = String(animName);
     Transform t;

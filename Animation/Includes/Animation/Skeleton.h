@@ -29,7 +29,8 @@ public:
 
 	Animator& GetAnimator();
 	Bone*     GetBone(const int& id) const;
-	std::vector<Bone*>& GetBones();
+	size_t    GetBoneCount() const { return bones.size(); }
+	std::vector<Bone*>& GetBones() { return bones; }
 	
 	void UpdateBoneMatrices();
 	std::vector<Mat4>& GetBoneMatrices();

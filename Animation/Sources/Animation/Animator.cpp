@@ -1,45 +1,9 @@
 ﻿#include "Animation/Animator.h"
+#include "Animation/Animation.h"
+#include "Core/Engine.h"
 
 #include <iostream>
 
-#include "Core/Engine.h"
-
-
-// ----- Animation ----- //
-
-Animation::Animation(const std::string& animName)
-    : name(animName),
-      nameNoExtension(animName.substr(0, animName.size()-5)),
-      keyframeCount((int)GetAnimKeyCount(name.c_str())-1)
-{ }
-
-void Animation::Update(const float& deltaTime)
-{
-    if (paused) return;
-    keyframeTimer += deltaTime;
-
-    // Note: All animations skip keyframe 0 when looping 
-    //       because it is assumed to be the same as the last keyframe.
-
-    // Change keyframe when the keyframe timer is finished.
-    if (keyframeTimer >= keyframeDuration)
-    {
-        keyframeTimer = 0;
-        if (!reverse) {
-            curKeyframe++;
-            if (curKeyframe > keyframeCount)
-                curKeyframe = 1;
-        }
-        else {
-            curKeyframe--;
-            if (curKeyframe <= 0)
-                curKeyframe = keyframeCount-1;
-        }
-    }
-}
-
-
-// ----- Animator ----- //
 
 Animator::~Animator()
 {
@@ -52,11 +16,15 @@ Animation* Animator::AddAnimation(const std::string& name)
     // If the animation doesn't already exist, create it.
     if (animations.find(name) == animations.end())
     {
-        Animation* newAnim = new Animation(name);
+        Animation* newAnim = new Animation(name, skeleton);
         animations.insert(std::pair(name, newAnim));
-        // allAnimations.emplace_back(newAnim);
     }
     return animations[name];
+}
+
+bool Animator::IsAnimating() const
+{
+    return !currentAnimation.empty();
 }
 
 Animation* Animator::GetAnimation(const std::string& name)
@@ -80,7 +48,7 @@ void Animator::SetCurrentAnimation(const std::string& name)
     }
     else
     {
-        Log("Animator", "WARNING Unable to set %s as current animation because it isn't in this animator.", name.c_str());
+        Log("Animator", "WARNING! Unable to set %s as current animation because it isn't in this animator.", name.c_str());
     }
 }
 

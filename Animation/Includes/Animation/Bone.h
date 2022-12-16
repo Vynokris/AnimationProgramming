@@ -2,17 +2,17 @@
 
 #include "Maths/Transform.h"
 #include <vector>
-
-#include "BoneAnim.h"
 class Animator;
+
 
 class Bone
 {
 public:
+	Animator&         animator;
 	const int         index;
 	const std::string name;
 	Transform defaultTransform;
-	BoneAnim  boneAnim;
+	Transform animTransform;
 	
 	Bone* parent = nullptr;
 	std::vector<Bone*> children;
@@ -24,5 +24,5 @@ public:
 	void UpdateChildrenAnimation    (const float& deltaTime, const Mat4& parentMat = Mat4(true));
 
 	Mat4 GetLocalMat() const;
-	Mat4 GetWorldMat() const;
+	Mat4 GetParentMat() const;
 };
