@@ -4,35 +4,44 @@
 #include <vector>
 class Skeleton;
 
+constexpr float DEFAULT_KEYFRAME_DURATION = 1; // 1/30.f;
+
 
 class Animation
 {
 private:
+    Skeleton& skeleton;
+    
     // Stores the local transforms for each keyframe of each bone.
     // Rows: boneIDs
     // Columns: keyframes
     std::vector<std::vector<Maths::Transform>> localBoneTransforms;
 
-    // Stores interpolated transform for each bone.
-    // Updated by skeleton.UpdateAnimation();
-    std::vector<Maths::Transform> smoothTransforms;
+    // Stores smoothly animated local transform for each bone.
+    std::vector<Maths::Transform> animatedLocalTransforms;
     
 public:
     const std::string name;
     const std::string nameNoExtension;
     const size_t      keyframeCount;
     
-    float  keyframeDuration = 1/30.f;
+    float  keyframeDuration = DEFAULT_KEYFRAME_DURATION;
     size_t curKeyframe      = 0;
     size_t prevKeyframe     = 0;
     float  keyframeTimer    = 0;
     bool   reverse          = false;
     bool   paused           = false;
     
-    Animation(const std::string& animName, const Skeleton& skeleton);
+    Animation(const std::string& animName, Skeleton& baseSkeleton);
     void Update(const float& deltaTime);
 
-    const Maths::Transform& GetLocalBoneTransform(const size_t& boneId, const size_t& keyframe) const;
-    Maths::Transform& GetSmoothTransform(const size_t& boneId);
+    float GetDuration  () const;
+    float GetCompletion() const;
+    void  SetCompletion(const float& completion);
+
+    Maths::Transform GetAnimatedLocalBoneTransform(const size_t& boneId) const;
+
+private:
+    void UpdateAnimatedLocalBoneTransforms();
 };
 

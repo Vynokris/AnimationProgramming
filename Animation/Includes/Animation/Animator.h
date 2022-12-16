@@ -1,29 +1,45 @@
 ﻿#pragma once
 #include <string>
 #include <unordered_map>
+#include "AnimTransition.h"
+
+namespace Maths
+{
+    class Transform;
+}
 class Animation;
 class Skeleton;
 
 constexpr const char* WALK_ANIMATION = "ThirdPersonWalk.anim";
 constexpr const char* RUN_ANIMATION  = "ThirdPersonRun.anim";
 
+
 class Animator
 {
 private:
-    const Skeleton& skeleton;
+    Skeleton&      skeleton;
+    std::string    curAnimName;
+    AnimTransition animTransition;
     std::unordered_map<std::string, Animation*> animations;
-    std::string currentAnimation;
     
 public:
-    Animator(const Skeleton& baseSkeleton) : skeleton(baseSkeleton) {}
+    Animator(Skeleton& baseSkeleton) : skeleton(baseSkeleton), animTransition(*this) {}
     ~Animator();
     
-    std::unordered_map<std::string, Animation*>& GetAllAnimations() { return animations; }
-    Animation* GetAnimation(const std::string& name);
     Animation* AddAnimation(const std::string& name);
+    Animation* GetAnimation(const std::string& name);
+    std::unordered_map<std::string, Animation*>& GetAllAnimations() { return animations; }
 
-    bool       IsAnimating() const;
-    Animation* GetCurrentAnimation();
-    void       SetCurrentAnimation(const std::string& name);
-    void       UpdateCurrentAnimation(const float& deltaTime);
+    bool        IsAnimating            () const;
+    Animation*  GetCurrentAnimation    ();
+    std::string GetCurrentAnimationName();
+    void        SetCurrentAnimation(const std::string& name);
+
+    bool        IsTransitioning           () const;
+    float       GetTransitionCompletion   () const;
+    Animation*  GetTransitionAnimation    ();
+    std::string GetTransitionAnimationName();
+    void        StartTransition(const std::string& destAnim, const float& duration = 1.f);
+    
+    void Update(const float& deltaTime);
 };

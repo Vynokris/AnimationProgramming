@@ -23,41 +23,31 @@ void Bone::SetChildrenDefaultTransform(const Mat4 & parentMat)
 	}
 }
 
-void Bone::UpdateChildrenAnimation(Animation* anim, const Mat4& parentMat) const
+void Bone::UpdateChildrenAnimatedTransform(const Mat4& parentMat)
 {
-	if (!anim) return;
+	if (!animator.IsAnimating()) return;
 	
-	// Get current and previous pose local transforms.
-	const Transform& curPoseTransform  = anim->GetLocalBoneTransform(index, anim->curKeyframe);
-	const Transform& prevPoseTransform = anim->GetLocalBoneTransform(index, anim->prevKeyframe);
-
-	// Interpolate between the current and previous transform.
-    const float      lerpVal      = anim->keyframeTimer / anim->keyframeDuration;
-	const Vector3    animPosition = Vector3   ::Lerp (prevPoseTransform.GetPosition(), curPoseTransform.GetPosition(), lerpVal);
-	const Quaternion animRotation = Quaternion::SLerp(prevPoseTransform.GetRotation(), curPoseTransform.GetRotation(), lerpVal);
-	anim->GetSmoothTransform(index).SetPosRot(animPosition, animRotation);
-
-	// Get the world matrix and update children.
-	const Mat4 curMat = anim->GetSmoothTransform(index).GetLocalMat() * defaultTransform.GetLocalMat() * parentMat;
-	for (const Bone* child : children)
+	// During a transition, use the animated local bone transform interpolated between the current and destination animations.
+	if (animator.IsTransitioning())
 	{
-		anim->GetSmoothTransform(child->index).SetParentMat(curMat);
-		child->UpdateChildrenAnimation(anim, curMat);
+		const Transform curAnimatedTransform  = animator.GetCurrentAnimation()   ->GetAnimatedLocalBoneTransform(index);
+		const Transform destAnimatedTransform = animator.GetTransitionAnimation()->GetAnimatedLocalBoneTransform(index);
+		const Transform lerpTransform         = Transform::Lerp(curAnimatedTransform, destAnimatedTransform, animator.GetTransitionCompletion());
+		animatedTransform.SetPosRot(lerpTransform.GetPosition(), lerpTransform.GetRotation());
+	}
+	
+	// During an animation, use current animated local bone transform.
+	else
+	{
+		const Transform curAnimatedTransform = animator.GetCurrentAnimation()->GetAnimatedLocalBoneTransform(index);
+		animatedTransform.SetPosRot(curAnimatedTransform.GetPosition(), curAnimatedTransform.GetRotation());
+	}
+	
+	// Get the world matrix and update children.
+	const Mat4 curMat = animatedTransform.GetLocalMat() * defaultTransform.GetLocalMat() * parentMat;
+	for (Bone* child : children)
+	{
+		child->animatedTransform.SetParentMat(curMat);
+		child->UpdateChildrenAnimatedTransform(curMat);
 	}
 }
-
-/*
-Mat4 Bone::GetLocalMat() const
-{
-	if (!animator.IsAnimating())
-		return defaultTransform.GetLocalMat();
-	
-	// Apply the animation transform to the default transform.
-	return animTransform.GetLocalMat() * defaultTransform.GetLocalMat();
-}
-
-Mat4 Bone::GetParentMat() const
-{
-	return animator.IsAnimating() ? animTransform.GetParentMat() : defaultTransform.GetParentMat();
-}
-*/

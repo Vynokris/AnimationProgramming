@@ -24,14 +24,14 @@ public:
 	void RemoveBone   (const int& id);
 	bool DoesBoneExist(const Bone* bone);
 
-	void UpdateAnimation(const float& deltaTime);
-	void Draw           (const Maths::Vector3& offset) const;
+	void Update(const float& deltaTime);
+	void UpdateBoneMatrices();
+	void Draw(const Maths::Vector3& offset) const;
 
 	Animator& GetAnimator();
-	Bone*     GetBone(const size_t& id) const;
-	size_t    GetBoneCount() const { return bones.size(); }
-	std::vector<Bone*>& GetBones() { return bones; }
 	
-	void UpdateBoneMatrices();
+	Bone*  GetBone(const size_t& id) const;
+	size_t GetBoneCount() const { return bones.size(); }
+	std::vector<Bone*>& GetBones() { return bones; }
 	std::vector<Maths::Mat4>& GetBoneMatrices();
 };

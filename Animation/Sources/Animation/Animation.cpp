@@ -4,14 +4,15 @@
 using namespace Maths;
 
 
-Animation::Animation(const std::string& animName, const Skeleton& skeleton)
-    : name(animName),
+Animation::Animation(const std::string& animName, Skeleton& baseSkeleton)
+    : skeleton(baseSkeleton),
+      name(animName),
       nameNoExtension(animName.substr(0, animName.size()-5)),
       keyframeCount(GetAnimKeyCount(name.c_str()))
 {
     const size_t boneCount = skeleton.GetBoneCount();
-    localBoneTransforms.resize(boneCount);
-    smoothTransforms   .resize(boneCount);
+    localBoneTransforms    .resize(boneCount);
+    animatedLocalTransforms.resize(boneCount);
 
     for (size_t boneId = 0; boneId < boneCount; ++boneId)
     {
@@ -28,11 +29,11 @@ Animation::Animation(const std::string& animName, const Skeleton& skeleton)
 
 void Animation::Update(const float& deltaTime)
 {
-    if (paused) return;
-    keyframeTimer += deltaTime;
-
     // Note: All animations skip keyframe 0 when looping 
     //       because it is assumed to be the same as the last keyframe.
+
+    if (paused) return;
+    keyframeTimer += deltaTime;
 
     // Change keyframe when the keyframe timer is finished.
     if (keyframeTimer >= keyframeDuration)
@@ -50,16 +51,50 @@ void Animation::Update(const float& deltaTime)
                 curKeyframe = keyframeCount-1;
         }
     }
+
+    UpdateAnimatedLocalBoneTransforms();
 }
 
-const Transform& Animation::GetLocalBoneTransform(const size_t& boneId, const size_t& keyframe) const
+float Animation::GetDuration() const
 {
-    assert(boneId < localBoneTransforms.size() && keyframe < localBoneTransforms[boneId].size());
-    return localBoneTransforms[boneId][keyframe];
+    return (float)keyframeCount * keyframeDuration;
 }
 
-Transform& Animation::GetSmoothTransform(const size_t& boneId)
+float Animation::GetCompletion() const
 {
-    assert(boneId < smoothTransforms.size());
-    return smoothTransforms[boneId];
+    return ((float)curKeyframe * keyframeDuration + keyframeTimer) / GetDuration();
+}
+
+void Animation::SetCompletion(const float& completion)
+{
+    const float curTime = completion * ((float)keyframeCount * keyframeDuration);
+    curKeyframe   = (size_t)floorInt(curTime / keyframeDuration);
+    keyframeTimer = fmodf(curTime, keyframeDuration);
+    prevKeyframe  = curKeyframe + (reverse ? -1 : 1);
+    if (prevKeyframe >= keyframeCount)
+        prevKeyframe = 1;
+    if (prevKeyframe <= 0)
+        prevKeyframe = keyframeCount-1;
+
+    UpdateAnimatedLocalBoneTransforms();
+}
+
+Transform Animation::GetAnimatedLocalBoneTransform(const size_t& boneId) const
+{
+    if (boneId > animatedLocalTransforms.size()) return Transform();
+    return animatedLocalTransforms[boneId];
+}
+
+void Animation::UpdateAnimatedLocalBoneTransforms()
+{
+    // Update each bone's animated local transform.
+    for (const Bone* bone : skeleton.GetBones())
+    {
+        const Transform& prevPoseTransform = localBoneTransforms[bone->index][prevKeyframe];
+        const Transform& curPoseTransform  = localBoneTransforms[bone->index][curKeyframe];
+        const float      lerpVal      = keyframeTimer / keyframeDuration;
+        const Vector3    animPosition = Vector3   ::Lerp (prevPoseTransform.GetPosition(), curPoseTransform.GetPosition(), lerpVal);
+        const Quaternion animRotation = Quaternion::SLerp(prevPoseTransform.GetRotation(), curPoseTransform.GetRotation(), lerpVal);
+        animatedLocalTransforms[bone->index] = Transform(animPosition, animRotation, {1});
+    }
 }
