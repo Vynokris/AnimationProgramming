@@ -83,9 +83,6 @@
     <ClInclude Include="Includes\Animation\Skeleton.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\Animation\BoneAnim.h">
-      <Filter>Includes\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="Includes\Animation\Animator.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
@@ -93,6 +90,9 @@
       <Filter>Includes\Maths</Filter>
     </ClInclude>
     <ClInclude Include="Includes\Animation\Animation.h">
+      <Filter>Includes\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Animation\AnimTransition.h">
       <Filter>Includes\Animation</Filter>
     </ClInclude>
   </ItemGroup>
@@ -133,9 +133,6 @@
     <ClCompile Include="Sources\Animation\Skeleton.cpp">
       <Filter>Sources\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Animation\BoneAnim.cpp">
-      <Filter>Sources\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="Externals\Sources\imgui\imgui_impl_opengl3.cpp">
       <Filter>Sources\Externals</Filter>
     </ClCompile>
@@ -152,6 +149,9 @@
       <Filter>Sources\Externals</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Animation\Animator.cpp">
+      <Filter>Sources\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Animation\AnimTransition.cpp">
       <Filter>Sources\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Animation\Animation.cpp">
