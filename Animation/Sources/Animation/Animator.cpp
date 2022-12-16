@@ -91,7 +91,7 @@ std::string Animator::GetTransitionAnimationName()
     return animTransition.destAnimName;
 }
 
-void Animator::StartTransition(const std::string& destAnim, const float& duration)
+void Animator::StartTransition(const std::string& destAnimName, const float& duration)
 {
     if (animTransition.IsRunning())
     {
@@ -101,10 +101,10 @@ void Animator::StartTransition(const std::string& destAnim, const float& duratio
     {
         Log("Animator", "WARNING! Tried to start transition from default pose");
     }
-    else
+    else if (destAnimName != curAnimName)
     {
-        Log("Animator", "Started transition from %s into %s", curAnimName.c_str(), destAnim.c_str());
-        animTransition.destAnimName = destAnim;
+        Log("Animator", "Started transition from %s into %s", curAnimName.c_str(), destAnimName.c_str());
+        animTransition.destAnimName = destAnimName;
         animTransition.duration     = duration;
         animTransition.Reset();
         animTransition.Start();

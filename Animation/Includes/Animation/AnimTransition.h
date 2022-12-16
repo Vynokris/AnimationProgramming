@@ -7,8 +7,14 @@ class AnimTransition
 {
 private:
     Animator& animator;
+    
     Animation* curAnim  = nullptr;
     Animation* destAnim = nullptr;
+
+    float curAnimDurationOrig  = 0;
+    float destAnimDurationOrig = 0;
+    float curAnimKeyframeDurationOrig  = 0;
+    float destAnimKeyframeDurationOrig = 0;
     
 public:
     std::string destAnimName;
