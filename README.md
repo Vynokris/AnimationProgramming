@@ -4,7 +4,7 @@
 </div>
 
 **This project aims at understanding how animation works in video games.**<br/>
-**The second goal of this project was to learn the mathematics challenges behind it as well as using a weird engine.**
+**The second goal of this project was to learn the mathematics challenges behind it.**
 
 ## Information
 Project start : 09/12/2022 <br>
@@ -32,6 +32,5 @@ $ Visual Studio > Debug x86 > Local Windows Debugger
 # BLENDING RUN -> WALK
 - ![GIF](./Screens/blending.gif)
 
-## Engine Credits
----------------
-- Thank to isart professor for the base engine, very funny and best engine ever made fosho m8!
+# SETTINGS
+- ![PNG](./Screens/settings.png)
