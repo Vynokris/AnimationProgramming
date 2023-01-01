@@ -51,7 +51,8 @@ void Animation::Update(const float& deltaTime)
             }
             // Go to the previous keyframe when reversed.
             else {
-                curKeyframe--;
+                if (curKeyframe > 0)
+                    curKeyframe--;
                 if (curKeyframe <= 0)
                     curKeyframe = keyframeCount-1;
             }
