@@ -60,6 +60,10 @@ void Animator::SetCurrentAnimation(const std::string& name)
         curAnimName = name;
         if (const Animation* curAnim = GetCurrentAnimation()) Log("Animator", "Switched to anim %s", curAnim->nameNoExtension.c_str());
         else                                                  Log("Animator", "Stopped animation");
+
+        Animation* currAnim = GetCurrentAnimation();
+        if(currAnim && currAnim->reverse)
+            currAnim->curKeyframe = 1;
     }
     else
     {
