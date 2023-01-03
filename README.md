@@ -6,10 +6,8 @@ The goal was to understand how animation works in video games and to learn the m
 <br>
 
 ## Preview
-<img src="screenshots/walk.gif" style="height:350px;"/>
-<img src="screenshots/run.gif" style="height:350px;"/> <br>
-<img src="screenshots/transition.gif" style="height:350px;"/>
-<img src="screenshots/settings.png" style="height:350px;"/>
+<img src="Screenshots/walk.gif" style="height:350px;"/> <img src="Screenshots/run.gif" style="height:350px;"/> <br>
+<img src="Screenshots/transition.gif" style="height:350px;"/> <img src="Screenshots/settings.png" style="height:350px;"/>
 
 <br>
 
