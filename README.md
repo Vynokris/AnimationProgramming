@@ -1,5 +1,7 @@
 # Animation Programming
 
+### General Information
+
 This project was made for the ISART Digital school by Rémi Serra and an anonymous collaborator. <br>
 The goal was to understand how animation works in video games and to learn the mathematical and structural challenges behind it.
 
