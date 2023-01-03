@@ -1,36 +1,30 @@
-<div align="center">
-
 # Animation Programming
-</div>
 
-**This project aims at understanding how animation works in video games.**<br/>
-**The second goal of this project was to learn the mathematics challenges behind it.**
+This project was made for the ISART Digital school by Rémi Serra and an anonymous collaborator. <br>
+The goal was to understand how animation works in video games and to learn the mathematical and structural challenges behind it.
 
-## Information
-Project start : 09/12/2022 <br>
-Project end : 02/01/2023 <br>
-Version : 1.0 - GOLD <br>
-Date last version : 02/01/2023
+<br>
 
-## Building
-## Create an executable
-```sh
-$ Visual Studio > Debug x86 > Local Windows Debugger
-```
-## Run
-```sh
-$ Visual Studio > Debug x86 > Local Windows Debugger
-```
 ## Preview
-# WALK PREVIEW
-- ![PNG](./Screens/walk.png)
-# RUN PREVIEW
-- ![PNG](./Screens/run.png)
+<img src="screenshots/walk.gif" style="height:350px;"/>
+<img src="screenshots/run.gif" style="height:350px;"/> <br>
+<img src="screenshots/transition.gif" style="height:350px;"/>
+<img src="screenshots/settings.png" style="height:350px;"/>
 
-# GLOBAL LOOK
-- ![GIF](./Screens/global.gif)
-# BLENDING RUN -> WALK
-- ![GIF](./Screens/blending.gif)
+<br>
 
-# SETTINGS
-- ![PNG](./Screens/settings.png)
+## Features
+
+- Skeleton made up of bones stored in tree organization
+- Animation:
+    - Iteration through the animation keyframes
+    - Interpolation between previous and current keyframes
+- Mesh skinning (to apply skeleton transforms to the mesh)
+- Animation transition
+
+<br>
+
+## Build and run
+```
+Visual Studio > Debug x86 > Local Windows Debugger
+```
